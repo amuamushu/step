@@ -7,3 +7,9 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+#me {
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
