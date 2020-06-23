@@ -7,3 +7,19 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+#me {
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#images {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+#images img {
+    height:250px
+}
