@@ -9,10 +9,17 @@
 }
 
 #me {
+  height: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-img {
-  height: 500px;
+#images {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+#images img {
+    height:250px
 }
