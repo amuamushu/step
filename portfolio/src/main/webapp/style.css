@@ -1,7 +1,7 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 90%;
 }
 
 #greeting-container {
@@ -9,9 +9,9 @@
 }
 
 #me {
-  height: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  height: 250px;
+  /* margin-left: auto;
+  margin-right: auto; */
 }
 
 #images {
@@ -21,5 +21,36 @@
     margin-right: 20%;
 }
 #images img {
-    height:250px
+    height:250px;
+    width: auto;
+}
+
+header {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+#landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#background {
+    background-color: cornsilk;
+    padding: 5px;
+}
+
+#links-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#connect {
+    background-color: cornsilk;
+    align-items: center;
 }
