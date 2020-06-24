@@ -59,3 +59,23 @@ body {
   text-align: center;
   margin: 10px;
 }
+
+.overlay {
+    position: absolute;
+    bottom: 20%;
+    font-size: 3.5vw;
+    font-weight: bold;
+    background-color: white;
+    text-align: center;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.proj-container {
+  position: relative;
+}
+
+#sc-image {
+  width:100%;
+}
