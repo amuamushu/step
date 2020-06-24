@@ -1,16 +1,12 @@
-#background-container {
-  background-color: cornsilk;
-  padding: 5px;
+/* Header */
+
+header {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 body {
   font-family: 'Roboto Mono', monospace;
-}
-
-#connect-container {
-  background-color: cornsilk;
-  align-items: center;
-  text-align: center;
 }
 
 #content {
@@ -19,29 +15,55 @@ body {
   width: 90%;
 }
 
-#greeting-container {
-  margin-top: 20px;
+/* Landing Page */
+
+#landing-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
-header {
-  font-weight: bold;
-  font-size: 25px;
+#me {
+  height: 250px;
 }
+
+#background-container {
+  background-color: cornsilk;
+  padding: 5px;
+}
+
+/* Gallery */
 
 #images {
   display: flex;
   flex-wrap: wrap;
 }
+
 #images img {
   height: 250px;
-  width: auto;
   margin: 10px;
+  width: auto;
 }
 
-#landing-container {
-  display: flex;
-  flex-direction: column;
+.polaroid {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
+  margin: 10px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+/* Greetings */
+
+#greeting-container {
+  margin-top: 20px;
+}
+
+/* Footer */
+
+#connect-container {
   align-items: center;
+  background-color: cornsilk;
+  text-align: center;
 }
 
 #links-container {
@@ -49,13 +71,6 @@ header {
   justify-content: space-around;
 }
 
-#me {
-  height: 250px;
-}
 
-.polaroid {
-  padding-bottom: 20px;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
-  text-align: center;
-  margin: 10px;
-}
+
+
