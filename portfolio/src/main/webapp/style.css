@@ -17,12 +17,13 @@
 #images {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 20%;
-    margin-right: 20%;
+    /* margin-left: 20%;
+    margin-right: 20%; */
 }
 #images img {
     height:250px;
     width: auto;
+    margin: 10px;
 }
 
 header {
@@ -53,4 +54,5 @@ body {
 #connect {
     background-color: cornsilk;
     align-items: center;
+    text-align: center;
 }
