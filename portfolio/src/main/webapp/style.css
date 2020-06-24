@@ -13,49 +13,49 @@
 }
 
 #images {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 #images img {
-    height: 250px;
-    width: auto;
-    margin: 10px;
+  height: 250px;
+  width: auto;
+  margin: 10px;
 }
 
 header {
-    font-weight: bold;
-    font-size: 25px;
+  font-weight: bold;
+  font-size: 25px;
 }
 
 body {
-    font-family: 'Roboto Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
 }
 
 #landing-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #background-container {
-    background-color: cornsilk;
-    padding: 5px;
+  background-color: cornsilk;
+  padding: 5px;
 }
 
 #links-container {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 #connect-container {
-    background-color: cornsilk;
-    align-items: center;
-    text-align: center;
+  background-color: cornsilk;
+  align-items: center;
+  text-align: center;
 }
 
 .polaroid {
-    padding-bottom: 20px;
-    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
-    text-align: center;
-    margin: 10px;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
+  text-align: center;
+  margin: 10px;
 }
