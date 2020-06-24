@@ -1,3 +1,18 @@
+#background-container {
+  background-color: cornsilk;
+  padding: 5px;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+}
+
+#connect-container {
+  background-color: cornsilk;
+  align-items: center;
+  text-align: center;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -8,8 +23,9 @@
   margin-top: 20px;
 }
 
-#me {
-  height: 250px;
+header {
+  font-weight: bold;
+  font-size: 25px;
 }
 
 #images {
@@ -22,24 +38,10 @@
   margin: 10px;
 }
 
-header {
-  font-weight: bold;
-  font-size: 25px;
-}
-
-body {
-  font-family: 'Roboto Mono', monospace;
-}
-
 #landing-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#background-container {
-  background-color: cornsilk;
-  padding: 5px;
 }
 
 #links-container {
@@ -47,10 +49,8 @@ body {
   justify-content: space-around;
 }
 
-#connect-container {
-  background-color: cornsilk;
-  align-items: center;
-  text-align: center;
+#me {
+  height: 250px;
 }
 
 .polaroid {
