@@ -18,8 +18,8 @@
 }
 #images img {
   height: 250px;
-  width: auto;
   margin: 10px;
+  width: auto;
 }
 
 header {
@@ -54,32 +54,32 @@ body {
 }
 
 .polaroid {
-  padding-bottom: 20px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
+  padding-bottom: 20px;
   text-align: center;
   margin: 10px;
 }
 
 .overlay {
-    position: absolute;
-    bottom: 20%;
-    font-size: 3.5vw;
-    font-weight: bold;
-    background-color: white;
-    text-align: center;
-    color: black;
-    margin-left: 10px;
-    margin-right: 10px;
+  background-color: white;
+  bottom: 20%;
+  color: black;
+  font-size: 3.5vw;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: absolute;
+  text-align: center;
 }
 
 #projects {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #projects a {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .proj-container {
@@ -92,18 +92,18 @@ body {
 }
 
 #gradient-bts {
-    background-image: linear-gradient(#fbcabb, #ceb6d9); 
-    height: 30vw;
-    width: 100%;
+  background-image: linear-gradient(#fbcabb, #ceb6d9); 
+  height: 30vw;
+  width: 100%;
 }
 
 #gradient-uni {
-    background-image: linear-gradient(#8dc5e0, #7685e3); 
-    height: 30vw;
-    width: 100%;
+  background-image: linear-gradient(#8dc5e0, #7685e3); 
+  height: 30vw;
+  width: 100%;
 }
 
 #overlay-uni {
-    height: 30vw;
-    position: absolute;
+  height: 30vw;
+  position: absolute;
 }
