@@ -45,9 +45,9 @@ body {
 
 #content {
   background-color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 160px;
 }
 #content p {
   text-align: center;
@@ -93,6 +93,7 @@ body {
 #images {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #images img {
