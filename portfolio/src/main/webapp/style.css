@@ -72,6 +72,16 @@ body {
     margin-right: 10px;
 }
 
+#projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#projects a {
+    padding-bottom: 10px;
+}
+
 .proj-container {
   position: relative;
 }
@@ -94,6 +104,6 @@ body {
 }
 
 #overlay-uni {
-    position: absolute;
     height: 30vw;
+    position: absolute;
 }
