@@ -76,6 +76,24 @@ body {
   position: relative;
 }
 
-#sc-image {
+.proj-img {
   width:100%;
+
+}
+
+#gradient-bts {
+    background-image: linear-gradient(#fbcabb, #ceb6d9); 
+    height: 30vw;
+    width: 100%;
+}
+
+#gradient-uni {
+    background-image: linear-gradient(#8dc5e0, #7685e3); 
+    height: 30vw;
+    width: 100%;
+}
+
+#overlay-uni {
+    position: absolute;
+    height: 30vw;
 }
