@@ -4,10 +4,10 @@
   background-color: white;
   display: flex;
   justify-content: space-between;
-  position: fixed;
-  width: 100%;
-  top: 0px;
   padding: 10px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
   z-index: 2;
 }
 
@@ -21,8 +21,8 @@
 #nav-items a {
   color: black;
   font-weight: bold;
-  text-decoration: none;
   margin-left: 15px;
+  text-decoration: none;
 }
 
 header {
@@ -39,16 +39,17 @@ header {
 /* Body  */
 
 body {
+  background: linear-gradient(to bottom right, #33ccff 0%, #ff99cc 100%);
   font-family: 'Roboto Mono', monospace;
-  background: linear-gradient(to bottom right, #33ccff 0%, #ff99cc 100%)
 }
 
 #content {
   background-color: white;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 160px;
+  padding-top: 200px;
 }
+
 #content p {
   text-align: center;
 }
@@ -62,8 +63,8 @@ body {
 /* Landing Page */
 
 #landing-container {
-  padding-top: 100px;
   margin-bottom: 0px;
+  padding-top: 100px;
 }
 
 #landing-profile {
@@ -75,16 +76,22 @@ body {
   margin-bottom: 100px;
 }
 
-#me {
-  position: absolute;
-  height: 250px;
-  padding: 10px;
+#landing-profile p {
+  position: relative;
+  top: 410px; 
+}
+
+#profile-pic {
   background-color: white;
+  height: 400px;
+  padding: 10px;
+  position: absolute;
   z-index: 1;
 }
 
 #background-container {
   background-color: cornsilk;
+  margin-top: 150px;
   padding: 5px;
 }
 
