@@ -29,6 +29,14 @@ header {
   font-weight: bold;
 }
 
+#background-anchor,
+#proj-anchor,
+#travel-anchor {
+  margin-bottom: 100px;
+}
+
+/* Body  */
+
 body {
   font-family: 'Roboto Mono', monospace;
 }
@@ -55,7 +63,6 @@ body {
 #background-container {
   background-color: cornsilk;
   padding: 5px;
-  margin-top: 50px;
 }
 
 /* Gallery */
