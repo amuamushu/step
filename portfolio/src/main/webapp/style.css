@@ -1,13 +1,14 @@
 /* Header */
 
 #nav {
+  background-color: white;
   display: flex;
   justify-content: space-between;
   position: fixed;
-  background-color: white;
   width: 100%;
   top: 0px;
   padding: 10px;
+  z-index: 2;
 }
 
 #nav-items {
@@ -39,10 +40,20 @@ header {
 
 body {
   font-family: 'Roboto Mono', monospace;
+  background: linear-gradient(to bottom right, #33ccff 0%, #ff99cc 100%)
 }
 
 #content {
-  padding-top: 100px;
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 150px;
+}
+#content p {
+  text-align: center;
+}
+
+#landing-container, #content {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
@@ -51,13 +62,25 @@ body {
 /* Landing Page */
 
 #landing-container {
+  padding-top: 100px;
+  margin-bottom: 0px;
+}
+
+#landing-profile {
   align-items: center;
+  background-color: none;
   display: flex;
   flex-direction: column;
+  position: relative;
+  margin-bottom: 100px;
 }
 
 #me {
+  position: absolute;
   height: 250px;
+  padding: 10px;
+  background-color: white;
+  z-index: 1;
 }
 
 #background-container {
