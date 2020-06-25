@@ -11,12 +11,17 @@
 }
 
 #nav-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   margin-right: 10%;
 }
 
 #nav-items a {
   color: black;
   font-weight: bold;
+  text-decoration: none;
+  margin-left: 15px;
 }
 
 header {
@@ -50,6 +55,7 @@ body {
 #background-container {
   background-color: cornsilk;
   padding: 5px;
+  margin-top: 50px;
 }
 
 /* Gallery */
