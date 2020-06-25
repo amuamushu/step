@@ -1,8 +1,8 @@
 /* Header */
 
 header {
-  font-weight: bold;
   font-size: 25px;
+  font-weight: bold;
 }
 
 body {
@@ -18,9 +18,9 @@ body {
 /* Landing Page */
 
 #landing-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 #me {
@@ -31,6 +31,7 @@ body {
   background-color: cornsilk;
   padding: 5px;
 }
+
 
 /* Projects */
 
@@ -99,9 +100,9 @@ body {
 
 .polaroid {
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
+  margin: 10px;
   padding-bottom: 20px;
   text-align: center;
-  margin: 10px;
 }
 
 /* Greetings */
@@ -112,13 +113,14 @@ body {
 
 /* Footer */
 
+#connect-container {
+  align-items: center;
+  background-color: cornsilk;
+  text-align: center;
+}
+
+
 #links-container {
   display: flex;
   justify-content: space-around;
-}
-
-#connect-container {
-  background-color: cornsilk;
-  align-items: center;
-  text-align: center;
 }
