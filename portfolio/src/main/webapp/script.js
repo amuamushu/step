@@ -20,7 +20,7 @@ function addRandomGreeting() {
       ['I\'m ready, I\'m ready, I\'m ready...', 
       'You know what\'s funnier than 24? 25!', 
       'East?! I thought you said Weest!', 
-      'Squidwaard, I used your clarinet to unclog my toilet!'];
+      'Squidward, I used your clarinet to unclog my toilet!'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
