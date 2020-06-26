@@ -34,9 +34,9 @@ function addRandomGreeting() {
  * Reveals hidden description upon mouseover and hides the project title
    text.
  * @param {object} hoveredItem An anchor tag containing the
-      project image and text
+      project image and text.
  */
-function revealOnMouseOver(hoveredItem) {
+function revealOnMouseover(hoveredItem) {
   let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
   let toHide = hoveredItem.getElementsByClassName('visible')[0];
 
@@ -53,12 +53,12 @@ function revealOnMouseOver(hoveredItem) {
 }
 
 /**
- * Hide the description text upon mouseout and reveal hidden 
+ * Hides the description text upon mouseout and reveal hidden 
    project title text.
  * @param {object} hoveredItem An anchor tag containing the 
-      project image and text
+      project image and text.
  */
-function hideOnMouseOut(hoveredItem) {
+function hideOnMouseout(hoveredItem) {
   let toHide = hoveredItem.getElementsByClassName('hidden')[0];
   let toReveal = hoveredItem.getElementsByClassName('visible')[0];
 
