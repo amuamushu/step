@@ -115,6 +115,8 @@ body {
 
 .hidden {
   background-color: gainsboro; 
+  bottom: 30%;
+  left: 40%;
   visibility: hidden;
 }
 
