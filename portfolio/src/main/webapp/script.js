@@ -19,7 +19,7 @@ function addRandomGreeting() {
   const greetings =
       ['I\'m ready, I\'m ready, I\'m ready...', 
       'You know what\'s funnier than 24? 25!', 
-      'East?! I thought you said Weest!', 
+      'East?! I thought you said Weast!', 
       'Squidward, I used your clarinet to unclog my toilet!'];
 
   // Pick a random greeting.
