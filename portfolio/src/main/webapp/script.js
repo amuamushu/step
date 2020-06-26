@@ -45,8 +45,8 @@ function revealOnMouseover(hoveredItem) {
   toReveal.style.visibility = 'visible';
   toHide.style.visibility = 'hidden';
 
-  // loop through all the tags that make up the background image
-  // and lowers its brightness
+  // Loops through all the tags that make up the background image
+  // and lowers its brightness.
   for (object tag of background) {
     tag.style.filter = 'brightness(50%)';
   }
@@ -67,8 +67,8 @@ function hideOnMouseout(hoveredItem) {
   toReveal.style.visibility = 'visible';
   toHide.style.visibility = 'hidden';
 
-  // loop through all the tags that make up the background image
-  // and resets its brightness back to 100%
+  // Loops through all the tags that make up the background image
+  // and resets its brightness back to 100%.
   for (object tag of background) {
     tag.style.filter = 'brightness(100%)';
   }
