@@ -48,6 +48,7 @@ h2 {
 body {
   background: linear-gradient(to bottom right, #33ccff 0%, #ff99cc 100%);
   font-family: 'Roboto Mono', monospace;
+  padding-bottom: 100px;
 }
 
 #content {
