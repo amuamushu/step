@@ -47,7 +47,7 @@ function revealOnMouseover(hoveredItem) {
 
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
-  for (object tag of background) {
+  for (let tag of background) {
     tag.style.filter = 'brightness(50%)';
   }
 }
@@ -69,7 +69,7 @@ function hideOnMouseout(hoveredItem) {
 
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
-  for (object tag of background) {
+  for (let tag of background) {
     tag.style.filter = 'brightness(100%)';
   }
 }
