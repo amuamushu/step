@@ -206,11 +206,24 @@ body {
 #connect-container {
   align-items: center;
   background-color: cornsilk;
+  padding-bottom: 10px;
   text-align: center;
 }
 
+#connect-container h2 {
+  margin-bottom: 5px;
+}
 
 #links-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+#links-container img {
+    height: 50px;
+}
+
+#links-container a {
+    padding-left: 30px;
+    padding-right: 30px;
 }
