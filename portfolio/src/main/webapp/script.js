@@ -30,28 +30,34 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-function revealOnMouseover(hoveredItem) {
+/**
+ * Reveal hidden description upon mouseover and hides the project title
+   text.
+ * @param {object} hoveredItem An anchor tag containing the
+      project image and text
+ */
+function revealOnMouseOver(hoveredItem) {
   let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
   let toHide = hoveredItem.getElementsByClassName('visible')[0];
 
-  console.log(toReveal);
-  console.log(toHide);
-// double check location of declarations and logic
   let background = hoveredItem.getElementsByClassName('background');
 
   toReveal.style.visibility = 'visible';
   toHide.style.visibility = 'hidden';
 
+  // loop through all the tags that make up the background image
+  // and lowers its brightness
   for (i = 0; i < background.length; i++) {
     background[i].style.filter = 'brightness(50%)';
-    console.log(background[i]);
-    console.log("this is background");
   }
-  console.log("this is done")
-
-
 }
 
+/**
+ * Hide the description text upon mouseout and reveal hidden 
+   project title text.
+ * @param {object} hoveredItem An anchor tag containing the 
+      project image and text
+ */
 function hideOnMouseOut(hoveredItem) {
   let toHide = hoveredItem.getElementsByClassName('hidden')[0];
   let toReveal = hoveredItem.getElementsByClassName('visible')[0];
@@ -61,9 +67,9 @@ function hideOnMouseOut(hoveredItem) {
   toReveal.style.visibility = 'visible';
   toHide.style.visibility = 'hidden';
 
+  // loop through all the tags that make up the background image
+  // and resets its brightness back to 100%
   for (i = 0; i < background.length; i++) {
     background[i].style.filter = 'brightness(100%)';
-    console.log(background[i]);
-    console.log("this is background");
   }
 }
