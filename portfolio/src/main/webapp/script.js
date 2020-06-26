@@ -31,7 +31,7 @@ function addRandomGreeting() {
 }
 
 /**
- * Reveal hidden description upon mouseover and hides the project title
+ * Reveals hidden description upon mouseover and hides the project title
    text.
  * @param {object} hoveredItem An anchor tag containing the
       project image and text
