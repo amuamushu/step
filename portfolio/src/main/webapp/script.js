@@ -53,7 +53,7 @@ function revealOnMouseover(hoveredItem) {
 }
 
 /**
- * Hides the description text upon mouseout and reveal hidden 
+ * Hides the description text upon mouseout and reveals hidden 
    project title text.
  * @param {object} hoveredItem An anchor tag containing the 
       project image and text.
