@@ -17,7 +17,10 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['I\'m ready, I\'m ready, I\'m ready...', 'You know what\'s funnier than 24? 25!', 'East?! I thought you said Weest!', 'Squidwaard, I used your clarinet to unclog my toilet!'];
+      ['I\'m ready, I\'m ready, I\'m ready...', 
+      'You know what\'s funnier than 24? 25!', 
+      'East?! I thought you said Weest!', 
+      'Squidwaard, I used your clarinet to unclog my toilet!'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -25,4 +28,42 @@ function addRandomGreeting() {
   // Add it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
+}
+
+function revealOnMouseover(hoveredItem) {
+  let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
+  let toHide = hoveredItem.getElementsByClassName('visible')[0];
+
+  console.log(toReveal);
+  console.log(toHide);
+// double check location of declarations and logic
+  let background = hoveredItem.getElementsByClassName('background');
+
+  toReveal.style.visibility = 'visible';
+  toHide.style.visibility = 'hidden';
+
+  for (i = 0; i < background.length; i++) {
+    background[i].style.filter = 'brightness(50%)';
+    console.log(background[i]);
+    console.log("this is background");
+  }
+  console.log("this is done")
+
+
+}
+
+function hideOnMouseOut(hoveredItem) {
+  let toHide = hoveredItem.getElementsByClassName('hidden')[0];
+  let toReveal = hoveredItem.getElementsByClassName('visible')[0];
+
+  let background = hoveredItem.getElementsByClassName('background');
+
+  toReveal.style.visibility = 'visible';
+  toHide.style.visibility = 'hidden';
+
+  for (i = 0; i < background.length; i++) {
+    background[i].style.filter = 'brightness(100%)';
+    console.log(background[i]);
+    console.log("this is background");
+  }
 }

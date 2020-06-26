@@ -4,11 +4,13 @@
   background-color: white;
   display: flex;
   justify-content: space-between;
+  left: 0px;
+  margin-left: 2px;  
   padding: 10px;
   position: fixed;
   top: 0px;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 #nav-items {
@@ -108,6 +110,12 @@ body {
   margin-right: 10px;
   position: absolute;
   text-align: center;
+  z-index: 2;
+}
+
+.hidden {
+  background-color: gainsboro; 
+  visibility: hidden;
 }
 
 #projects {
@@ -146,6 +154,7 @@ body {
 #overlay-uni {
   height: 15vw;
   position: absolute;
+  z-index: 1;
 }
 
 /* Gallery */

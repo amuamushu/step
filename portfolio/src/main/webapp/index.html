@@ -54,26 +54,30 @@
       </div>
 
       <div id="proj-anchor"></div>
-      <div id="proj-container>
+      <div id="proj-container">
         <h2>Projects:</h2>
         <div id="projects">
-          <a href="https://drive.google.com/file/d/1Jb52Jk0HLoNbdVDg3z5VrQMrCsxFrkv-/view?usp=sharing" target="_blank">
+          <a href="https://drive.google.com/file/d/1Jb52Jk0HLoNbdVDg3z5VrQMrCsxFrkv-/view?usp=sharing" target="_blank" onmouseover="revealOnMouseover(this);" onmouseout="hideOnMouseOut(this);">
             <div class="proj-container">
-              <img class="proj-img" src="images/snapchat.jpg">
-              <p class="overlay">Snapchat Political Ads Spending vs Number of Views - Data Science Project</p>
+              <img class="proj-img background" src="images/snapchat.jpg">
+              <p class="overlay visible">Snapchat Political Ads Spending vs Number of Views - Data Science Project</p>
+              <p class="overlay hidden">hover</p>
             </div>
           </a>
-          <a href="https://amuamushu.github.io/dsc106-bts/" target="_blank">
+          <a href="https://amuamushu.github.io/dsc106-bts/" target="_blank" onmouseover="revealOnMouseover(this);" onmouseout="hideOnMouseOut(this);">
             <div class="proj-container">
-              <div id="gradient-bts"></div>
-              <p class="overlay">BTS's Rise in Popularity - Data Visualization Project</p>
+              <div id="gradient-bts" class="background"></div>
+              <p class="overlay visible">BTS's Rise in Popularity - Data Visualization Project</p>
+              <p class="overlay hidden">test</p>
             </div>
           </a>
-          <a href="https://github.com/amuamushu/cogs9_final_project" target="_blank">
+          <a href="https://github.com/amuamushu/cogs9_final_project" target="_blank" onmouseover="revealOnMouseover(this);" onmouseout="hideOnMouseOut(this);">
             <div class="proj-container">
-              <img class="proj-img" src="images/emoji.png" id="overlay-uni">
-              <div id="gradient-uni"></div>
-              <p class="overlay" id="p-uni">University Sentiment vs Admissions Rate - Sentiment Analysis and Webscraping Class Project</p>
+                <!-- TODO: double check class id order -->
+              <img class="proj-img background" src="images/emoji.png" id="overlay-uni">
+              <div id="gradient-uni" class="background"></div>
+              <p class="overlay visible">University Sentiment vs Admissions Rate - Sentiment Analysis and Webscraping Class Project</p>
+              <p class="overlay hidden">oh</p>
             </div>
           </a>
         </div>
