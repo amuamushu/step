@@ -22,10 +22,10 @@ function addRandomGreeting() {
       'East?! I thought you said Weast!', 
       'Squidward, I used your clarinet to unclog my toilet!'];
 
-  // Pick a random greeting.
+  // Picks a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-  // Add it to the page.
+  // Adds it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
