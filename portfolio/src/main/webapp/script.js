@@ -13,21 +13,32 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random polaroid image to the page.
  */
 function addRandomGreeting() {
-  const greetings =
+  const images =
       ['I\'m ready, I\'m ready, I\'m ready...', 
       'You know what\'s funnier than 24? 25!', 
       'East?! I thought you said Weast!', 
       'Squidward, I used your clarinet to unclog my toilet!'];
 
-  // Picks a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  // Picks a random image.
+  const image = images[Math.floor(Math.random() * images.length)];
+  const imageName = image.split(".");
+  
+  let div = document.createElement("div");
+  div.setAttribute('class', 'polaroid');
 
+  let imageText = document.createElement("p");
+  imageText.innerText = "Test";
+
+  let imgTag = document.createElement("img");
+  imgTag.setAttribute("src", image);
+  imgTag.setAttribute("alt", imageText);
+  
   // Adds it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const greetingContainer = document.getElementById('images');
+  greetingContainer.appendChild(div);
 }
 
 /**
