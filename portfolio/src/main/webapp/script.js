@@ -23,15 +23,18 @@ function addRandomGreeting() {
 
   // Picks a random image.
   const image = images[Math.floor(Math.random() * images.length)];
-  const imageName = image.split(".")[0];
   
-  // Creates 
+  
+  // Creates a div tag to store the polaroid image and description
   let div = document.createElement("div");
   div.setAttribute('class', 'polaroid');
 
+  // Creates a p tag that contains the image name
   let imageText = document.createElement("p");
+  const imageName = image.split(".")[0];
   imageText.innerText = imageName;
 
+  // Creates an img tag to store the image
   let imgTag = document.createElement("img");
   imgTag.setAttribute("src", 'images/' + image);
   imgTag.setAttribute("alt", imageName);
@@ -39,7 +42,7 @@ function addRandomGreeting() {
   div.appendChild(imgTag);
   div.appendChild(imageText);
   
-  // Adds it to the page.
+  // Adds the polaroid div tag to the page.
   const greetingContainer = document.getElementById('images');
   greetingContainer.appendChild(div);
 }
