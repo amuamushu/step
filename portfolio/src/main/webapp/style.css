@@ -197,10 +197,16 @@ body {
   transform: scale(1.1);
 }
 
-/* Greetings */
+#random-polaroid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-#greeting-container {
-  margin-top: 20px;
+button {
+  align-self: center;
+  text-align: center;
+  width: 100px;
 }
 
 /* Footer */
