@@ -17,10 +17,12 @@
  */
 function addRandomGreeting() {
   const images =
-      ['mexico.jpg', 'dalat.jpg', 'arches.JPG'];
+      ['arches.JPG','cruise.jpg','dalat.jpg', 'mexico.jpg', 
+      'pittsburghSunset.jpg', 'saigonLightening.jpg', 
+      'saigonTower.jpg', 'thailand.jpg', 'yellowstone.JPG'];
 
   // Picks a random image.
-  const image = 'images/' + images[Math.floor(Math.random() * images.length)];
+  const image = images[Math.floor(Math.random() * images.length)];
   const imageName = image.split(".")[0];
   
   // Creates 
@@ -31,7 +33,7 @@ function addRandomGreeting() {
   imageText.innerText = imageName;
 
   let imgTag = document.createElement("img");
-  imgTag.setAttribute("src", image);
+  imgTag.setAttribute("src", 'images/' + image);
   imgTag.setAttribute("alt", imageName);
 
   div.appendChild(imgTag);
