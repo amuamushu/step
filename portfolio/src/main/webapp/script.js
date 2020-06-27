@@ -15,7 +15,7 @@
 /**
  * Adds a random polaroid image to the page.
  */
-function addRandomGreeting() {
+function addRandomPolaroid() {
   const images =
       ['arches.JPG','cruise.jpg','dalat.jpg', 'mexico.jpg', 
       'pittsburghSunset.jpg', 'saigonLightening.jpg', 
@@ -43,8 +43,8 @@ function addRandomGreeting() {
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  const greetingContainer = document.getElementById('images');
-  greetingContainer.appendChild(div);
+  const imagesContainer = document.getElementById('images');
+  imagesContainer.appendChild(div);
 }
 
 /**
