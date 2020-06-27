@@ -17,24 +17,25 @@
  */
 function addRandomGreeting() {
   const images =
-      ['I\'m ready, I\'m ready, I\'m ready...', 
-      'You know what\'s funnier than 24? 25!', 
-      'East?! I thought you said Weast!', 
-      'Squidward, I used your clarinet to unclog my toilet!'];
+      ['mexico.jpg', 'dalat.jpg', 'arches.JPG'];
 
   // Picks a random image.
-  const image = images[Math.floor(Math.random() * images.length)];
-  const imageName = image.split(".");
+  const image = 'images/' + images[Math.floor(Math.random() * images.length)];
+  const imageName = image.split(".")[0];
   
+  // Creates 
   let div = document.createElement("div");
   div.setAttribute('class', 'polaroid');
 
   let imageText = document.createElement("p");
-  imageText.innerText = "Test";
+  imageText.innerText = imageName;
 
   let imgTag = document.createElement("img");
   imgTag.setAttribute("src", image);
-  imgTag.setAttribute("alt", imageText);
+  imgTag.setAttribute("alt", imageName);
+
+  div.appendChild(imgTag);
+  div.appendChild(imageText);
   
   // Adds it to the page.
   const greetingContainer = document.getElementById('images');
