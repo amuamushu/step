@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const VISIBLE = 'visible';
+const HIDDEN = 'hidden';
+
 /**
  * Adds a random polaroid image to the page.
  */
@@ -46,9 +49,9 @@ function addRandomPolaroid() {
 /**
  * Creates an img tag to store the image.
  * @param {string} image The name of the image
-     file to create an img tag for.
-   @return {object} This returns an img tag using
-   the given image.
+ *     file to create an img tag for.
+ * @return {object} This returns an img tag using
+ *     the given image.
  */
 function createImgTag(image) {
   let imgTag = document.createElement("img");
@@ -62,9 +65,9 @@ function createImgTag(image) {
 /**
  * Creates an p tag to store the given text.
  * @param {string} text The text to include in
-     the p tag.
-   @return {object} This returns an p tag using
-   the given image.
+ *     the p tag.
+ * @return {object} This returns an p tag using
+ *     the given image.
  */
 function createPTag(text) {
   let pTag = document.createElement("p");
@@ -74,9 +77,9 @@ function createPTag(text) {
 
 /**
  * Reveals hidden description upon mouseover and hides the project title
-   text.
+ *  text.
  * @param {object} hoveredItem An anchor tag containing the
-      project image and text.
+ *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
   let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
@@ -84,8 +87,8 @@ function revealOnMouseover(hoveredItem) {
 
   let background = hoveredItem.getElementsByClassName('background');
 
-  toReveal.style.visibility = 'visible';
-  toHide.style.visibility = 'hidden';
+  toReveal.style.visibility = VISIBLE;
+  toHide.style.visibility = HIDDEN;
 
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
@@ -95,10 +98,10 @@ function revealOnMouseover(hoveredItem) {
 }
 
 /**
- * Hides the description text upon mouseout and reveal hidden 
-   project title text.
+ * Hides the description text upon mouseout and reveals hidden 
+ *     project title text.
  * @param {object} hoveredItem An anchor tag containing the 
-      project image and text.
+ *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
   let toHide = hoveredItem.getElementsByClassName('hidden')[0];
@@ -106,8 +109,8 @@ function hideOnMouseout(hoveredItem) {
 
   let background = hoveredItem.getElementsByClassName('background');
 
-  toReveal.style.visibility = 'visible';
-  toHide.style.visibility = 'hidden';
+  toReveal.style.visibility = VISIBLE;
+  toHide.style.visibility = HIDDEN;
 
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
