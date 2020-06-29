@@ -14,30 +14,73 @@
 
 const VISIBLE = 'visible';
 const HIDDEN = 'hidden';
+const SEPARATOR = '.';
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random polaroid image to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['I\'m ready, I\'m ready, I\'m ready...', 
-      'You know what\'s funnier than 24? 25!', 
-      'East?! I thought you said Weast!', 
-      'Squidward, I used your clarinet to unclog my toilet!'];
+function addRandomPolaroid() {
+  const images =
+      ['arches.JPG','cruise.jpg','dalat.jpg', 'mexico.jpg', 
+      'pittsburghSunset.jpg', 'saigonLightening.jpg', 
+      'saigonTower.jpg', 'thailand.jpg', 'yellowstone.JPG'];
 
-  // Picks a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  // Picks a random image.
+  const image = images[Math.floor(Math.random() * images.length)];
+  
+  // Creates a div tag to store the polaroid image and description.
+  const div = document.createElement('div');
+  div.setAttribute('class', 'polaroid');
 
-  // Adds the random greeting to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  // Creates a p tag that contains the image name.
+  const imageName = image.split(SEPARATOR)[0];
+  const imageText = createPTag(imageName);
+
+  // Creates an img tag to store the image.
+  const imgTag = createImgTag(image);
+
+  div.appendChild(imgTag);
+  div.appendChild(imageText);
+  
+  // Adds the polaroid div tag to the page.
+  const imagesContainer = document.getElementById('images');
+  imagesContainer.appendChild(div);
+}
+
+/**
+ * Creates an img tag needed for storing the image.
+ * @param {string} image The name of the image
+ *     file to create an img tag for.
+ * @return {object} Returns an img tag using
+ *     the given image file name.
+ */
+function createImgTag(image) {
+  const imgTag = document.createElement('img');
+  imgTag.setAttribute('src', 'images/' + image);
+  
+  const imageName = image.split(SEPARATOR)[0];
+  imgTag.setAttribute('alt', imageName);
+  return imgTag;
+}
+
+/**
+ * Creates a p tag to store the given text.
+ * @param {string} text The text to include in
+ *     the p tag.
+ * @return {object} Returns an p tag using
+ *     the given text.
+ */
+function createPTag(text) {
+  const pTag = document.createElement('p');
+  pTag.innerText = text;
+  return pTag;
 }
 
 /**
  * Reveals hidden description upon mouseover and hides the project title
-   text.
+ *  text.
  * @param {object} hoveredItem An anchor tag containing the
-      project image and text.
+ *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
   let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
@@ -57,9 +100,9 @@ function revealOnMouseover(hoveredItem) {
 
 /**
  * Hides the description text upon mouseout and reveals hidden 
-   project title text.
+ *     project title text.
  * @param {object} hoveredItem An anchor tag containing the 
-      project image and text.
+ *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
   let toHide = hoveredItem.getElementsByClassName('hidden')[0];
