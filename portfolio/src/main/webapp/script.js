@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const VISIBLE = 'visible';
+const HIDDEN = 'hidden';
+
 /**
  * Adds a random greeting to the page.
  */
@@ -42,8 +45,8 @@ function revealOnMouseover(hoveredItem) {
 
   let background = hoveredItem.getElementsByClassName('background');
 
-  toReveal.style.visibility = 'visible';
-  toHide.style.visibility = 'hidden';
+  toReveal.style.visibility = VISIBLE;
+  toHide.style.visibility = HIDDEN;
 
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
@@ -64,8 +67,8 @@ function hideOnMouseout(hoveredItem) {
 
   let background = hoveredItem.getElementsByClassName('background');
 
-  toReveal.style.visibility = 'visible';
-  toHide.style.visibility = 'hidden';
+  toReveal.style.visibility = VISIBLE;
+  toHide.style.visibility = HIDDEN;
 
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
