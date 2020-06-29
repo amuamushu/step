@@ -29,7 +29,7 @@ function addRandomPolaroid() {
   const image = images[Math.floor(Math.random() * images.length)];
   
   // Creates a div tag to store the polaroid image and description.
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.setAttribute('class', 'polaroid');
 
   // Creates a p tag that contains the image name.
@@ -43,19 +43,19 @@ function addRandomPolaroid() {
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  let imagesContainer = document.getElementById('images');
+  const imagesContainer = document.getElementById('images');
   imagesContainer.appendChild(div);
 }
 
 /**
- * Creates an img tag to store the image.
+ * Creates an img tag needed for storing the image.
  * @param {string} image The name of the image
  *     file to create an img tag for.
  * @return {object} Returns an img tag using
  *     the given image file name.
  */
 function createImgTag(image) {
-  let imgTag = document.createElement('img');
+  const imgTag = document.createElement('img');
   imgTag.setAttribute('src', 'images/' + image);
   
   const imageName = image.split(SEPARATOR)[0];
@@ -71,7 +71,7 @@ function createImgTag(image) {
  *     the given text.
  */
 function createPTag(text) {
-  let pTag = document.createElement('p');
+  const pTag = document.createElement('p');
   pTag.innerText = text;
   return pTag;
 }
