@@ -24,13 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  /**
-  * Allows the servlet to handle a GET request by printing "Hello Amy."
-  * @param request A servletRequest that provides request information for the HTTP servlet.
-  * @param response A servletResponse that provides HTTP-specific functionality 
-        in sending a response.
-  * @throws IOException An exception that is thrown when the file is not found.
-  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;");
