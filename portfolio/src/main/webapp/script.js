@@ -66,7 +66,7 @@ function createImgTag(image) {
  * Creates an p tag to store the given text.
  * @param {string} text The text to include in
  *     the p tag.
- * @return {object} This returns an p tag using
+ * @return {object} Returns an p tag using
  *     the given image.
  */
 function createPTag(text) {
