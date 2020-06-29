@@ -67,7 +67,7 @@ function createImgTag(image) {
  * @param {string} text The text to include in
  *     the p tag.
  * @return {object} Returns an p tag using
- *     the given image.
+ *     the given text.
  */
 function createPTag(text) {
   let pTag = document.createElement("p");
