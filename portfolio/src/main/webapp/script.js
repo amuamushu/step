@@ -52,7 +52,7 @@ function addRandomPolaroid() {
  * @param {string} image The name of the image
  *     file to create an img tag for.
  * @return {object} Returns an img tag using
- *     the given image.
+ *     the given image file name.
  */
 function createImgTag(image) {
   let imgTag = document.createElement('img');
