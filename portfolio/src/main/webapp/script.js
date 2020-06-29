@@ -51,7 +51,7 @@ function addRandomPolaroid() {
  * Creates an img tag to store the image.
  * @param {string} image The name of the image
  *     file to create an img tag for.
- * @return {object} This returns an img tag using
+ * @return {object} Returns an img tag using
  *     the given image.
  */
 function createImgTag(image) {
