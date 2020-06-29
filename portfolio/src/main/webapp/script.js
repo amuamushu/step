@@ -14,6 +14,7 @@
 
 const VISIBLE = 'visible';
 const HIDDEN = 'hidden';
+const SEPARATOR = '.';
 
 /**
  * Adds a random polaroid image to the page.
@@ -28,21 +29,21 @@ function addRandomPolaroid() {
   const image = images[Math.floor(Math.random() * images.length)];
   
   // Creates a div tag to store the polaroid image and description.
-  let div = document.createElement("div");
+  let div = document.createElement('div');
   div.setAttribute('class', 'polaroid');
 
   // Creates a p tag that contains the image name.
-  const imageName = image.split(".")[0];
-  let imageText = createPTag(imageName);
+  const imageName = image.split(SEPARATOR)[0];
+  const imageText = createPTag(imageName);
 
   // Creates an img tag to store the image.
-  let imgTag = createImgTag(image);
+  const imgTag = createImgTag(image);
 
   div.appendChild(imgTag);
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  const imagesContainer = document.getElementById('images');
+  let imagesContainer = document.getElementById('images');
   imagesContainer.appendChild(div);
 }
 
@@ -54,11 +55,11 @@ function addRandomPolaroid() {
  *     the given image.
  */
 function createImgTag(image) {
-  let imgTag = document.createElement("img");
-  imgTag.setAttribute("src", 'images/' + image);
+  let imgTag = document.createElement('img');
+  imgTag.setAttribute('src', 'images/' + image);
   
-  const imageName = image.split(".")[0];
-  imgTag.setAttribute("alt", imageName);
+  const imageName = image.split(SEPARATOR)[0];
+  imgTag.setAttribute('alt', imageName);
   return imgTag;
 }
 
@@ -70,7 +71,7 @@ function createImgTag(image) {
  *     the given text.
  */
 function createPTag(text) {
-  let pTag = document.createElement("p");
+  let pTag = document.createElement('p');
   pTag.innerText = text;
   return pTag;
 }
