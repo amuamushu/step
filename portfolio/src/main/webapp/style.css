@@ -1,15 +1,69 @@
 /* Header */
 
+#nav {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  left: 0px;
+  margin-left: 2px;  
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 3;
+}
+
+#nav-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-right: 10%;
+}
+
+#nav-items a {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
 header {
   font-size: 25px;
   font-weight: bold;
 }
 
+#background-anchor,
+#proj-anchor,
+#travel-anchor {
+  margin-bottom: 100px;
+}
+
+/* Body  */
+
+h2 {
+  font-size: 40px;
+}
+
 body {
+  background: linear-gradient(to bottom right, #33ccff 0%, #ff99cc 100%);
   font-family: 'Roboto Mono', monospace;
+  padding-bottom: 100px;
 }
 
 #content {
+  background-color: white;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 200px;
+}
+
+#content p {
+  text-align: center;
+}
+
+#landing-container, #content {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
@@ -18,17 +72,36 @@ body {
 /* Landing Page */
 
 #landing-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 0px;
+  padding-top: 100px;
 }
 
-#me {
-  height: 250px;
+#landing-profile {
+  align-items: center;
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+#landing-profile p {
+  position: relative;
+  top: 410px; 
+}
+
+#profile-pic {
+  background-color: white;
+  height: 400px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
 }
 
 #background-container {
   background-color: cornsilk;
+  font-size: 20px;
+  margin-top: 150px;
   padding: 5px;
 }
 
@@ -45,6 +118,14 @@ body {
   margin-right: 10px;
   position: absolute;
   text-align: center;
+  z-index: 2;
+}
+
+.hidden {
+  background-color: gainsboro; 
+  bottom: 30%;
+  font-size: 1vw;
+  visibility: hidden;
 }
 
 #projects {
@@ -83,13 +164,19 @@ body {
 #overlay-uni {
   height: 15vw;
   position: absolute;
+  z-index: 1;
 }
 
 /* Gallery */
 
+#travel-container p:first-of-type {
+  font-size: 20px;
+}
+
 #images {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #images img {
@@ -99,10 +186,15 @@ body {
 }
 
 .polaroid {
+  background-color: white;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .2), 0 10px 20px 0 rgba(0, 0, 0, .18);
   margin: 10px;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.polaroid:hover {
+  transform: scale(1.1);
 }
 
 /* Greetings */
@@ -116,11 +208,24 @@ body {
 #connect-container {
   align-items: center;
   background-color: cornsilk;
+  padding-bottom: 10px;
   text-align: center;
 }
 
+#connect-container h2 {
+  margin-bottom: 5px;
+}
 
 #links-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+#links-container img {
+    height: 50px;
+}
+
+#links-container a {
+    padding-left: 30px;
+    padding-right: 30px;
 }
