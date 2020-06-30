@@ -121,14 +121,13 @@ function hideOnMouseout(hoveredItem) {
 }
 
 /**
- * Fetches the message from the server on /data and adds it to the DOM.
+ * Fetches the message from the server /data and adds it to the DOM.
  */
 function getMessage() {
-  // The fetch() function returns a Promise.
   const responsePromise = fetch('/data');
   
-  // When the fetch request is complete, the response is passed 
-  // into handleResponse().
+  // Passes responsePromise into handleResponse() after 
+  // the fetch request is complete.
   responsePromise.then(handleResponse);
 }
 
@@ -138,11 +137,10 @@ function getMessage() {
  * @param {object} response Promise that was fetched from a URL.
  */
 function handleResponse(response) {
-  // response.text() returns a Promise containing response's text content.
   const textPromise = response.text();
 
-  // When the response is converted to text, the result is passed into
-  // addMessageToDom() function.
+  // Passes textPromise into addMessageToDom() after the 
+  // textPromise is converted to text. 
   textPromise.then(addMessageToDom);
 }
 
