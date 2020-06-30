@@ -137,23 +137,45 @@ function getMessage() {
 function handleResponse(response) {
   const textPromise = response.text();
   
-  textPromise.then(addMessageToDom);
+  textPromise.then(addSingleMessageToDom);
 }
 
 /**
- * Adds the given message to the DOM.
+ * Adds the given single message to the DOM.
  * @param {string} message The text to be added inside of the div 
        message-container. 
  */
-function addMessageToDom(message) {
+function addSingleMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
   messageContainer.innerHTML = message;
+}
+
+/**
+ * Adds multiple messages to the DOM as list elements.
+ * @param {object} messagesList An array containing messages.
+ */
+function addMultipleMessagesToDom(messagesList) {
+  const messageContainer = document.getElementById('message-container');
+  const ulElement = document.createElement('ul');
+  messageContainer.appendChild(ulElement);
+
+  for (let key in messagesList) {
+    appendTextToList(messagesList[key], ulElement);
+  }
 }
 
 function getMessageFromJSON() {
   fetch('/data')
       .then(response => response.json())
       .then((message) => {
-        console.log(message)
+        addMultipleMessagesToDom(message);
       });
+}
+
+/** Creates an <li> element containing text. */
+function appendTextToList(text, ulElement) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+
+  ulElement.appendChild(liElement);
 }
