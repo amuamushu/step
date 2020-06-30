@@ -146,6 +146,11 @@ function handleResponse(response) {
   textPromise.then(addMessageToDom);
 }
 
+/**
+ * Adds the given message to the DOM.
+ * @param {string} message Text to be added inside of the div 
+       message-container. 
+ */
 function addMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
   messageContainer.innerText = message;
