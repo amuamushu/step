@@ -83,10 +83,10 @@ function createPTag(text) {
  *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
-  let toReveal = hoveredItem.getElementsByClassName('hidden')[0];
-  let toHide = hoveredItem.getElementsByClassName('visible')[0];
+  const toReveal = hoveredItem.getElementsByClassName('hidden')[0];
+  const toHide = hoveredItem.getElementsByClassName('visible')[0];
 
-  let background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName('background');
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -105,10 +105,10 @@ function revealOnMouseover(hoveredItem) {
  *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
-  let toHide = hoveredItem.getElementsByClassName('hidden')[0];
-  let toReveal = hoveredItem.getElementsByClassName('visible')[0];
+  const toHide = hoveredItem.getElementsByClassName('hidden')[0];
+  const toReveal = hoveredItem.getElementsByClassName('visible')[0];
 
-  let background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName('background');
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
