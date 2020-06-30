@@ -136,8 +136,7 @@ function getMessage() {
 }
 
 /**
- * Handles response by converting it to text and passing the result
-       to addMessageToDom().
+ * Obtains the reponse's text and adds it to the DOM.
  * @param {object} response A promise that was fetched from a URL.
  */
 function handleResponse(response) {
