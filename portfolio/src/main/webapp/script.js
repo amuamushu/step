@@ -134,7 +134,7 @@ function getMessage() {
 /**
  * Handles response by converting it to text and passing the result
        to addMessageToDom().
- * @param {object} response Promise that was fetched from a URL.
+ * @param {object} response A promise that was fetched from a URL.
  */
 function handleResponse(response) {
   const textPromise = response.text();
@@ -146,7 +146,7 @@ function handleResponse(response) {
 
 /**
  * Adds the given message to the DOM.
- * @param {string} message Text to be added inside of the div 
+ * @param {string} message The text to be added inside of the div 
        message-container. 
  */
 function addMessageToDom(message) {
