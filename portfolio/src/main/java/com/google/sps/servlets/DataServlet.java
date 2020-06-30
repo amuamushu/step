@@ -14,7 +14,10 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.ServerStats;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +26,12 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private List<String> messages;
+  private ArrayList<String> messages;
 
   @Override
   public void init() {
-    messages = new ArrayList<>();
-    
+    this.messages = new ArrayList<>();
+
     messages.add("Hello. I am a string.");
     messages.add("This is another string.");
     messages.add("I too am a string.");
@@ -36,7 +39,17 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Amy!</h1>");
+    // response.setContentType("text/html;");
+    // response.getWriter().println("<h1>Hello Amy!</h1>");
+    String json = convertToJsonUsingGson(messages);
+
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private String convertToJsonUsingGson(ArrayList toConvert) {
+    Gson gson = new Gson();
+    String json = gson.toJson(toConvert);
+    return json;
   }
 }
