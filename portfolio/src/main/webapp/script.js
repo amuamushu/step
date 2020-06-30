@@ -149,3 +149,11 @@ function addMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
   messageContainer.innerHTML = message;
 }
+
+function getMessageFromJSON() {
+  fetch('/data')
+      .then(response => response.json())
+      .then((message) => {
+        console.log(message)
+      });
+}
