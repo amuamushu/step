@@ -126,8 +126,6 @@ function hideOnMouseout(hoveredItem) {
 function getMessage() {
   const responsePromise = fetch('/data');
   
-  // Passes responsePromise into handleResponse() after 
-  // the fetch request is complete.
   responsePromise.then(handleResponse);
 }
 
@@ -138,9 +136,7 @@ function getMessage() {
  */
 function handleResponse(response) {
   const textPromise = response.text();
-
-  // Passes textPromise into addMessageToDom() after the 
-  // textPromise is converted to text. 
+  
   textPromise.then(addMessageToDom);
 }
 
