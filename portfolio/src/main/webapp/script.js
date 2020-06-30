@@ -119,3 +119,13 @@ function hideOnMouseout(hoveredItem) {
     tag.style.filter = 'brightness(100%)';
   }
 }
+
+/**
+ * Fetches the message 'Hello Amy!' from the server and adds it to the DOM
+ */
+function getMessage() {
+  // The fetch() function returns a Promise
+  const responsePromise = fetch('/data');
+
+  // When the request is complete, pass the response into handle
+}
