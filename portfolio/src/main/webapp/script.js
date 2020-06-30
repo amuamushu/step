@@ -164,6 +164,9 @@ function addMultipleMessagesToDom(messagesList) {
   }
 }
 
+/**
+ * Fetches the message from the JSON server /data and adds it to the DOM.
+ */
 function getMessageFromJSON() {
   fetch('/data')
       .then(response => response.json())
@@ -172,7 +175,13 @@ function getMessageFromJSON() {
       });
 }
 
-/** Creates an <li> element containing text. */
+/**
+ * Creates an <li> element containing text and appends it to the given
+   ul tag.
+   @param {string} text Text to be added as a list element.
+   @param {object} ulElement UL element that the list element 
+       will be appended to. 
+ */
 function appendTextToList(text, ulElement) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
