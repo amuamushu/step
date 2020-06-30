@@ -121,11 +121,16 @@ function hideOnMouseout(hoveredItem) {
 }
 
 /**
- * Fetches the message 'Hello Amy!' from the server and adds it to the DOM
+ * Fetches the message 'Hello Amy!' from the server and adds it to the DOM.
  */
 function getMessage() {
-  // The fetch() function returns a Promise
+  // The fetch() function returns a Promise.
   const responsePromise = fetch('/data');
 
-  // When the request is complete, pass the response into handle
+  // response.text() returns a Promise.
+  const textPromise = response.text();
+
+  //When the response is converted to text, the result is passed into
+  // addMessageToDom() function
+  textPromise.then(addMessageToDom);
 }
