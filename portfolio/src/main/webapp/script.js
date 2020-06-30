@@ -15,6 +15,12 @@
 const VISIBLE = 'visible';
 const HIDDEN = 'hidden';
 const SEPARATOR = '.';
+const IMAGES_FOLDER = 'images/';
+const IMAGES_DIV = 'images';
+const PROJECT_BACKGROUND = 'background';
+const REDUCED_BRIGHTNESS = 'brightness(50%)';
+const MAX_BRIGHTNESS = 'brightness(100%)';
+
 
 /**
  * Adds a random polaroid image to the page.
@@ -43,7 +49,7 @@ function addRandomPolaroid() {
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  const imagesContainer = document.getElementById('images');
+  const imagesContainer = document.getElementById(IMAGES_DIV);
   imagesContainer.appendChild(div);
 }
 
@@ -56,7 +62,7 @@ function addRandomPolaroid() {
  */
 function createImgTag(image) {
   const imgTag = document.createElement('img');
-  imgTag.setAttribute('src', 'images/' + image);
+  imgTag.setAttribute('src', IMAGES_FOLDER + image);
   
   const imageName = image.split(SEPARATOR)[0];
   imgTag.setAttribute('alt', imageName);
@@ -83,10 +89,10 @@ function createPTag(text) {
  *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
-  const toReveal = hoveredItem.getElementsByClassName('hidden')[0];
-  const toHide = hoveredItem.getElementsByClassName('visible')[0];
+  const toReveal = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toHide = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -94,7 +100,7 @@ function revealOnMouseover(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
   for (let tag of background) {
-    tag.style.filter = 'brightness(50%)';
+    tag.style.filter = REDUCED_BRIGHTNESS;
   }
 }
 
@@ -105,10 +111,10 @@ function revealOnMouseover(hoveredItem) {
  *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
-  const toHide = hoveredItem.getElementsByClassName('hidden')[0];
-  const toReveal = hoveredItem.getElementsByClassName('visible')[0];
+  const toHide = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toReveal = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -116,7 +122,7 @@ function hideOnMouseout(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
   for (let tag of background) {
-    tag.style.filter = 'brightness(100%)';
+    tag.style.filter = MAX_BRIGHTNESS;
   }
 }
 
