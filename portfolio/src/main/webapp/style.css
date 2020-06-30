@@ -210,6 +210,16 @@ button {
   width: 100px;
 }
 
+/* Message Box */
+#message-button,
+#message-container {
+  margin-left: 45%;
+}
+
+#message-button {
+  margin-top: 5px;
+}
+
 /* Footer */
 
 #connect-container {

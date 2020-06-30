@@ -153,5 +153,5 @@ function handleResponse(response) {
  */
 function addMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
-  messageContainer.innerText = message;
+  messageContainer.innerHTML = message;
 }
