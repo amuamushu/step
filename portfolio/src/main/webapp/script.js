@@ -121,7 +121,7 @@ function hideOnMouseout(hoveredItem) {
 }
 
 /**
- * Fetches the message 'Hello Amy!' from the server and adds it to the DOM.
+ * Fetches the message from the server on /data and adds it to the DOM.
  */
 function getMessage() {
   // The fetch() function returns a Promise.
