@@ -150,15 +150,15 @@ function addSingleMessageToDom(message) {
 }
 
 /**
- * Adds {@code messagesList} to the DOM as list elements.
+ * Adds {@code messages} to the DOM as list elements.
  */
-function addMultipleMessagesToDom(messagesList) {
+function addMultipleMessagesToDom(messages) {
   const messageContainer = document.getElementById('message-container');
   const ulElement = document.createElement('ul');
   messageContainer.appendChild(ulElement);
 
-  for (let key in messagesList) {
-    appendTextToList(messagesList[key], ulElement);
+  for (let key in messages) {
+    appendTextToList(messages[key], ulElement);
   }
 }
 
