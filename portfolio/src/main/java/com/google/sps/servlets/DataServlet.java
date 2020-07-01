@@ -18,6 +18,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,8 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  // TODO: Check style for static variable.
+  public final static int MAX_COMMENTS = 5;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,10 +42,20 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Comment> messages = new ArrayList<>();
+
+    
+    // TODO: Check style for counter.
+    int counter = 0;
     for (Entity message : results.asIterable()) {
+      if (counter == MAX_COMMENTS) {
+        break;
+      }
       String comment = (String) message.getProperty("comment");
-      messages.add(comment);
+      long timestamp = (long) message.getProperty("timestamp");
+      messages.add(new Comment);
+      
+      counter++;
     } 
     
     String json = convertToJsonUsingGson(messages);
@@ -64,10 +77,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment-input");
+    String text = request.getParameter("comment-input");
 
     Entity messageEntity = new Entity("Message");
     messageEntity.setProperty("comment", comment);
+    messageEntity.setProperty("timestamp", timestamp);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(messageEntity);
