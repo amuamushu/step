@@ -37,6 +37,16 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Message");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    ArrayList<String> messages = new ArrayList<>();
+    for (Entity message : results.asIterable()) {
+      messages.add(message);
+    } 
+    
     String json = convertToJsonUsingGson(messages);
 
     response.setContentType("application/json;");
