@@ -57,7 +57,7 @@ public class DataServlet extends HttpServlet {
     messages.add(comment);
 
     // Redirects to the current page to see new comment added.
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/index.html#connect-container");
   }
 
 }
