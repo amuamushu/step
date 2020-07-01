@@ -30,10 +30,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     this.messages = new ArrayList<>();
-
-    messages.add("Hello. I am a string.");
-    messages.add("This is another string.");
-    messages.add("I too am a string.");
   }
 
   @Override
@@ -58,11 +54,9 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comment-input");
-    
     messages.add(comment);
-    System.out.println(comment);
-    // request.setContentType("text/html");
-    // request.getWriter().println("hello");
+
+    // Redirects to the current page to see new comment added.
     response.sendRedirect("/index.html");
   }
 
