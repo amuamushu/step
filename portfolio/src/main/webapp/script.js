@@ -131,7 +131,7 @@ function getMessage() {
 
 /**
  * Handles response by converting it to text and passing the result
-       to addMessageToDom().
+ *     to addMessageToDom().
  * @param {object} response A promise that was fetched from a URL.
  */
 function handleResponse(response) {
@@ -143,7 +143,7 @@ function handleResponse(response) {
 /**
  * Adds the given single message to the DOM.
  * @param {string} message The text to be added inside of the div 
-       message-container. 
+ *     message-container. 
  */
 function addSingleMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
@@ -178,10 +178,10 @@ function getMessageFromJSON() {
 
 /**
  * Creates an <li> element containing text and appends it to the given
-   ul tag.
-   @param {string} text Text to be added as a list element.
-   @param {object} ulElement UL element that the list element 
-       will be appended to. 
+ *     ul tag.
+ * @param {string} text Text to be added as a list element.
+ * @param {object} ulElement UL element that the list element 
+ *     will be appended to. 
  */
 function appendTextToList(text, ulElement) {
   const liElement = document.createElement('li');
