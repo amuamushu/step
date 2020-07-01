@@ -141,8 +141,7 @@ function handleResponse(response) {
 }
 
 /**
- * Adds the given single message to the DOM.
- * @param {string} message The text to be added inside of the div 
+ * Adds a single message {@code message} inside of the div
        message-container. 
  */
 function addSingleMessageToDom(message) {
@@ -151,8 +150,7 @@ function addSingleMessageToDom(message) {
 }
 
 /**
- * Adds multiple messages to the DOM as list elements.
- * @param {object} messagesList An array containing messages.
+ * Adds {@code messagesList} to the DOM as list elements.
  */
 function addMultipleMessagesToDom(messagesList) {
   const messageContainer = document.getElementById('message-container');
