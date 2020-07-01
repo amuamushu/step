@@ -28,12 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> messages;
-
-  @Override
-  public void init() {
-    this.messages = new ArrayList<>();
-  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
