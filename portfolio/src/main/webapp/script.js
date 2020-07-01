@@ -174,11 +174,8 @@ function getMessageFromJSON() {
 }
 
 /**
- * Creates an <li> element containing text and appends it to the given
-   ul tag.
-   @param {string} text Text to be added as a list element.
-   @param {object} ulElement UL element that the list element 
-       will be appended to. 
+ * Creates an <li> element containing {@code text} and appends it to 
+       {@code ulElement}.
  */
 function appendTextToList(text, ulElement) {
   const liElement = document.createElement('li');
