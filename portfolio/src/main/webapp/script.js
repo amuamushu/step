@@ -143,11 +143,11 @@ function handleResponse(response) {
 /**
  * Adds the given single message to the DOM.
  * @param {string} message The text to be added inside of the div 
-       message-container. 
+       comment-container. 
  */
 function addSingleMessageToDom(message) {
-  const messageContainer = document.getElementById('message-container');
-  messageContainer.innerHTML = message;
+  const commentContainer = document.getElementById('comment-container');
+  commentContainer.innerHTML = message;
 }
 
 /**
@@ -155,9 +155,9 @@ function addSingleMessageToDom(message) {
  * @param {object} messagesList An array containing messages.
  */
 function addMultipleMessagesToDom(messagesList) {
-  const messageContainer = document.getElementById('message-container');
+  const commentContainer = document.getElementById('comment-container');
   const ulElement = document.createElement('ul');
-  messageContainer.appendChild(ulElement);
+  commentContainer.appendChild(ulElement);
 
   for (let key in messagesList) {
     appendTextToList(messagesList[key], ulElement);
