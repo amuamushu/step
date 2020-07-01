@@ -24,7 +24,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -48,7 +47,8 @@ public class DataServlet extends HttpServlet {
 
     ArrayList<String> messages = new ArrayList<>();
     for (Entity message : results.asIterable()) {
-      messages.add(message);
+      String comment = (String) message.getProperty("comment");
+      messages.add(comment);
     } 
     
     String json = convertToJsonUsingGson(messages);

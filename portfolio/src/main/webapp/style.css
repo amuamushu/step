@@ -220,6 +220,10 @@ button {
   margin-top: 5px;
 }
 
+form {
+  margin-left: 45%;
+}
+
 /* Footer */
 
 #connect-container {
