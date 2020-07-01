@@ -54,7 +54,7 @@ public class DataServlet extends HttpServlet {
       long id = comment.getKey().getId();
       String text = (String) comment.getProperty("text");
       long timestamp = (long) comment.getProperty("timestamp");
-      comments.add(new Comment());
+      comments.add(new Comment(id, text, timestamp));
       
       counter++;
     } 

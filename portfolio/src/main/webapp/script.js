@@ -159,9 +159,9 @@ function addMultipleMessagesToDom(comments) {
   const ulElement = document.createElement('ul');
   commentContainer.appendChild(ulElement);
 
-  for (let key in comments) {
-    appendTextToList(comments[key], ulElement);
-  }
+  comments.forEach((comment) => {
+    appendTextToList(comment.text, ulElement);
+  });
 }
 
 /**
@@ -171,8 +171,8 @@ function addMultipleMessagesToDom(comments) {
 function getCommentFromJSON() {
   fetch('/data')
       .then(response => response.json())
-      .then((comment) => {
-        addMultipleMessagesToDom(comment);
+      .then((comments) => {
+        addMultipleMessagesToDom(comments);
       });
 }
 
