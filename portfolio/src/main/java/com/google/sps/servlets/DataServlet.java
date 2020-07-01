@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -41,9 +42,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Converts an Arraylist instance into a JSON string using the GSON library.
-  * @param toConvert An ArrayList that needs to be converted into a 
-  *      JSON string.
+  * Converts {@code toConvert} into a JSON string using GSON.
   */
   private String convertToJsonUsingGson(ArrayList toConvert) {
     Gson gson = new Gson();
