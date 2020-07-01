@@ -121,9 +121,9 @@ function hideOnMouseout(hoveredItem) {
 }
 
 /**
- * Fetches the message from the server /data and adds it to the DOM.
+ * Fetches the comment from the server /data and adds it to the DOM.
  */
-function getMessage() {
+function getComment() {
   const responsePromise = fetch('/data');
   
   responsePromise.then(handleResponse);
@@ -137,42 +137,42 @@ function getMessage() {
 function handleResponse(response) {
   const textPromise = response.text();
   
-  textPromise.then(addSingleMessageToDom);
+  textPromise.then(addSingleCommentToDom);
 }
 
 /**
- * Adds the given single message to the DOM.
- * @param {string} message The text to be added inside of the div 
+ * Adds the given single comment to the DOM.
+ * @param {string} comment The text to be added inside of the div 
        comment-container. 
  */
-function addSingleMessageToDom(message) {
+function addSingleCommentToDom(comment) {
   const commentContainer = document.getElementById('comment-container');
   commentContainer.innerHTML = message;
 }
 
 /**
- * Adds multiple messages to the DOM as list elements.
- * @param {object} messagesList An array containing messages.
+ * Adds multiple comments to the DOM as list elements.
+ * @param {object} comments An array containing messages.
  */
-function addMultipleMessagesToDom(messagesList) {
+function addMultipleMessagesToDom(comments) {
   const commentContainer = document.getElementById('comment-container');
   const ulElement = document.createElement('ul');
   commentContainer.appendChild(ulElement);
 
-  for (let key in messagesList) {
-    appendTextToList(messagesList[key], ulElement);
+  for (let key in comments) {
+    appendTextToList(comments[key], ulElement);
   }
 }
 
 /**
- * Fetches the message from the JSON server /data and adds it to the DOM.
+ * Fetches the comment from the JSON server /data and adds it to the DOM.
  * Method is called everytime the page is refreshed.
  */
-function getMessageFromJSON() {
+function getCommentFromJSON() {
   fetch('/data')
       .then(response => response.json())
-      .then((message) => {
-        addMultipleMessagesToDom(message);
+      .then((comment) => {
+        addMultipleMessagesToDom(comment);
       });
 }
 
