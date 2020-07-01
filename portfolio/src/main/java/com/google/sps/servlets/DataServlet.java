@@ -43,7 +43,7 @@ public class DataServlet extends HttpServlet {
   /**
   * Converts an Arraylist instance into a JSON string using the GSON library.
   * @param toConvert An ArrayList that needs to be converted into a 
-        JSON string.
+  *      JSON string.
   */
   private String convertToJsonUsingGson(ArrayList toConvert) {
     Gson gson = new Gson();
