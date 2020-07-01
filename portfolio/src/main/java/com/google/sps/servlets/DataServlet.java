@@ -24,16 +24,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> messages;
+//   private ArrayList<String> messages;
 
-  @Override
-  public void init() {
-    this.messages = new ArrayList<>();
-  }
+//   @Override
+//   public void init() {
+//     this.messages = new ArrayList<>();
+//   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
