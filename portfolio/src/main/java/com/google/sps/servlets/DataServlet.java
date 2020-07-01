@@ -37,28 +37,29 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Message");
+    Query query = new Query("Comment");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    ArrayList<Comment> messages = new ArrayList<>();
+    ArrayList<Comment> comments = new ArrayList<>();
 
     
     // TODO: Check style for counter.
     int counter = 0;
-    for (Entity message : results.asIterable()) {
+    for (Entity comment : results.asIterable()) {
       if (counter == MAX_COMMENTS) {
         break;
       }
-      String comment = (String) message.getProperty("comment");
-      long timestamp = (long) message.getProperty("timestamp");
-      messages.add(new Comment);
+      long id = comment.getKey().getId();
+      String text = (String) comment.getProperty("text");
+      long timestamp = (long) comment.getProperty("timestamp");
+      comments.add(new Comment());
       
       counter++;
     } 
     
-    String json = convertToJsonUsingGson(messages);
+    String json = convertToJsonUsingGson(comments);
 
     response.setContentType("application/json;");
     response.getWriter().println(json);
@@ -79,12 +80,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter("comment-input");
 
-    Entity messageEntity = new Entity("Message");
-    messageEntity.setProperty("comment", comment);
-    messageEntity.setProperty("timestamp", timestamp);
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(messageEntity);
+    datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect("/index.html#connect-container");
