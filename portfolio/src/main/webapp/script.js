@@ -142,15 +142,49 @@ function getMessage() {
 function handleResponse(response) {
   const textPromise = response.text();
   
-  textPromise.then(addMessageToDom);
+  textPromise.then(addSingleMessageToDom);
 }
 
 /**
- * Adds the given message to the DOM.
- * @param {string} message The text to be added inside of the div 
-       message-container. 
+ * Adds a single message {@code message} inside of the div
+ *     message-container. 
  */
-function addMessageToDom(message) {
+function addSingleMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
   messageContainer.innerHTML = message;
+}
+
+/**
+ * Adds {@code messages} to the DOM as list elements.
+ */
+function addMultipleMessagesToDom(messages) {
+  const messageContainer = document.getElementById('message-container');
+  const ulElement = document.createElement('ul');
+  messageContainer.appendChild(ulElement);
+
+  for (let key in messages) {
+    appendTextToList(messages[key], ulElement);
+  }
+}
+
+/**
+ * Fetches the message from the JSON server /data and adds it to the DOM.
+ */
+function getMessageFromJSON() {
+  fetch('/data')
+      .then(response => response.json())
+      .then((message) => {
+        addMultipleMessagesToDom(message);
+      });
+}
+
+/**
+ * Creates an <li> element containing {@code text} and appends it to 
+ *     {@code ulElement}.
+ */
+function appendTextToList(text, ulElement) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+
+  ulElement.appendChild(liElement);
 }
