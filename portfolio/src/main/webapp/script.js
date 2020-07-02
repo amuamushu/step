@@ -160,7 +160,6 @@ function addMultipleMessagesToDom(comments) {
   commentContainer.appendChild(ulElement);
 
   comments.forEach((comment) => {
-    console.log(comment);
     appendTextToList(comment.text, ulElement);
   });
 }
@@ -169,12 +168,13 @@ function addMultipleMessagesToDom(comments) {
  * Fetches the comment from the JSON server /data and adds it to the DOM.
  * Method is called everytime the page is refreshed.
  */
-function getCommentFromJSON() {
-  fetch('/data?comments-number=5')
+function getMessageFromJSON() {
+  fetch('/data')
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
       });
+
 }
 
 /**
