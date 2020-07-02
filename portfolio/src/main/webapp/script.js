@@ -160,6 +160,7 @@ function addMultipleMessagesToDom(comments) {
   commentContainer.appendChild(ulElement);
 
   comments.forEach((comment) => {
+    console.log(comment);
     appendTextToList(comment.text, ulElement);
   });
 }
