@@ -33,7 +33,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   // TODO: Check style for static variable.
-  public final static int MAX_COMMENTS = 5;
+  private static int maxComments;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -48,7 +48,7 @@ public class DataServlet extends HttpServlet {
     // TODO: Check style for counter.
     int counter = 0;
     for (Entity comment : results.asIterable()) {
-      if (counter == MAX_COMMENTS) {
+      if (counter == maxComments) {
         break;
       }
       long id = comment.getKey().getId();
@@ -80,6 +80,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter("comment-input");
     long timestamp = System.currentTimeMillis();
+    maxComments = request.getParameter("comments-number");
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
