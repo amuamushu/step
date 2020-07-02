@@ -170,7 +170,7 @@ function addMultipleMessagesToDom(comments) {
  * Method is called everytime the page is refreshed.
  */
 function getCommentFromJSON() {
-  fetch('/data')
+  fetch('/data?comments-number=5')
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
