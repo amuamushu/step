@@ -32,13 +32,13 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  // TODO: Check style for static variable.
-  private static int maxComments;
+//   // TODO: Check style for static variable.
+//   private static int maxComments;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    maxComments = Integer.parseInt(request.getParameter("comments-number"));
-    System.out.println(maxComments);
+    // maxComments = Integer.parseInt(request.getParameter("comments-number"));
+    // System.out.println(maxComments);
 
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
@@ -51,9 +51,9 @@ public class DataServlet extends HttpServlet {
     // TODO: Check style for counter.
     int counter = 0;
     for (Entity comment : results.asIterable()) {
-      if (counter == maxComments) {
-        break;
-      }
+    //   if (counter == maxComments) {
+    //     break;
+    //   }
       long id = comment.getKey().getId();
       String text = (String) comment.getProperty("text");
       long timestamp = (long) comment.getProperty("timestamp");
@@ -66,7 +66,7 @@ public class DataServlet extends HttpServlet {
     
     response.setContentType("application/json;");
     response.getWriter().println(json);
-    response.sendRedirect("/index.html#connect-container");
+    // response.sendRedirect("/index.html#connect-container");
   }
 
   /**
