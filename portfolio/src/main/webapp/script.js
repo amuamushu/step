@@ -168,13 +168,30 @@ function addMultipleMessagesToDom(comments) {
  * Fetches the comment from the JSON server /data and adds it to the DOM.
  * Method is called everytime the page is refreshed.
  */
-function getMessageFromJSON() {
-  console.log("called!")
+ // TODO: Update method header to include parameter.
+function getMessageFromJSON(pageReloadBoolean) {
+  let selectedIndex;
   let amountSelector = document.getElementById("amount");
   console.log(amountSelector);
+  
+  
+  if (pageReloadBoolean && localStorage.getItem('selectedIndex') !== null) {
+    console.log('page reload and not null')
+    selectedIndex = localStorage.getItem('selectedIndex');
+  } else {
+    console.log('value selected')
+    selectedIndex = amountSelector.selectedIndex;
+  } 
+
+
   // TODO: Check column length for selectedAmount
-  let selectedAmount = amountSelector.options[amountSelector.selectedIndex].value;
+  amountSelector.options[selectedIndex].selected = true;
+  let selectedAmount = amountSelector.options[selectedIndex].value;
   console.log(selectedAmount);
+  
+  // Saves the selected index to the local storage because the selected index is set
+  // back to the default every time a new comment is added.
+  localStorage.setItem("selectedIndex", selectedIndex);
   fetch('/data?amount=' + selectedAmount)
       .then(response => response.json())
       .then((comments) => {
