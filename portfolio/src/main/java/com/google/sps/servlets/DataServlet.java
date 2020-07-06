@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  // Constants
+  // Constants for certain areas of the DOM
   private static final String COMMENT_INPUT = "comment-input";
   private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
 
