@@ -156,6 +156,12 @@ function addSingleCommentToDom(comment) {
  */
 function addMultipleMessagesToDom(comments) {
   const commentContainer = document.getElementById('comment-container');
+
+  // Removes the ul tag in the container if there is one to prevent having
+  // multiple sets of ul tags every time the number of comments is changed.
+  if (commentContainer.firstChild) {
+    commentContainer.removeChild(commentContainer.firstChild);
+  }
   const ulElement = document.createElement('ul');
   commentContainer.appendChild(ulElement);
 
@@ -174,7 +180,7 @@ function getMessageFromJSON(pageReloadBoolean) {
   let amountSelector = document.getElementById("amount");
   console.log(amountSelector);
   
-  
+
   if (pageReloadBoolean && localStorage.getItem('selectedIndex') !== null) {
     console.log('page reload and not null')
     selectedIndex = localStorage.getItem('selectedIndex');
