@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   </head>
-  <body onload="getMessageFromJSON()">
+  <body onload="getMessageFromJSON(true)">
     <div id="nav">
       <header>Amy N.</header>
       <div id="nav-items">
@@ -148,7 +148,7 @@
         <input type="submit">
       </form>
 
-      <select name="amount" id="amount" onchange="getMessageFromJSON();">
+      <select name="amount" id="amount" onchange="getMessageFromJSON(false);">
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>

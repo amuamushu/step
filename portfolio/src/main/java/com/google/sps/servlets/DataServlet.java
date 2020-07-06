@@ -32,12 +32,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-//   // TODO: Check style for static variable.
-  private static int maxComments;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    maxComments = Integer.parseInt(request.getParameter("amount"));
+    int maxComments = Integer.parseInt(request.getParameter("amount"));
     System.out.println(maxComments);
 
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
