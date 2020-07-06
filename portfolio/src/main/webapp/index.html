@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body onload="getMessageFromJSON()">
     <div id="nav">
       <header>Amy N.</header>
       <div id="nav-items">
@@ -140,9 +140,14 @@
           <p>Click Here to Add a Random Polaroid:</p>
           <button onclick="addRandomPolaroid()">Add Polaroid</button>
         </div> 
-        <button id="message-button" onclick="getMessageFromJSON()">Click For A Message</button> 
-        <div id="message-container"></div>  
       </div>
+
+      <form action="/data" method="POST">
+        <p> Enter a comment here </p>
+        <textarea name="comment-input"></textarea>
+        <input type="submit">
+      </form>
+      <div id="message-container"></div> 
 
       <div id="connect-container">
         <h2>Connect with Me!</h2>
