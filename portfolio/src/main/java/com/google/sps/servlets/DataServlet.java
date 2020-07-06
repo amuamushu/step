@@ -26,7 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private static final String COMMENT_INPUT = "comment-input";
+  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container"
+
   private ArrayList<String> messages;
+  
 
   @Override
   public void init() {
@@ -52,11 +56,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment-input");
+    String comment = request.getParameter(COMMENT_INPUT);
     messages.add(comment);
 
     // Redirects to the current page to see new comment added.
-    response.sendRedirect("/index.html#connect-container");
+    response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
 }
