@@ -48,7 +48,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<String> messages = new ArrayList<>();
+    List<String> messages = new ArrayList<String>();
     for (Entity message : results.asIterable()) {
       String comment = (String) message.getProperty("comment");
       messages.add(comment);
@@ -63,7 +63,7 @@ public class DataServlet extends HttpServlet {
   /**
   * Converts {@code toConvert} into a JSON string using GSON.
   */
-  private String convertToJsonUsingGson(ArrayList toConvert) {
+  private String convertToJsonUsingGson(List toConvert) {
     Gson gson = new Gson();
     String json = gson.toJson(toConvert);
     return json;
