@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,14 +32,10 @@ public class DataServlet extends HttpServlet {
   // Constants for certain areas of the DOM.
   private static final String COMMENT_INPUT = "comment-input";
   private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
-
-  private ArrayList<String> messages;
   
-
-  @Override
-  public void init() {
-    this.messages = new ArrayList<>();
-  }
+  // Constants for Entity instances.
+  private static final String MESSAGE_ENTITY = "Message";
+  private static final String COMMENT_PROPERTY = "comment";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,9 +57,14 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter(COMMENT_INPUT);
-    messages.add(comment);
 
-    // Redirects to the current page to see new comment added.
+    Entity messageEntity = new Entity(MESSAGE_ENTITY);
+    messageEntity.setProperty(COMMENT_PROPERTY, comment);
+    
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(messageEntity);
+
+    // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
