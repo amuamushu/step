@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/** Servlet that writes and returns comments data */
+/** Servlet that writes and returns comments data. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   // Constants for certain areas of the DOM.
