@@ -36,8 +36,6 @@ public class DataServlet extends HttpServlet {
   // Constants for Entity instances.
   private static final String MESSAGE_ENTITY = "Message";
   private static final String COMMENT_PROPERTY = "comment";
-
-  private ArrayList<String> messages;
   
 
   @Override
