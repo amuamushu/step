@@ -20,6 +20,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,17 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-/** Servlet that writes and returns comments data */
+
+/** Servlet that writes and returns comments data. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  // Constants for certain areas of the DOM.
+  private static final String COMMENT_INPUT = "comment-input";
+  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
+  
+  // Constants for Entity instances.
+  private static final String MESSAGE_ENTITY = "Message";
+  private static final String COMMENT_PROPERTY = "comment";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,7 +48,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    ArrayList<String> messages = new ArrayList<>();
+    List<String> messages = new ArrayList<>();
     for (Entity message : results.asIterable()) {
       String comment = (String) message.getProperty("comment");
       messages.add(comment);
@@ -52,9 +61,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Converts an Arraylist instance into a JSON string using the GSON library.
-  * @param toConvert An ArrayList that needs to be converted into a 
-        JSON string.
+  * Converts {@code toConvert} into a JSON string using GSON.
   */
   private String convertToJsonUsingGson(ArrayList toConvert) {
     Gson gson = new Gson();
@@ -64,16 +71,16 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment-input");
+    String comment = request.getParameter(COMMENT_INPUT);
 
-    Entity messageEntity = new Entity("Message");
-    messageEntity.setProperty("comment", comment);
+    Entity messageEntity = new Entity(MESSAGE_ENTITY);
+    messageEntity.setProperty(COMMENT_PROPERTY, comment);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(messageEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
-    response.sendRedirect("/index.html#connect-container");
+    response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
 }

@@ -15,6 +15,12 @@
 const VISIBLE = 'visible';
 const HIDDEN = 'hidden';
 const SEPARATOR = '.';
+const IMAGES_FOLDER = 'images/';
+const IMAGES_DIV = 'images';
+const PROJECT_BACKGROUND = 'background';
+const REDUCED_BRIGHTNESS = 'brightness(50%)';
+const MAX_BRIGHTNESS = 'brightness(100%)';
+
 
 /**
  * Adds a random polaroid image to the page.
@@ -43,7 +49,7 @@ function addRandomPolaroid() {
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  const imagesContainer = document.getElementById('images');
+  const imagesContainer = document.getElementById(IMAGES_DIV);
   imagesContainer.appendChild(div);
 }
 
@@ -56,7 +62,7 @@ function addRandomPolaroid() {
  */
 function createImgTag(image) {
   const imgTag = document.createElement('img');
-  imgTag.setAttribute('src', 'images/' + image);
+  imgTag.setAttribute('src', IMAGES_FOLDER + image);
   
   const imageName = image.split(SEPARATOR)[0];
   imgTag.setAttribute('alt', imageName);
@@ -78,15 +84,15 @@ function createPTag(text) {
 
 /**
  * Reveals hidden description upon mouseover and hides the project title
- *  text.
+ * text.
  * @param {object} hoveredItem An anchor tag containing the
  *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
-  const toReveal = hoveredItem.getElementsByClassName('hidden')[0];
-  const toHide = hoveredItem.getElementsByClassName('visible')[0];
+  const toReveal = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toHide = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -94,21 +100,21 @@ function revealOnMouseover(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
   for (let tag of background) {
-    tag.style.filter = 'brightness(50%)';
+    tag.style.filter = REDUCED_BRIGHTNESS;
   }
 }
 
 /**
  * Hides the description text upon mouseout and reveals hidden 
- *     project title text.
+ * project title text.
  * @param {object} hoveredItem An anchor tag containing the 
  *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
-  const toHide = hoveredItem.getElementsByClassName('hidden')[0];
-  const toReveal = hoveredItem.getElementsByClassName('visible')[0];
+  const toHide = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toReveal = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -116,7 +122,7 @@ function hideOnMouseout(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
   for (let tag of background) {
-    tag.style.filter = 'brightness(100%)';
+    tag.style.filter = MAX_BRIGHTNESS;
   }
 }
 
@@ -130,8 +136,7 @@ function getMessage() {
 }
 
 /**
- * Handles response by converting it to text and passing the result
-       to addMessageToDom().
+ * Obtains the reponse's text and adds it to the DOM.
  * @param {object} response A promise that was fetched from a URL.
  */
 function handleResponse(response) {
@@ -141,9 +146,8 @@ function handleResponse(response) {
 }
 
 /**
- * Adds the given single message to the DOM.
- * @param {string} message The text to be added inside of the div 
-       message-container. 
+ * Adds a single message {@code message} inside of the div
+ * message-container. 
  */
 function addSingleMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
@@ -151,22 +155,22 @@ function addSingleMessageToDom(message) {
 }
 
 /**
- * Adds multiple messages to the DOM as list elements.
- * @param {object} messagesList An array containing messages.
+ * Adds {@code messages} to the DOM as list elements.
  */
-function addMultipleMessagesToDom(messagesList) {
+function addMultipleMessagesToDom(messages) {
   const messageContainer = document.getElementById('message-container');
   const ulElement = document.createElement('ul');
   messageContainer.appendChild(ulElement);
 
-  for (let key in messagesList) {
-    appendTextToList(messagesList[key], ulElement);
+  for (let key in messages) {
+    appendTextToList(messages[key], ulElement);
   }
 }
 
 /**
  * Fetches the message from the JSON server /data and adds it to the DOM.
- * Method is called everytime the page is refreshed.
+ *
+ * <p>Method is called everytime the page is refreshed.
  */
 function getMessageFromJSON() {
   fetch('/data')
@@ -177,11 +181,8 @@ function getMessageFromJSON() {
 }
 
 /**
- * Creates an <li> element containing text and appends it to the given
-   ul tag.
-   @param {string} text Text to be added as a list element.
-   @param {object} ulElement UL element that the list element 
-       will be appended to. 
+ * Creates an <li> element containing {@code text} and appends it to 
+ * {@code ulElement}.
  */
 function appendTextToList(text, ulElement) {
   const liElement = document.createElement('li');
