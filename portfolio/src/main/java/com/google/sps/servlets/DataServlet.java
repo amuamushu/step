@@ -22,19 +22,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. */
-// TODO: modify this file to handle comments data. 
+
+/** Servlet that writes and returns comments data. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  // Constants for certain areas of the DOM.
+  private static final String COMMENT_INPUT = "comment-input";
+  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
+
   private ArrayList<String> messages;
+  
 
   @Override
   public void init() {
     this.messages = new ArrayList<>();
-
-    messages.add("Hello. I am a string.");
-    messages.add("This is another string.");
-    messages.add("I too am a string.");
   }
 
   @Override
@@ -53,4 +54,14 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(toConvert);
     return json;
   }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter(COMMENT_INPUT);
+    messages.add(comment);
+
+    // Redirects to the current page to see new comment added.
+    response.sendRedirect(BOTTOM_OF_PAGE);
+  }
+
 }
