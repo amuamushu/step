@@ -169,6 +169,7 @@ function addMultipleMessagesToDom(messages) {
 
 /**
  * Fetches the message from the JSON server /data and adds it to the DOM.
+ * 
  * Method is called everytime the page is refreshed.
  */
 function getMessageFromJSON() {
