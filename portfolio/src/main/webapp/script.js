@@ -84,7 +84,7 @@ function createPTag(text) {
 
 /**
  * Reveals hidden description upon mouseover and hides the project title
- *     text.
+ * text.
  * @param {object} hoveredItem An anchor tag containing the
  *     project image and text.
  */
@@ -106,7 +106,7 @@ function revealOnMouseover(hoveredItem) {
 
 /**
  * Hides the description text upon mouseout and reveals hidden 
- *     project title text.
+ * project title text.
  * @param {object} hoveredItem An anchor tag containing the 
  *     project image and text.
  */
@@ -147,7 +147,7 @@ function handleResponse(response) {
 
 /**
  * Adds a single message {@code message} inside of the div
- *     message-container. 
+ * message-container. 
  */
 function addSingleMessageToDom(message) {
   const messageContainer = document.getElementById('message-container');
@@ -169,7 +169,7 @@ function addMultipleMessagesToDom(messages) {
 
 /**
  * Fetches the message from the JSON server /data and adds it to the DOM.
- *     Method is called everytime the page is refreshed.
+ * Method is called everytime the page is refreshed.
  */
 function getMessageFromJSON() {
   fetch('/data')
@@ -181,7 +181,7 @@ function getMessageFromJSON() {
 
 /**
  * Creates an <li> element containing {@code text} and appends it to 
- *     {@code ulElement}.
+ * {@code ulElement}.
  */
 function appendTextToList(text, ulElement) {
   const liElement = document.createElement('li');

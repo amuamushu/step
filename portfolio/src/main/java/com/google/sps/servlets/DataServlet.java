@@ -26,8 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that writes and returns comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  // Constants
   private static final String COMMENT_INPUT = "comment-input";
-  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container"
+  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
 
   private ArrayList<String> messages;
   
