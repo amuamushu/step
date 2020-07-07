@@ -227,11 +227,12 @@ function appendTextToList(comment, ulElement) {
   const namePElement = document.createElement('p');
   namePElement.innerText = comment.name;
 
-  infoDivElement.appendChild(datePElement);
   infoDivElement.appendChild(namePElement);
-  
-  liElement.appendChild(textDivElement);
+  infoDivElement.appendChild(datePElement);
+
   liElement.appendChild(infoDivElement);
+  liElement.appendChild(textDivElement);
+
   ulElement.appendChild(liElement);
 }
 
