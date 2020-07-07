@@ -20,10 +20,14 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 
 /** Servlet that writes and returns comments data. */
@@ -39,6 +43,17 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query(MESSAGE_ENTITY);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<String> messages = new ArrayList<String>();
+    for (Entity message : results.asIterable()) {
+      String comment = (String) message.getProperty(COMMENT_PROPERTY);
+      messages.add(comment);
+    } 
+    
     String json = convertToJsonUsingGson(messages);
 
     response.setContentType("application/json;");
@@ -48,7 +63,7 @@ public class DataServlet extends HttpServlet {
   /**
   * Converts {@code toConvert} into a JSON string using GSON.
   */
-  private String convertToJsonUsingGson(ArrayList toConvert) {
+  private String convertToJsonUsingGson(List toConvert) {
     Gson gson = new Gson();
     String json = gson.toJson(toConvert);
     return json;
