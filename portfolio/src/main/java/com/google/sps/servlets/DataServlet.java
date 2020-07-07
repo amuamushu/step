@@ -84,7 +84,7 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter("name");
     System.out.println(name);
-    if (name == "") {
+    if (name.isEmpty()) {
       name = "anonymous";
       System.out.println(name);
     }
