@@ -218,10 +218,17 @@ function appendTextToList(comment, ulElement) {
   textDivElement.innerText = comment.text;
 
   const infoDivElement = document.createElement('div');
+  infoDivElement.className = 'info';
+  
   const datePElement = document.createElement('p');
   const date = new Date(comment.timestamp);
   datePElement.innerText = date.toString().substring(0, 21);
+
+  const namePElement = document.createElement('p');
+  namePElement.innerText = comment.name;
+
   infoDivElement.appendChild(datePElement);
+  infoDivElement.appendChild(namePElement);
   
   liElement.appendChild(textDivElement);
   liElement.appendChild(infoDivElement);

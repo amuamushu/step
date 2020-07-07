@@ -36,7 +36,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter("amount"));
-    System.out.println(maxComments);
 
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
@@ -55,7 +54,8 @@ public class DataServlet extends HttpServlet {
       long id = comment.getKey().getId();
       String text = (String) comment.getProperty("text");
       long timestamp = (long) comment.getProperty("timestamp");
-      comments.add(new Comment(id, text, timestamp));
+      String name = (String) comment.getProperty("name");
+      comments.add(new Comment(id, text, timestamp, name));
       
       counter++;
     } 
@@ -82,11 +82,16 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter("comment-input");
     long timestamp = System.currentTimeMillis();
-    // maxComments = Integer.parseInt(request.getParameter("comments-number"));
+    String name = request.getParameter("name");
+
+    if (name == "") {
+      name = "anonymous";
+    }
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("name", name);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
