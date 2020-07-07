@@ -178,7 +178,7 @@ function addMultipleMessagesToDom(comments) {
  */
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
-  let amountSelector = document.getElementById("amount");
+  let amountSelector = document.getElementById('amount');
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
