@@ -1,8 +1,6 @@
-//TODO: Add file header.
-
 package com.google.sps.data;
 
-//TODO: Add class header.
+//** Class for storing commment properties. */
 public final class Comment {
 
   private final long id;

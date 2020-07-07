@@ -40,7 +40,7 @@ public class DataServlet extends HttpServlet {
   
   // Constants for Entity instances.
   private static final String MESSAGE_ENTITY = "Message";
-  private static final String COMMENT_PROPERTY = "Comment";
+  private static final String COMMENT_ENTITY = "Comment";
   private static final String COMMENT_AMOUNT = "amount";
   private static final String COMMENT_TEXT = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
@@ -50,33 +50,30 @@ public class DataServlet extends HttpServlet {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
     System.out.println(maxComments);
 
-    Query query = new Query(MESSAGE_ENTITY).addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     ArrayList<Comment> comments = new ArrayList<>();
 
-    
-    // TODO: Check style for counter.
-    int counter = 0;
+    int commentCounter = 0;
     for (Entity comment : results.asIterable()) {
-      if (counter == maxComments) {
+      if (commentCounter == maxComments) {
         break;
       }
       long id = comment.getKey().getId();
-      String text = (String) comment.getProperty("text");
-      long timestamp = (long) comment.getProperty("timestamp");
+      String text = (String) comment.getProperty(COMMENT_TEXT);
+      long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       comments.add(new Comment(id, text, timestamp));
       
-      counter++;
+      commentCounter++;
     } 
     
     String json = convertToJsonUsingGson(comments);
     
     response.setContentType("application/json;");
     response.getWriter().println(json);
-    // response.sendRedirect("/index.html#connect-container");
   }
 
   /**
@@ -93,7 +90,7 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
 
-    Entity commentEntity = new Entity(COMMENT_PROPERTY);
+    Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
 
