@@ -18,7 +18,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-/** Servlet that deletes all of the comment data */
+/** Servlet that deletes all of the comment data. */
 @WebServlet("/delete-data")
 public class DeleteData extends HttpServlet {
 
@@ -33,8 +33,6 @@ public class DeleteData extends HttpServlet {
       Key myKey = comment.getKey();
       datastore.delete(myKey);
     }
-
-    response.sendRedirect("/index.html#connect-container");
   }
 
 }
