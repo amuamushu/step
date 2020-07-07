@@ -226,7 +226,7 @@ button {
 }
 
 form {
-  margin-left: 20%;
+  margin-left: 25%;
 }
 
 #form-elements-container {
@@ -242,6 +242,13 @@ form {
 
 ul {
   list-style: none;
+  margin-left: 30%;
+  text-align: center;
+  width: 500px;
+}
+
+ul p {
+  margin-bottom: 0px;
 }
 
 .comment {
