@@ -100,7 +100,7 @@ function revealOnMouseover(hoveredItem) {
 
 /**
  * Hides the description text upon mouseout and reveals hidden 
- *     project title text.
+ * project title text.
  * @param {object} hoveredItem An anchor tag containing the 
  *     project image and text.
  */
@@ -172,38 +172,34 @@ function addMultipleMessagesToDom(comments) {
 
 /**
  * Fetches the comment from the JSON server /data and adds it to the DOM.
- * Method is called everytime the page is refreshed.
+ * 
+ * <p>{@code pageReloadBoolean} indicates whether the method is called
+ * when the page refreshes or when a new comment amount is inputted.
  */
- // TODO: Update method header to include parameter.
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
   let amountSelector = document.getElementById("amount");
-  console.log(amountSelector);
   
-
+  // Retrieves the selected index from local storage if there is a value for it
+  // because after a page reload, the selected index is set back to its default
+  // value of 0. 
   if (pageReloadBoolean && localStorage.getItem('selectedIndex') !== null) {
-    console.log('page reload and not null')
     selectedIndex = localStorage.getItem('selectedIndex');
   } else {
-    console.log('value selected')
     selectedIndex = amountSelector.selectedIndex;
   } 
 
-
-  // TODO: Check column length for selectedAmount
   amountSelector.options[selectedIndex].selected = true;
   let selectedAmount = amountSelector.options[selectedIndex].value;
-  console.log(selectedAmount);
   
-  // Saves the selected index to the local storage because the selected index is set
-  // back to the default every time a new comment is added.
+  // Saves the current selected index to the local storage to use in case
+  // the page reloads.
   localStorage.setItem("selectedIndex", selectedIndex);
   fetch('/data?amount=' + selectedAmount)
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
       });
-
 }
 
 /**
