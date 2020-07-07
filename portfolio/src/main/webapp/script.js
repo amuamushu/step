@@ -166,7 +166,7 @@ function addMultipleMessagesToDom(comments) {
   commentContainer.appendChild(ulElement);
 
   comments.forEach((comment) => {
-    appendTextToList(comment.text, ulElement);
+    appendTextToList(comment, ulElement);
   });
 }
 
@@ -205,14 +205,19 @@ function getMessageFromJSON(pageReloadBoolean) {
 /**
  * Creates an <li> element containing text and appends it to the given
    ul tag.
-   @param {string} text Text to be added as a list element.
+   @param {object} comment An object containing the comment's text and 
+       timestamp.
    @param {object} ulElement UL element that the list element 
        will be appended to. 
  */
-function appendTextToList(text, ulElement) {
+function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
 
+  const divElement = document.createElement('div');
+  divElement.className = 'comment';
+  divElement.innerText = comment.text;
+  
+  liElement.appendChild(divElement);
   ulElement.appendChild(liElement);
 }
 
