@@ -7,6 +7,10 @@ public final class Comment {
   private final String text;
   private final long timestamp;
 
+  /** 
+   * Creates a commment instance containing its {@code id},
+   * {@code text}, and {@code timestamp}. 
+   */
   public Comment(long id, String text, long timestamp) {
     this.id = id;
     this.text = text;

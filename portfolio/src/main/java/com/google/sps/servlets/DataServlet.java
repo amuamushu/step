@@ -48,7 +48,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-    System.out.println(maxComments);
 
     Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
 
