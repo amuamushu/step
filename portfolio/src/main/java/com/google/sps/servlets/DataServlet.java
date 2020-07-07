@@ -83,9 +83,10 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter("comment-input");
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter("name");
-
+    System.out.println(name);
     if (name == "") {
       name = "anonymous";
+      System.out.println(name);
     }
 
     Entity commentEntity = new Entity("Comment");

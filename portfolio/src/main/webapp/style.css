@@ -70,8 +70,9 @@ body {
 }
 
 .flex-container {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
+  margin-top: 50px;
 }
 
 /* Landing Page */
@@ -229,7 +230,7 @@ form {
 }
 
 #form-elements-container {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   justify-content: space-around;
   width: 500px;
@@ -241,6 +242,15 @@ form {
 
 ul {
   list-style: none;
+}
+
+.comment {
+  font-weight: bold;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
 }
 
 /* Footer */
