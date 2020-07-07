@@ -221,6 +221,17 @@ button {
 }
 
 form {
+  margin-left: 35%;
+}
+
+#form-elements-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+}
+
+#submit {
   margin-left: 45%;
 }
 
