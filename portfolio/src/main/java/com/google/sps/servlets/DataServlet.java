@@ -39,7 +39,6 @@ public class DataServlet extends HttpServlet {
   private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
   
   // Constants for Entity instances.
-  private static final String MESSAGE_ENTITY = "Message";
   private static final String COMMENT_ENTITY = "Comment";
   private static final String COMMENT_AMOUNT = "amount";
   private static final String COMMENT_TEXT = "text";
