@@ -17,9 +17,14 @@ const HIDDEN = 'hidden';
 const SEPARATOR = '.';
 const IMAGES_FOLDER = 'images/';
 const IMAGES_DIV = 'images';
+const POLAROID_CLASS = 'polaroid';
 const PROJECT_BACKGROUND = 'background';
 const REDUCED_BRIGHTNESS = 'brightness(50%)';
 const MAX_BRIGHTNESS = 'brightness(100%)';
+const COMMENT_CONTAINER = 'comment-container';
+const SELECTED_INDEX = 'selectedIndex';
+const COMMENT_AMOUNT = 'amount';
+const DATA_SERVLET = '/data';
 
 
 /**
@@ -36,7 +41,7 @@ function addRandomPolaroid() {
   
   // Creates a div tag to store the polaroid image and description.
   const div = document.createElement('div');
-  div.setAttribute('class', 'polaroid');
+  div.setAttribute('class', POLAROID_CLASS);
 
   // Creates a p tag that contains the image name.
   const imageName = image.split(SEPARATOR)[0];
@@ -130,7 +135,7 @@ function hideOnMouseout(hoveredItem) {
  * Fetches the comment from the server /data and adds it to the DOM.
  */
 function getComment() {
-  const responsePromise = fetch('/data');
+  const responsePromise = fetch(DATA_SERVLET);
   
   responsePromise.then(handleResponse);
 }
@@ -150,7 +155,7 @@ function handleResponse(response) {
  * message-container. 
  */
 function addSingleCommentToDom(comment) {
-  const commentContainer = document.getElementById('comment-container');
+  const commentContainer = document.getElementById(COMMENT_CONTAINER);
   commentContainer.innerHTML = message;
 }
 
@@ -158,7 +163,7 @@ function addSingleCommentToDom(comment) {
  * Adds {@code comments} to the DOM as list elements.
  */
 function addMultipleMessagesToDom(comments) {
-  const commentContainer = document.getElementById('comment-container');
+  const commentContainer = document.getElementById(COMMENT_CONTAINER);
 
   // Removes the ul tag in the container if there is one to prevent having
   // multiple sets of ul tags every time the number of comments is changed.
@@ -181,13 +186,13 @@ function addMultipleMessagesToDom(comments) {
  */
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
-  let amountSelector = document.getElementById("amount");
+  let amountSelector = document.getElementById(COMMENT_AMOUNT);
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
   // value of 0. 
-  if (pageReloadBoolean && localStorage.getItem('selectedIndex') !== null) {
-    selectedIndex = localStorage.getItem('selectedIndex');
+  if (pageReloadBoolean && localStorage.getItem(SELECTED_INDEX) !== null) {
+    selectedIndex = localStorage.getItem(SELECTED_INDEX);
   } else {
     selectedIndex = amountSelector.selectedIndex;
   } 
@@ -197,8 +202,8 @@ function getMessageFromJSON(pageReloadBoolean) {
   
   // Saves the current selected index to the local storage to use in case
   // the page reloads.
-  localStorage.setItem("selectedIndex", selectedIndex);
-  fetch('/data?amount=' + selectedAmount)
+  localStorage.setItem(SELECTED_INDEX, selectedIndex);
+  fetch(DATA_SERVLET + '?' + COMMENT_AMOUNT + '=' + selectedAmount)
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
