@@ -224,6 +224,10 @@ form {
   margin-left: 45%;
 }
 
+ul {
+  list-style: none;
+}
+
 /* Footer */
 
 #connect-container {
