@@ -143,10 +143,17 @@
       </div>
 
       <form action="/data" method="POST">
-        <p> Enter a comment here</p>
-        <textarea name="comment-input"></textarea>
-        <input type="text" name="name">
-        <input type="submit">
+        <div id="form-elements-container">
+          <div>
+            <label for="comment-input"> Enter a comment here:</label><br>
+            <textarea name="comment-input"></textarea>
+          </div>
+          <div>
+            <label for="name">Name (Optional):</label><br>
+            <input type="text" name="name">
+          </div>
+        </div>
+        <input id="submit" type="submit">
       </form>
 
       <button onclick="deleteAllComments();">Delete all Comments</button>
