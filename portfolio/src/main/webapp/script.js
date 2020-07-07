@@ -213,11 +213,18 @@ function getMessageFromJSON(pageReloadBoolean) {
 function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
-  const divElement = document.createElement('div');
-  divElement.className = 'comment';
-  divElement.innerText = comment.text;
+  const textDivElement = document.createElement('div');
+  textDivElement.className = 'comment';
+  textDivElement.innerText = comment.text;
+
+  const infoDivElement = document.createElement('div');
+  const datePElement = document.createElement('p');
+  const date = new Date(comment.timestamp);
+  datePElement.innerText = date.toString().substring(0, 21);
+  infoDivElement.appendChild(datePElement);
   
-  liElement.appendChild(divElement);
+  liElement.appendChild(textDivElement);
+  liElement.appendChild(infoDivElement);
   ulElement.appendChild(liElement);
 }
 
