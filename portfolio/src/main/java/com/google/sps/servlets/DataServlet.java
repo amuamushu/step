@@ -42,13 +42,10 @@ public class DataServlet extends HttpServlet {
     System.out.println("doGet");
     if (sort.equals("Oldest First")) {
       query.addSort("timestamp", SortDirection.ASCENDING);
-      System.out.println("old");
     } else if (sort.equals("Newest First")) {
       query.addSort("timestamp", SortDirection.DESCENDING);
-       System.out.println("new");
     } else if (sort.equals("Longest First")) {
       query.addSort("length", SortDirection.DESCENDING);
-       System.out.println("long");
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -95,10 +92,9 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter("comment-input");
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter("name");
-    System.out.println(name);
+    
     if (name.isEmpty()) {
       name = "anonymous";
-      System.out.println(name);
     }
 
     Entity commentEntity = new Entity("Comment");
