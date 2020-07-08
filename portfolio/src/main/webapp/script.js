@@ -31,6 +31,8 @@ const SORT_SELECTED_INDEX = 'sortSelectedIndex';
 const P_TAG = 'p';
 const DIV_TAG = 'div';
 const END_OF_TIMESTAMP = 21;
+const COMMENT_CLASS = 'comment';
+const INFO_CLASS = 'info';
 
 /**
  * Adds a random polaroid image to the page.
@@ -217,7 +219,7 @@ function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
   const infoDivElement = document.createElement(DIV_TAG);
-  infoDivElement.className = 'info';
+  infoDivElement.className = INFO_CLASS;
   
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
@@ -227,8 +229,8 @@ function appendTextToList(comment, ulElement) {
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
-  textPElement.className = "comment";
-
+  textPElement.className = COMMENT_CLASS;
+  
   ulElement.appendChild(liElement);
 }
 
@@ -257,14 +259,21 @@ function deleteAllComments() {
       .then((getMessageFromJSON(false)));
 }
 
+/**
+ * Fetches the HTML from the /login server and 
+ * appends it to the DOM.
+ */
 function fetchLogin() {
-  console.log("fetchLogin()")
   fetch('/login')
       .then(response => response.text())
       .then(appendToLogin);
 }
 
+/**
+ * Appends {@code text} to login div container.
+ */
 function appendToLogin(text) {
   const login = document.getElementById('login');
   login.innerHTML = text;
 }
+
