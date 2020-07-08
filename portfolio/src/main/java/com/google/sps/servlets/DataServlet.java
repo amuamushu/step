@@ -58,7 +58,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-    String sort = request.getParameter("sort");
+    String sort = request.getParameter(SORT);
 
     Query query = new Query(COMMENT_ENTITY);
     if (sort.equals(OLDEST_FIRST)) {
