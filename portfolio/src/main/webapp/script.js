@@ -266,3 +266,15 @@ function deleteAllComments() {
       // in order to let the server be a single source of truth.
       .then((getMessageFromJSON(false)));
 }
+
+function fetchLogin() {
+  console.log("fetchLogin()")
+  fetch('/login')
+      .then(response => response.text())
+      .then(appendToLogin);
+}
+
+function appendToLogin(text) {
+  const login = document.getElementById('login');
+  login.innerHTML = text;
+}
