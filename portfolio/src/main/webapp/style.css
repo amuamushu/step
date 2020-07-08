@@ -279,11 +279,12 @@ ul p {
   justify-content: center;
 }
 
-#links-container img {
-  height: 50px;
-}
-
 #links-container a {
   padding-left: 30px;
   padding-right: 30px;
 }
+
+#links-container img {
+  height: 50px;
+}
+
