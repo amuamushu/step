@@ -177,25 +177,37 @@ function addMultipleMessagesToDom(comments) {
  * when the page refreshes or when a new comment amount is inputted.
  */
 function getMessageFromJSON(pageReloadBoolean) {
-  let selectedIndex;
+  //TODO: Improve Code Readability.
+  let amountSelectedIndex;
   let amountSelector = document.getElementById('amount');
+
+  let sortSelector = document.getElementById('sort');
+  let sortSelectedIndex;
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
   // value of 0. 
-  if (pageReloadBoolean && localStorage.getItem('selectedIndex') !== null) {
-    selectedIndex = localStorage.getItem('selectedIndex');
+  if (pageReloadBoolean && localStorage.getItem('amountSelectedIndex') !== null) {
+    amountSelectedIndex = localStorage.getItem('amountSelectedIndex');
+    sortSelectedIndex = localStorage.getItem('sortSelectedIndex');
   } else {
-    selectedIndex = amountSelector.selectedIndex;
+    amountSelectedIndex = amountSelector.selectedIndex;
+    sortSelectedIndex = sortSelector.selectedIndex;
   } 
+  console.log(amountSelector);
+  console.log(amountSelectedIndex);
+  amountSelector.options[amountSelectedIndex].selected = true;
+  let selectedAmount = amountSelector.options[amountSelectedIndex].value;
 
-  amountSelector.options[selectedIndex].selected = true;
-  let selectedAmount = amountSelector.options[selectedIndex].value;
+  sortSelector.options[sortSelectedIndex].selected = true;
+  let selectedSort = sortSelector.options[sortSelectedIndex].value;
   
   // Saves the current selected index to the local storage to use in case
   // the page reloads.
-  localStorage.setItem("selectedIndex", selectedIndex);
-  fetch('/data?amount=' + selectedAmount)
+  localStorage.setItem("amountSelectedIndex", amountSelectedIndex);
+  localStorage.setItem('sortSelectedIndex', sortSelectedIndex)
+
+  fetch('/data?amount=' + selectedAmount + '&sort=' + selectedSort)
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
