@@ -48,15 +48,11 @@ function addRandomPolaroid() {
   const div = document.createElement('div');
   div.setAttribute('class', POLAROID_CLASS);
 
-  // Creates a p tag that contains the image name.
-  const imageName = image.split(SEPARATOR)[0];
-  const imageText = createPTag(imageName);
-
-  // Creates an img tag to store the image.
   const imgTag = createImgTag(image);
-
   div.appendChild(imgTag);
-  div.appendChild(imageText);
+
+  const imageName = image.split(SEPARATOR)[0];
+  appendPTagToContainer(imageName, div);
   
   // Adds the polaroid div tag to the page.
   const imagesContainer = document.getElementById(IMAGES_DIV);
@@ -77,19 +73,6 @@ function createImgTag(image) {
   const imageName = image.split(SEPARATOR)[0];
   imgTag.setAttribute('alt', imageName);
   return imgTag;
-}
-
-/**
- * Creates a p tag to store the given text.
- * @param {string} text The text to include in
- *     the p tag.
- * @return {object} Returns an p tag using
- *     the given text.
- */
-function createPTag(text) {
-  const pTag = document.createElement('p');
-  pTag.innerText = text;
-  return pTag;
 }
 
 /**
@@ -233,40 +216,34 @@ function getMessageFromJSON(pageReloadBoolean) {
 function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
-  const textDivElement = document.createElement(DIV_TAG);
-  textDivElement.className = 'comment';
-  textDivElement.innerText = comment.text;
-
   const infoDivElement = document.createElement(DIV_TAG);
   infoDivElement.className = 'info';
   
-  const datePElement = document.createElement(P_TAG);
-  const date = new Date(comment.timestamp);
-  datePElement.innerText = date.toString().substring(0, END_OF_TIMESTAMP);
+  const date = (new Date(comment.timestamp)).toString()
+      .substring(0, END_OF_TIMESTAMP);
 
-  const namePElement = document.createElement(P_TAG);
-  namePElement.innerText = comment.name;
-
-  infoDivElement.appendChild(namePElement);
-  infoDivElement.appendChild(datePElement);
+  appendPTagToContainer(comment.name, infoDivElement);
+  appendPTagToContainer(date, infoDivElement);
 
   liElement.appendChild(infoDivElement);
-  liElement.appendChild(textDivElement);
+  const textPElement = appendPTagToContainer(comment.text, liElement);
+  textPElement.className = "comment";
 
   ulElement.appendChild(liElement);
 }
 
-
-function addEmailToLiTag(email) {
-  const emailPTag = document.createElement('p');
-  emailPTag.innerText = email;
-  return emailPTag
-}
-
+/**
+ * Creates a p tag to store the given {@code text} inside the
+ * {@code container}.
+ * @return {object} Returns an p tag using
+ *     the given text.
+ */
 function appendPTagToContainer(text, container) {
   const pTag = document.createElement(P_TAG);
   pTag.innerText = text;
   container.appendChild(pTag);
+
+  return pTag;
 }
 
 /**
