@@ -15,6 +15,22 @@
 const VISIBLE = 'visible';
 const HIDDEN = 'hidden';
 const SEPARATOR = '.';
+const IMAGES_FOLDER = 'images/';
+const IMAGES_DIV = 'images';
+const POLAROID_CLASS = 'polaroid';
+const PROJECT_BACKGROUND = 'background';
+const REDUCED_BRIGHTNESS = 'brightness(50%)';
+const MAX_BRIGHTNESS = 'brightness(100%)';
+const COMMENT_CONTAINER = 'comment-container';
+const SELECTED_INDEX = 'selectedIndex';
+const COMMENT_AMOUNT = 'amount';
+const DATA_SERVLET = '/data';
+const SORT = 'sort';
+const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
+const SORT_SELECTED_INDEX = 'sortSelectedIndex';
+const P_TAG = 'p';
+const DIV_TAG = 'div';
+const END_OF_TIMESTAMP = 21;
 
 /**
  * Adds a random polaroid image to the page.
@@ -30,7 +46,7 @@ function addRandomPolaroid() {
   
   // Creates a div tag to store the polaroid image and description.
   const div = document.createElement('div');
-  div.setAttribute('class', 'polaroid');
+  div.setAttribute('class', POLAROID_CLASS);
 
   // Creates a p tag that contains the image name.
   const imageName = image.split(SEPARATOR)[0];
@@ -43,7 +59,7 @@ function addRandomPolaroid() {
   div.appendChild(imageText);
   
   // Adds the polaroid div tag to the page.
-  const imagesContainer = document.getElementById('images');
+  const imagesContainer = document.getElementById(IMAGES_DIV);
   imagesContainer.appendChild(div);
 }
 
@@ -56,7 +72,7 @@ function addRandomPolaroid() {
  */
 function createImgTag(image) {
   const imgTag = document.createElement('img');
-  imgTag.setAttribute('src', 'images/' + image);
+  imgTag.setAttribute('src', IMAGES_FOLDER + image);
   
   const imageName = image.split(SEPARATOR)[0];
   imgTag.setAttribute('alt', imageName);
@@ -78,15 +94,15 @@ function createPTag(text) {
 
 /**
  * Reveals hidden description upon mouseover and hides the project title
- *  text.
+ * text.
  * @param {object} hoveredItem An anchor tag containing the
  *     project image and text.
  */
 function revealOnMouseover(hoveredItem) {
-  const toReveal = hoveredItem.getElementsByClassName('hidden')[0];
-  const toHide = hoveredItem.getElementsByClassName('visible')[0];
+  const toReveal = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toHide = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -94,7 +110,7 @@ function revealOnMouseover(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and lowers its brightness.
   for (let tag of background) {
-    tag.style.filter = 'brightness(50%)';
+    tag.style.filter = REDUCED_BRIGHTNESS;
   }
 }
 
@@ -105,10 +121,10 @@ function revealOnMouseover(hoveredItem) {
  *     project image and text.
  */
 function hideOnMouseout(hoveredItem) {
-  const toHide = hoveredItem.getElementsByClassName('hidden')[0];
-  const toReveal = hoveredItem.getElementsByClassName('visible')[0];
+  const toHide = hoveredItem.getElementsByClassName(HIDDEN)[0];
+  const toReveal = hoveredItem.getElementsByClassName(VISIBLE)[0];
 
-  const background = hoveredItem.getElementsByClassName('background');
+  const background = hoveredItem.getElementsByClassName(PROJECT_BACKGROUND);
 
   toReveal.style.visibility = VISIBLE;
   toHide.style.visibility = HIDDEN;
@@ -116,7 +132,7 @@ function hideOnMouseout(hoveredItem) {
   // Loops through all the tags that make up the background image
   // and resets its brightness back to 100%.
   for (let tag of background) {
-    tag.style.filter = 'brightness(100%)';
+    tag.style.filter = MAX_BRIGHTNESS;
   }
 }
 
@@ -124,14 +140,13 @@ function hideOnMouseout(hoveredItem) {
  * Fetches the comment from the server /data and adds it to the DOM.
  */
 function getComment() {
-  const responsePromise = fetch('/data');
+  const responsePromise = fetch(DATA_SERVLET);
   
   responsePromise.then(handleResponse);
 }
 
 /**
- * Handles response by converting it to text and passing the result
-       to addMessageToDom().
+ * Obtains the reponse's text and adds it to the DOM.
  * @param {object} response A promise that was fetched from a URL.
  */
 function handleResponse(response) {
@@ -141,21 +156,19 @@ function handleResponse(response) {
 }
 
 /**
- * Adds the given single comment to the DOM.
- * @param {string} comment The text to be added inside of the div 
-       comment-container. 
+ * Adds a single {@code comment} inside of the div
+ * message-container. 
  */
 function addSingleCommentToDom(comment) {
-  const commentContainer = document.getElementById('comment-container');
+  const commentContainer = document.getElementById(COMMENT_CONTAINER);
   commentContainer.innerHTML = message;
 }
 
 /**
- * Adds multiple comments to the DOM as list elements.
- * @param {object} comments An array containing messages.
+ * Adds {@code comments} to the DOM as list elements.
  */
 function addMultipleMessagesToDom(comments) {
-  const commentContainer = document.getElementById('comment-container');
+  const commentContainer = document.getElementById(COMMENT_CONTAINER);
 
   // Removes the ul tag in the container if there is one to prevent having
   // multiple sets of ul tags every time the number of comments is changed.
@@ -177,20 +190,18 @@ function addMultipleMessagesToDom(comments) {
  * when the page refreshes or when a new comment amount is inputted.
  */
 function getMessageFromJSON(pageReloadBoolean) {
-  console.log("called")
-  //TODO: Improve Code Readability.
-  let amountSelectedIndex;
-  let amountSelector = document.getElementById('amount');
-
-  let sortSelector = document.getElementById('sort');
+  let selectedIndex;
+  let amountSelector = document.getElementById(COMMENT_AMOUNT);
+  
+  let sortSelector = document.getElementById(SORT);
   let sortSelectedIndex;
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
   // value of 0. 
-  if (pageReloadBoolean && localStorage.getItem('amountSelectedIndex') !== null) {
-    amountSelectedIndex = localStorage.getItem('amountSelectedIndex');
-    sortSelectedIndex = localStorage.getItem('sortSelectedIndex');
+  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) !== null) {
+    amountSelectedIndex = localStorage.getItem(AMOUNT_SELECTED_INDEX);
+    sortSelectedIndex = localStorage.getItem(SORT_SELECTED_INDEX);
   } else {
     amountSelectedIndex = amountSelector.selectedIndex;
     sortSelectedIndex = sortSelector.selectedIndex;
@@ -204,10 +215,11 @@ function getMessageFromJSON(pageReloadBoolean) {
   
   // Saves the current selected index to the local storage to use in case
   // the page reloads.
-  localStorage.setItem("amountSelectedIndex", amountSelectedIndex);
-  localStorage.setItem('sortSelectedIndex', sortSelectedIndex);
+  localStorage.setItem(AMOUNT_SELECTED_INDEX, amountSelectedIndex);
+  localStorage.setItem(SORT_SELECTED_INDEX, sortSelectedIndex);
 
-  fetch('/data?amount=' + selectedAmount + '&sort=' + selectedSort)
+  fetch(DATA_SERVLET + '?' + COMMENT_AMOUNT + '=' 
+        + selectedAmount + '&' + SORT + '=' + selectedSort)
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);
@@ -215,28 +227,24 @@ function getMessageFromJSON(pageReloadBoolean) {
 }
 
 /**
- * Creates an <li> element containing text and appends it to the given
-   ul tag.
-   @param {object} comment An object containing the comment's text and 
-       timestamp.
-   @param {object} ulElement UL element that the list element 
-       will be appended to. 
+ * Creates an <li> element containing {@code comment}'s text, timestamp,
+ *  and submitter's name and appends it to {@code ulElement}.
  */
 function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
-  const textDivElement = document.createElement('div');
+  const textDivElement = document.createElement(DIV_TAG);
   textDivElement.className = 'comment';
   textDivElement.innerText = comment.text;
 
-  const infoDivElement = document.createElement('div');
+  const infoDivElement = document.createElement(DIV_TAG);
   infoDivElement.className = 'info';
   
-  const datePElement = document.createElement('p');
+  const datePElement = document.createElement(P_TAG);
   const date = new Date(comment.timestamp);
-  datePElement.innerText = date.toString().substring(0, 21);
+  datePElement.innerText = date.toString().substring(0, END_OF_TIMESTAMP);
 
-  const namePElement = document.createElement('p');
+  const namePElement = document.createElement(P_TAG);
   namePElement.innerText = comment.name;
 
   infoDivElement.appendChild(namePElement);
