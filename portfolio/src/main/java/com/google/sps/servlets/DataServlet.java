@@ -47,6 +47,10 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_LENGTH = "length";
   
   private static final String ANONYMOUS = "anonymous";
+
+  private static final String OLDEST_FIRST = "Oldest First";
+  private static final String NEWEST_FIRST = "Newest First";
+  private static final String LONGEST_FIRST = "Longest First";
   
 
   @Override
@@ -55,12 +59,12 @@ public class DataServlet extends HttpServlet {
     String sort = request.getParameter("sort");
 
     Query query = new Query(COMMENT_ENTITY);
-    if (sort.equals("Oldest First")) {
+    if (sort.equals(OLDEST_FIRST)) {
       query.addSort(COMMENT_TIMESTAMP, SortDirection.ASCENDING);
-    } else if (sort.equals("Newest First")) {
+    } else if (sort.equals(NEWEST_FIRST)) {
       query.addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
-    } else if (sort.equals("Longest First")) {
-      query.addSort("length", SortDirection.DESCENDING);
+    } else if (sort.equals(LONGEST_FIRST)) {
+      query.addSort(COMMENT_LENGTH, SortDirection.DESCENDING);
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
