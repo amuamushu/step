@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
+  public static String userEmail;
   private static final String HOME = "/";
 
   @Override
@@ -18,7 +19,7 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
+      userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = HOME;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
