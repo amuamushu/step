@@ -228,7 +228,7 @@ function appendTextToList(text, ulElement) {
 function deleteAllComments() {
   const params = new URLSearchParams();
   fetch('/delete-data', {method: 'POST', body: params})
-      // Calls the method that makes a GET request to /data 
-      // in order to let the server be a single source of truth.
+      // Fetches from /data. That way, /data is always
+      // called whenever the page changes.
       .then((getMessageFromJSON(false)));
 }
