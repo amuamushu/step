@@ -18,6 +18,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,24 +39,37 @@ public class DataServlet extends HttpServlet {
   private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
   
   // Constants for Entity instances.
-  private static final String MESSAGE_ENTITY = "Message";
-  private static final String COMMENT_PROPERTY = "comment";
+  private static final String COMMENT_ENTITY = "Comment";
+  private static final String COMMENT_AMOUNT = "amount";
+  private static final String COMMENT_TEXT = "text";
+  private static final String COMMENT_TIMESTAMP = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(MESSAGE_ENTITY);
+    int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
+
+    Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<String> messages = new ArrayList<String>();
-    for (Entity message : results.asIterable()) {
-      String comment = (String) message.getProperty(COMMENT_PROPERTY);
-      messages.add(comment);
+    ArrayList<Comment> comments = new ArrayList<>();
+
+    int commentCounter = 0;
+    for (Entity comment : results.asIterable()) {
+      if (commentCounter == maxComments) {
+        break;
+      }
+      long id = comment.getKey().getId();
+      String text = (String) comment.getProperty(COMMENT_TEXT);
+      long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
+
+      comments.add(Comment.create(id, text, timestamp));
+      
+      commentCounter++;
     } 
     
-    String json = convertToJsonUsingGson(messages);
-
+    String json = convertToJsonUsingGson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
@@ -71,13 +85,15 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter(COMMENT_INPUT);
+    String text = request.getParameter(COMMENT_INPUT);
+    long timestamp = System.currentTimeMillis();
 
-    Entity messageEntity = new Entity(MESSAGE_ENTITY);
-    messageEntity.setProperty(COMMENT_PROPERTY, comment);
-    
+    Entity commentEntity = new Entity(COMMENT_ENTITY);
+    commentEntity.setProperty(COMMENT_TEXT, text);
+    commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
+
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(messageEntity);
+    datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
