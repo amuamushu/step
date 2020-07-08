@@ -2,7 +2,6 @@ package com.google.sps.data;
 
 import com.google.auto.value.AutoValue;
 
-
 //** Class for storing commment properties. */
 @AutoValue
 public abstract class Comment {
