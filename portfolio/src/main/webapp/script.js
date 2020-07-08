@@ -256,6 +256,19 @@ function appendTextToList(comment, ulElement) {
   ulElement.appendChild(liElement);
 }
 
+
+function addEmailToLiTag(email) {
+  const emailPTag = document.createElement('p');
+  emailPTag.innerText = email;
+  return emailPTag
+}
+
+function appendPTagToContainer(text, container) {
+  const pTag = document.createElement(P_TAG);
+  pTag.innerText = text;
+  container.appendChild(pTag);
+}
+
 /**
  * Deletes all of the comments from the page.
  */
