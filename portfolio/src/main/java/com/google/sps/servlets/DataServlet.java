@@ -50,8 +50,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-
-
     Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -71,7 +69,6 @@ public class DataServlet extends HttpServlet {
       String name = (String) comment.getProperty(COMMENT_NAME);
 
       comments.add(Comment.create(id, text, timestamp, name));
-      
       commentCounter++;
     } 
     
