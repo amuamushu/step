@@ -184,8 +184,6 @@ function getMessageFromJSON(pageReloadBoolean) {
 
   let sortSelector = document.getElementById('sort');
   let sortSelectedIndex;
-
-  console.log(sortSelectedIndex)
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
@@ -198,8 +196,7 @@ function getMessageFromJSON(pageReloadBoolean) {
     amountSelectedIndex = amountSelector.selectedIndex;
     sortSelectedIndex = sortSelector.selectedIndex;
   } 
-  console.log(sortSelectedIndex);
-  console.log(amountSelectedIndex);
+
   amountSelector.options[amountSelectedIndex].selected = true;
   let selectedAmount = amountSelector.options[amountSelectedIndex].value;
 
