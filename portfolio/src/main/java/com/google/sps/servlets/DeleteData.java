@@ -30,17 +30,11 @@ public class DeleteData extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    Iterable<Entity> resultsIterable = results.asIterable();
 
-    // for (Entity comment: results.asIterable()) {
-    //   Key myKey = comment.getKey();
-    //   datastore.delete(myKey);
-    // }
-
-    Iterable<Entity> resultsList = results.asIterable();
-    // datastore.delete(StreamSupport.stream(resultsList.spliterator(), false).map(entity->entity.getKey()));
-    // datastore.delete(results.asList().stream().map(entity->entity.getKey()));
-
-    StreamSupport.stream(resultsList.spliterator(), false).map(entity->entity.getKey()).forEach(datastore::delete);
+    StreamSupport.stream(resultsIterable.spliterator(), false)
+        .map(entity->entity.getKey())
+        .forEach(datastore::delete);
   }
 
 }
