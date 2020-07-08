@@ -1,19 +1,25 @@
-//TODO: Add file header.
-
 package com.google.sps.data;
 
-//TODO: Add class header.
-public final class Comment {
+import com.google.auto.value.AutoValue;
 
-  private final long id;
-  private final String text;
-  private final long timestamp;
-  private final String name;
 
-  public Comment(long id, String text, long timestamp, String name) {
-    this.id = id;
-    this.text = text;
-    this.timestamp = timestamp;
-    this.name = name;
+//** Class for storing commment properties. */
+@AutoValue
+public abstract class Comment {
+
+  /** 
+   * Creates a commment instance containing its {@code id},
+   * {@code text}, and {@code timestamp}. 
+   */
+  public static Comment create(long id, String text, long timestamp, String name) {
+    return new AutoValue_Comment(id, text, timestamp, name);
   }
+
+  abstract long id();
+
+  abstract String text();
+
+  abstract long timestamp();
+  
+  abstract String name();
 }
