@@ -10,26 +10,27 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
+  private static final String HOME = "/";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("doGet() login");
     response.setContentType("text/html");
-    response.getWriter().println("<p>Hello stranger.</p>");
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
+      String urlToRedirectToAfterUserLogsOut = HOME;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
       response.getWriter().println("<p>Hello " + userEmail + "!</p>");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
+      String urlToRedirectToAfterUserLogsIn = HOME;
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      response.getWriter().println("<p>Hello stranger.</p>");
+      response.getWriter().println("<style>form {display:none;}</style>");
+      response.getWriter().println("<p>Hello friend.</p>");
+      response.getWriter().println("<p>Please log in to Add a comment.</p>");
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
     }
   }

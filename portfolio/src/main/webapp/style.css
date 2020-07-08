@@ -260,6 +260,9 @@ ul p {
   justify-content: space-around;
 }
 
+#login {
+  background-color: cornsilk;
+}
 /* Footer */
 
 #connect-container {
