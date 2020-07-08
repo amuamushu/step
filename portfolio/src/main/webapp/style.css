@@ -153,6 +153,14 @@ h2 {
   z-index: 1;
 }
 
+.proj-container {
+  position: relative;
+}
+
+.proj-img {
+  width:100%;
+}
+
 #projects {
   display: flex;
   flex-direction: column;
@@ -163,14 +171,6 @@ h2 {
   align-self: center;
   padding-bottom: 10px;
   width: 50%;
-}
-
-.proj-container {
-  position: relative;
-}
-
-.proj-img {
-  width:100%;
 }
 
 /* Gallery */
