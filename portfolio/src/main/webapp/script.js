@@ -25,6 +25,8 @@ const COMMENT_CONTAINER = 'comment-container';
 const SELECTED_INDEX = 'selectedIndex';
 const COMMENT_AMOUNT = 'amount';
 const DATA_SERVLET = '/data';
+const COMMENT_CLASS = 'comment';
+const INFO_CLASS = 'info';
 
 
 /**
@@ -202,7 +204,7 @@ function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
   const infoDivElement = document.createElement(DIV_TAG);
-  infoDivElement.className = 'info';
+  infoDivElement.className = INFO_CLASS;
   
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
@@ -212,7 +214,7 @@ function appendTextToList(comment, ulElement) {
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
-  textPElement.className = "comment";
+  textPElement.className = COMMENT_CLASS;
 
   ulElement.appendChild(liElement);
 }
