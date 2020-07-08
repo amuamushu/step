@@ -80,7 +80,6 @@ public class DataServlet extends HttpServlet {
       String name = (String) comment.getProperty(COMMENT_NAME);
 
       comments.add(Comment.create(id, text, timestamp, name));
-      
       commentCounter++;
     } 
     
