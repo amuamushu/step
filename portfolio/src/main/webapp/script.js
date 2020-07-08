@@ -180,8 +180,10 @@ function addMultipleMessagesToDom(comments) {
 
 /**
  * Fetches the comment from the JSON server /data and adds it to the DOM.
- * @param pageReloadBoolean Indicates whether the method is called
- * when the page refreshes or when a new comment amount is inputted.
+ *
+ * <p>If {@code pageReloadBoolean} is true, then retrieves the previous
+ * selected index from the localStorage. Otherwise, retrieves the 
+ * current selected index.
  */
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
