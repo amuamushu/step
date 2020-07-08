@@ -267,13 +267,19 @@ function deleteAllComments() {
       .then((getMessageFromJSON(false)));
 }
 
+/**
+ * Fetches the HTML from the /login server and 
+ * appends it to the DOM.
+ */
 function fetchLogin() {
-  console.log("fetchLogin()")
   fetch('/login')
       .then(response => response.text())
       .then(appendToLogin);
 }
 
+/**
+ * Appends {@code text} to login div container.
+ */
 function appendToLogin(text) {
   const login = document.getElementById('login');
   login.innerHTML = text;
