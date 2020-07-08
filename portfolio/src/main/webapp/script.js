@@ -177,12 +177,15 @@ function addMultipleMessagesToDom(comments) {
  * when the page refreshes or when a new comment amount is inputted.
  */
 function getMessageFromJSON(pageReloadBoolean) {
+  console.log("called")
   //TODO: Improve Code Readability.
   let amountSelectedIndex;
   let amountSelector = document.getElementById('amount');
 
   let sortSelector = document.getElementById('sort');
   let sortSelectedIndex;
+
+  console.log(sortSelectedIndex)
   
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
@@ -190,11 +193,12 @@ function getMessageFromJSON(pageReloadBoolean) {
   if (pageReloadBoolean && localStorage.getItem('amountSelectedIndex') !== null) {
     amountSelectedIndex = localStorage.getItem('amountSelectedIndex');
     sortSelectedIndex = localStorage.getItem('sortSelectedIndex');
+    console.log("here")
   } else {
     amountSelectedIndex = amountSelector.selectedIndex;
     sortSelectedIndex = sortSelector.selectedIndex;
   } 
-  console.log(amountSelector);
+  console.log(sortSelectedIndex);
   console.log(amountSelectedIndex);
   amountSelector.options[amountSelectedIndex].selected = true;
   let selectedAmount = amountSelector.options[amountSelectedIndex].value;
@@ -205,7 +209,7 @@ function getMessageFromJSON(pageReloadBoolean) {
   // Saves the current selected index to the local storage to use in case
   // the page reloads.
   localStorage.setItem("amountSelectedIndex", amountSelectedIndex);
-  localStorage.setItem('sortSelectedIndex', sortSelectedIndex)
+  localStorage.setItem('sortSelectedIndex', sortSelectedIndex);
 
   fetch('/data?amount=' + selectedAmount + '&sort=' + selectedSort)
       .then(response => response.json())

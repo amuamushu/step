@@ -38,9 +38,18 @@ public class DataServlet extends HttpServlet {
     int maxComments = Integer.parseInt(request.getParameter("amount"));
     String sort = request.getParameter("sort");
 
-    System.out.println(sort);
-
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("Comment");
+    System.out.println("doGet");
+    if (sort.equals("Oldest First")) {
+      query.addSort("timestamp", SortDirection.ASCENDING);
+      System.out.println("old");
+    } else if (sort.equals("Newest First")) {
+      query.addSort("timestamp", SortDirection.DESCENDING);
+       System.out.println("new");
+    } else if (sort.equals("Longest First")) {
+      query.addSort("text", SortDirection.ASCENDING);
+       System.out.println("long");
+    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
