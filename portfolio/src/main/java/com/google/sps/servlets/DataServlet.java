@@ -47,7 +47,7 @@ public class DataServlet extends HttpServlet {
       query.addSort("timestamp", SortDirection.DESCENDING);
        System.out.println("new");
     } else if (sort.equals("Longest First")) {
-      query.addSort("text", SortDirection.ASCENDING);
+      query.addSort("length", SortDirection.DESCENDING);
        System.out.println("long");
     }
 
@@ -105,6 +105,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("text", text);
     commentEntity.setProperty("timestamp", timestamp);
     commentEntity.setProperty("name", name);
+    commentEntity.setProperty("length", text.length());
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
