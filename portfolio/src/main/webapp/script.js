@@ -165,7 +165,7 @@ function addSingleCommentToDom(comment) {
 function addMultipleMessagesToDom(comments) {
   const commentContainer = document.getElementById(COMMENT_CONTAINER);
 
-  // Removes the ul tag in the container if there is one to prevent having
+  // Removes the ul tag in the container if there is one. This prevents having
   // multiple sets of ul tags every time the number of comments is changed.
   if (commentContainer.firstChild) {
     commentContainer.removeChild(commentContainer.firstChild);
