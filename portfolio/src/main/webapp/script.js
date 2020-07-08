@@ -228,7 +228,6 @@ function appendPTagToContainer(text, container) {
   const pTag = document.createElement(P_TAG);
   pTag.innerText = text;
   container.appendChild(pTag);
-
   return pTag;
 }
 
