@@ -180,16 +180,16 @@ function addMultipleMessagesToDom(comments) {
 
 /**
  * Fetches the comment from the JSON server /data and adds it to the DOM.
- * 
- * <p>{@code pageReloadBoolean} indicates whether the method is called
+ * @param pageReloadBoolean Indicates whether the method is called
  * when the page refreshes or when a new comment amount is inputted.
  */
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
   let amountSelector = document.getElementById(COMMENT_AMOUNT);
   
-  // Retrieves the selected index from local storage if there is a value for it
-  // because after a page reload, the selected index is set back to its default
+  // Retrieves the selected index from local storage if there is a value for it.
+  // 
+  // After a page reload, the selected index is set back to its default
   // value of 0. 
   if (pageReloadBoolean && localStorage.getItem(SELECTED_INDEX) !== null) {
     selectedIndex = localStorage.getItem(SELECTED_INDEX);
