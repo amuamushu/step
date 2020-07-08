@@ -191,7 +191,6 @@ function getMessageFromJSON(pageReloadBoolean) {
   if (pageReloadBoolean && localStorage.getItem('amountSelectedIndex') !== null) {
     amountSelectedIndex = localStorage.getItem('amountSelectedIndex');
     sortSelectedIndex = localStorage.getItem('sortSelectedIndex');
-    console.log("here")
   } else {
     amountSelectedIndex = amountSelector.selectedIndex;
     sortSelectedIndex = sortSelector.selectedIndex;
