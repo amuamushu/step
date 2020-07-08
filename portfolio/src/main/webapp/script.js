@@ -28,7 +28,6 @@ const DATA_SERVLET = '/data';
 const COMMENT_CLASS = 'comment';
 const INFO_CLASS = 'info';
 
-
 /**
  * Adds a random polaroid image to the page.
  */
