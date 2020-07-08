@@ -189,7 +189,7 @@ function getMessageFromJSON(pageReloadBoolean) {
   
   // Retrieves the selected index from local storage if there is a value for 
   // it. This is necessary because after a page reload, the selected index 
-  // is set back to its default value of 0. 
+  // is set to its default value of 0. 
   if (pageReloadBoolean && localStorage.getItem(SELECTED_INDEX) !== null) {
     selectedIndex = localStorage.getItem(SELECTED_INDEX);
   } else {
