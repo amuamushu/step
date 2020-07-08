@@ -47,7 +47,9 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_LENGTH = "length";
   
   private static final String ANONYMOUS = "anonymous";
-
+  
+  // Constants for the sort order of comments.
+  private static final String SORT = "sort";
   private static final String OLDEST_FIRST = "Oldest First";
   private static final String NEWEST_FIRST = "Newest First";
   private static final String LONGEST_FIRST = "Longest First";
