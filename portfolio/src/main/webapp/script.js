@@ -231,7 +231,6 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  
   ulElement.appendChild(liElement);
 }
 
@@ -277,4 +276,3 @@ function appendToLogin(text) {
   const login = document.getElementById('login');
   login.innerHTML = text;
 }
-
