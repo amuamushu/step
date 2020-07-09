@@ -30,8 +30,8 @@ const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
 const SORT_SELECTED_INDEX = 'sortSelectedIndex';
 const P_TAG = 'p';
 const DIV_TAG = 'div';
-// After index 21 in the timestamp string is the milliseconds,
-// which is excessive for dating comments and thus, ignored.
+// After index 21 in the timestamp string is the milliseconds. Including 
+// milliseconds for comments is excessive and thus, ignored.
 const END_OF_TIMESTAMP = 21;
 const COMMENT_CLASS = 'comment';
 const INFO_CLASS = 'info';
