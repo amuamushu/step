@@ -19,6 +19,8 @@ public class NicknameServlet extends HttpServlet {
   private static final String NICKNAME = "nickname";
   private static final String ID = "id";
   private static final String USER_INFO = "userInfo";
+
+  private static final String BOTTOM_OF_PAGE = "/index.html#connect-container";
   
 
   @Override
@@ -57,10 +59,10 @@ public class NicknameServlet extends HttpServlet {
     Entity entity = new Entity(USER_INFO, id);
     entity.setProperty(ID, id);
     entity.setProperty(NICKNAME, nickname);
-    // The put() function automatically inserts new data or updates existing data based on ID
+    // The put() function automatically inserts new data or updates existing data based on ID.
     datastore.put(entity);
 
-    response.sendRedirect("/");
+    response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
   /**
