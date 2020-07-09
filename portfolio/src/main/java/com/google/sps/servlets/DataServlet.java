@@ -46,6 +46,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_NAME = "name";
   private static final String COMMENT_LENGTH = "length";
   private static final String COMMENT_EMAIL = "email";
+  private static final String COMMENT_NICKNAME = "nickname";
   
   private static final String ANONYMOUS = "anonymous";
   
@@ -85,9 +86,11 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
+      // TODO: Remove email property.
       String email = (String) comment.getProperty(COMMENT_EMAIL);
+      String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
 
-      comments.add(Comment.create(id, text, timestamp, name, email));
+      comments.add(Comment.create(id, text, timestamp, name, email, nickname));
       commentCounter++;
     } 
     
@@ -112,7 +115,9 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter(COMMENT_NAME);
     String email = (String) HomeServlet.userEmail;
-
+    String nickname = (String) HomeServlet.nickname;
+    System.out.println(nickname);
+    // String nickname = "amy";
     if (name.isEmpty()) {
       name = ANONYMOUS;
     }
@@ -122,7 +127,9 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
-    commentEntity.setProperty(COMMENT_EMAIL, email);
+    // TODO: Remove email property.
+    commentEntity.setProperty(COMMENT_EMAIL, email);  
+    commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
