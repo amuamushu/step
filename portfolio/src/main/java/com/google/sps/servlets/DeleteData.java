@@ -36,9 +36,6 @@ public class DeleteData extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     Iterable<Entity> resultsIterable = results.asIterable();
 
-
-
-
     TransactionOptions options = TransactionOptions.Builder.withXG(true);
     Transaction txn = datastore.beginTransaction(options);
 
@@ -51,9 +48,9 @@ public class DeleteData extends HttpServlet {
         .map(entity->entity.getKey())
         .collect(Collectors.toList());
 
-    datastore.delete(txn, resultsIterable);
+    datastore.delete(txn, keys);
     
-    // txn.commit();
+    txn.commit();
   }
 
 }
