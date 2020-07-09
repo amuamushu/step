@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
-  private static String userEmail;
   private static final String HOME = "/";
 
   @Override
@@ -19,11 +18,11 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      userEmail = userService.getCurrentUser().getEmail();
+      currentUserEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = HOME;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("<p>Hello " + userEmail + "!</p>");
+      response.getWriter().println("<p>Hello " + currentUserEmail + "!</p>");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
     } else {
       String urlToRedirectToAfterUserLogsIn = HOME;
@@ -34,11 +33,5 @@ public class HomeServlet extends HttpServlet {
       response.getWriter().println("<p>Please log in to Add a comment.</p>");
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
     }
-  }
-  
-  /** Returns the current user's email address.
-  */
-  public static String getUserEmail() {
-    return userEmail;
   }
 }

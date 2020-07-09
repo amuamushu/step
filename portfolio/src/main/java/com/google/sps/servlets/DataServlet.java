@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 
 /** Servlet that writes and returns comments data. */
@@ -108,10 +110,12 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    String email = userService.getCurrentUser().getEmail();
+
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter(COMMENT_NAME);
-    String email = (String) HomeServlet.userEmail;
 
     if (name.isEmpty()) {
       name = ANONYMOUS;
