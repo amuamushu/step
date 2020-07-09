@@ -18,21 +18,43 @@ public class HomeServlet extends HttpServlet {
     response.setContentType("text/html");
 
     UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = HOME;
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-      response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-    } else {
-      String urlToRedirectToAfterUserLogsIn = HOME;
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+    if (!userService.isUserLoggedIn()) {
+      String loginUrl = userService.createLoginURL(HOME);
 
       response.getWriter().println("<style>form {display:none;}</style>");
       response.getWriter().println("<p>Hello friend.</p>");
       response.getWriter().println("<p>Please log in to Add a comment.</p>");
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      return;
     }
+
+    // If user has not set a nickname, redirect to nickname page
+    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    if (nickname == null) {
+      response.sendRedirect("/nickname");
+      return;
+    }
+
+    userEmail = userService.getCurrentUser().getEmail();
+    String logoutUrl = userService.createLogoutURL(HOME);
+
+    response.getWriter().println("<p>Hello " + nickname + "!</p>");
+    response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+  }
+
+  /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
+  private String getUserNickname(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query =
+        new Query("UserInfo")
+            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return null;
+    }
+    String nickname = (String) entity.getProperty("nickname");
+    return nickname;
   }
 }
