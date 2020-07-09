@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/nickname")
 public class NicknameServlet extends HttpServlet {
   private static final String NICKNAME = "nickname";
+  private static final String ID = "id";
+  private static final String USER_INFO = "userInfo";
   
 
   @Override
@@ -48,13 +50,13 @@ public class NicknameServlet extends HttpServlet {
       return;
     }
 
-    String nickname = request.getParameter("nickname");
+    String nickname = request.getParameter(NICKNAME);
     String id = userService.getCurrentUser().getUserId();
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity entity = new Entity("UserInfo", id);
-    entity.setProperty("id", id);
-    entity.setProperty("nickname", nickname);
+    Entity entity = new Entity(USER_INFO, id);
+    entity.setProperty(ID, id);
+    entity.setProperty(NICKNAME, nickname);
     // The put() function automatically inserts new data or updates existing data based on ID
     datastore.put(entity);
 
@@ -67,14 +69,14 @@ public class NicknameServlet extends HttpServlet {
   private String getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
-        new Query("UserInfo")
-            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+        new Query(USER_INFO)
+            .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     if (entity == null) {
       return "";
     }
-    String nickname = (String) entity.getProperty("nickname");
+    String nickname = (String) entity.getProperty(NICKNAME);
     return nickname;
   }
 }
