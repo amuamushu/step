@@ -10,8 +10,8 @@ public abstract class Comment {
    * Creates a commment instance containing its {@code id},
    * {@code text}, and {@code timestamp}. 
    */
-  public static Comment create(long id, String text, long timestamp, String name) {
-    return new AutoValue_Comment(id, text, timestamp, name);
+  public static Comment create(long id, String text, long timestamp, String name, String email) {
+    return new AutoValue_Comment(id, text, timestamp, name, email);
   }
 
   abstract long id();
@@ -21,5 +21,7 @@ public abstract class Comment {
   abstract long timestamp();
   
   abstract String name();
+
+  abstract String email();
 }
 
