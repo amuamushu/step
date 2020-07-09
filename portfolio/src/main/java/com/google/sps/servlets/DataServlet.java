@@ -86,8 +86,6 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
-      // TODO: Remove email property.
-      String email = (String) comment.getProperty(COMMENT_EMAIL);
       String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
 
       comments.add(Comment.create(id, text, timestamp, name, email, nickname));
@@ -117,7 +115,7 @@ public class DataServlet extends HttpServlet {
     String email = (String) HomeServlet.userEmail;
     String nickname = (String) HomeServlet.nickname;
     System.out.println(nickname);
-    // String nickname = "amy";
+
     if (name.isEmpty()) {
       name = ANONYMOUS;
     }
@@ -127,8 +125,6 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
-    // TODO: Remove email property.
-    commentEntity.setProperty(COMMENT_EMAIL, email);  
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
