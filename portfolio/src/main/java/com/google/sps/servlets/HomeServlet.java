@@ -18,7 +18,7 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      currentUserEmail = userService.getCurrentUser().getEmail();
+      String currentUserEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = HOME;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
