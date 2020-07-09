@@ -81,8 +81,8 @@ public class DataServlet extends HttpServlet {
       if (commentCounter == maxComments) {
         break;
       }
+      
       long id = comment.getKey().getId();
-
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
@@ -114,7 +114,6 @@ public class DataServlet extends HttpServlet {
     String name = request.getParameter(COMMENT_NAME);
     String email = (String) HomeServlet.userEmail;
     String nickname = (String) HomeServlet.nickname;
-    System.out.println(nickname);
 
     if (name.isEmpty()) {
       name = ANONYMOUS;
