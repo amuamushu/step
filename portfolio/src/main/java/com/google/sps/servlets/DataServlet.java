@@ -81,12 +81,13 @@ public class DataServlet extends HttpServlet {
       if (commentCounter == maxComments) {
         break;
       }
-      
+
       long id = comment.getKey().getId();
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
       String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
+      String email = (String) comment.getProperty(COMMENT_EMAIL);
 
       comments.add(Comment.create(id, text, timestamp, name, email, nickname));
       commentCounter++;
@@ -124,6 +125,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
+    commentEntity.setProperty(COMMENT_EMAIL, email);
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
