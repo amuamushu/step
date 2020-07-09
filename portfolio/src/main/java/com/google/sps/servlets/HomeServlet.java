@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
-  public static String userEmail;
+  private static String userEmail;
   private static final String HOME = "/";
 
   @Override
@@ -34,5 +34,11 @@ public class HomeServlet extends HttpServlet {
       response.getWriter().println("<p>Please log in to Add a comment.</p>");
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
     }
+  }
+  
+  /** Returns the current user's email address.
+  */
+  public static String getUserEmail() {
+    return userEmail;
   }
 }
