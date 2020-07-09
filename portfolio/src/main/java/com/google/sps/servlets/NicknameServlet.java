@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/nickname")
 public class NicknameServlet extends HttpServlet {
+  private static final String NICKNAME = "nickname";
+  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -56,7 +58,7 @@ public class NicknameServlet extends HttpServlet {
     // The put() function automatically inserts new data or updates existing data based on ID
     datastore.put(entity);
 
-    response.sendRedirect("/home");
+    response.sendRedirect("/");
   }
 
   /**

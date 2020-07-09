@@ -1,5 +1,10 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
@@ -11,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
   public static String userEmail;
+  public static String nickname;
   private static final String HOME = "/";
 
   @Override
@@ -30,7 +36,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    nickname = getUserNickname(userService.getCurrentUser().getUserId());
     if (nickname == null) {
       response.sendRedirect("/nickname");
       return;

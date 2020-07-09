@@ -224,7 +224,7 @@ function appendTextToList(comment, ulElement) {
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
 
-  appendPTagToContainer(comment.email, infoDivElement);
+  appendPTagToContainer(comment.nickname, infoDivElement);
   appendPTagToContainer(comment.name, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
