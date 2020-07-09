@@ -85,9 +85,9 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
-    //   String email = (String) comment.getProperty(COMMENT_EMAIL);
+      String email = (String) comment.getProperty(COMMENT_EMAIL);
 
-      comments.add(Comment.create(id, text, timestamp, name));
+      comments.add(Comment.create(id, text, timestamp, name, email));
       commentCounter++;
     } 
     
@@ -111,7 +111,7 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = request.getParameter(COMMENT_NAME);
-    String email = HomeServlet.userEmail;
+    String email = (String) HomeServlet.userEmail;
 
     if (name.isEmpty()) {
       name = ANONYMOUS;
@@ -122,7 +122,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
-    // commentEntity.setProperty(COMMENT_EMAIL, email);
+    commentEntity.setProperty(COMMENT_EMAIL, email);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
