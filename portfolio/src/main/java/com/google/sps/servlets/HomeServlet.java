@@ -46,6 +46,7 @@ public class HomeServlet extends HttpServlet {
     String logoutUrl = userService.createLogoutURL(HOME);
 
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
+    response.getWriter().println("<button onclick=\"changeNickname()\">Change nickname</button>");
     response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
   }
 
