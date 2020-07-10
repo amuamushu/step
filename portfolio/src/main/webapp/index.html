@@ -142,22 +142,6 @@
         </div> 
       </div>
 
-      <form action="/data" method="POST">
-        <p> Enter a comment here</p>
-        <textarea name="comment-input"></textarea>
-        <input type="submit">
-      </form>
-
-      <button onclick="deleteAllComments();">Delete all Comments</button>
-      <select name="amount" id="amount" onchange="getMessageFromJSON(false);">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
-
-      <div id="comment-container"></div> 
-
       <div id="connect-container">
         <h2>Connect with Me!</h2>
         <div id="links-container">
@@ -165,6 +149,33 @@
           <a href="https://github.com/amuamushu"><img src="images/github.png"></a><br>
         </div>
       </div>
-    </div>                                  
+
+      <div class="flex-container">
+        <div>
+            <button onclick="deleteAllComments();">Delete all Comments</button>
+            <select name="amount" id="amount" onchange="getMessageFromJSON(false);">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <form action="/data" method="POST">
+            <div id="form-elements-container">
+            <div>
+                <label for="comment-input"> Enter a comment here:</label><br>
+                <textarea name="comment-input"></textarea>
+            </div>
+            <div>
+                <label for="name">Name (Optional):</label><br>
+                <input type="text" name="name">
+            </div>
+            </div>
+            <input id="submit" type="submit">
+        </form>
+      </div>
+    </div>
+    
+    <div id="comment-container"></div>                                   
   </body>
 </html>
