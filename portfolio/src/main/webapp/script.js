@@ -224,8 +224,8 @@ function appendTextToList(comment, ulElement) {
   const infoDivElement = document.createElement(DIV_TAG);
   infoDivElement.className = INFO_CLASS;
   
-  const date = (new Date(comment.timestamp)).toString();
-    //   .substring(0, END_OF_TIMESTAMP);
+  const date = (new Date(comment.timestamp)).toString()
+      .substring(0, END_OF_TIMESTAMP);
 
   appendPTagToContainer(comment.name, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
