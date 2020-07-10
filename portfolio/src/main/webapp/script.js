@@ -225,7 +225,6 @@ function appendTextToList(text, ulElement) {
  * Deletes all of the comments from the page.
  */
 function deleteAllComments() {
-  console.log("deleteAllComments()");
   const params = new URLSearchParams();
   fetch('/delete-data', {method: 'POST', body: params})
       // Fetches from /data. That way, /data is always
