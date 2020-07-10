@@ -35,7 +35,7 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
     if (nickname == null) {
       response.sendRedirect("/nickname");
       return;
@@ -45,7 +45,7 @@ public class HomeServlet extends HttpServlet {
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
-    response.getWriter().println("<button onclick=\"changeNickname()\">Change nickname</button>");
+    response.getWriter().println("<button onclick=\"changeNickname();\">Change nickname</button>");
     response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
   }
 
@@ -53,7 +53,7 @@ public class HomeServlet extends HttpServlet {
   private String getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
-        new Query("UserInfo")
+        new Query("userInfo")
             .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
