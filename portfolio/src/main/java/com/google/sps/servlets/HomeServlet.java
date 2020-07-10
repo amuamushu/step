@@ -51,6 +51,7 @@ public class HomeServlet extends HttpServlet {
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
     response.getWriter().println("<button onclick=\"changeNickname();\">Change nickname</button>");
     
+    // Allows the user to delete all of the comments only if the email is the same as the admin email.
     if (userEmail.equals(adminEmail)) {
       response.getWriter().println("<button onclick=\"deleteAllComments();\">Delete all Comments</button>");
     }
