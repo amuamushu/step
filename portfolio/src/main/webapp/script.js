@@ -25,6 +25,15 @@ const COMMENT_CONTAINER = 'comment-container';
 const SELECTED_INDEX = 'selectedIndex';
 const COMMENT_AMOUNT = 'amount';
 const DATA_SERVLET = '/data';
+const SORT = 'sort';
+const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
+const SORT_SELECTED_INDEX = 'sortSelectedIndex';
+const P_TAG = 'p';
+const DIV_TAG = 'div';
+// After index 21 in the timestamp string is the milliseconds and 
+// the timezone name. Including that for the comments is excessive
+// and thus, ignored.
+const END_OF_TIMESTAMP = 21;
 const COMMENT_CLASS = 'comment';
 const INFO_CLASS = 'info';
 
@@ -202,7 +211,7 @@ function getMessageFromJSON(pageReloadBoolean) {
 function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
 
-  const infoDivElement = document.createElement(DIV_TAG);
+  const infoDivElement = document.createElement('div');
   infoDivElement.className = INFO_CLASS;
   
   const date = (new Date(comment.timestamp)).toString()
