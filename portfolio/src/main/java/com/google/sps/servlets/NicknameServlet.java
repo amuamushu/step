@@ -60,7 +60,6 @@ public class NicknameServlet extends HttpServlet {
     Entity entity = new Entity(USER_INFO, id);
     entity.setProperty(ID, id);
     entity.setProperty(NICKNAME, nickname);
-    System.out.println("nickname putt");
     // The put() function automatically inserts new data or updates existing data based on ID.
     datastore.put(entity);
 
