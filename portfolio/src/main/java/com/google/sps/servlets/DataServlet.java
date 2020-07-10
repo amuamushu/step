@@ -49,14 +49,13 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_LENGTH = "length";
   private static final String COMMENT_EMAIL = "email";
   
-  private static final String ANONYMOUS = "anonymous";
+  private static final String ANONYMOUS_AUTHOR = "anonymous";
   
   // Constants for the sort order of comments.
   private static final String SORT = "sort";
   private static final String OLDEST_FIRST = "Oldest First";
   private static final String NEWEST_FIRST = "Newest First";
   private static final String LONGEST_FIRST = "Longest First";
-  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -82,8 +81,8 @@ public class DataServlet extends HttpServlet {
       if (commentCounter == maxComments) {
         break;
       }
-      long id = comment.getKey().getId();
 
+      long id = comment.getKey().getId();
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
@@ -115,10 +114,14 @@ public class DataServlet extends HttpServlet {
 
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
-    String name = request.getParameter(COMMENT_NAME);
+    String name = (String) request.getParameter(COMMENT_NAME);
+    if (name == null) {
+      System.out.println("name is null");
+      name = "";
+    }
 
     if (name.isEmpty()) {
-      name = ANONYMOUS;
+      name = ANONYMOUS_AUTHOR;
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
