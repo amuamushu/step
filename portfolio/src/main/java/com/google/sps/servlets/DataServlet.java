@@ -108,10 +108,6 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
-    if (name == null) {
-      System.out.println("name is null");
-      name = "";
-    }
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
