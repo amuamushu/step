@@ -30,8 +30,9 @@ const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
 const SORT_SELECTED_INDEX = 'sortSelectedIndex';
 const P_TAG = 'p';
 const DIV_TAG = 'div';
-// After index 21 in the timestamp string is the milliseconds. Including 
-// milliseconds for comments is excessive and thus, ignored.
+// After index 21 in the timestamp string is the milliseconds and 
+// the timezone name. Including that for the comments is excessive
+// and thus, ignored.
 const END_OF_TIMESTAMP = 21;
 const COMMENT_CLASS = 'comment';
 const INFO_CLASS = 'info';
@@ -223,8 +224,8 @@ function appendTextToList(comment, ulElement) {
   const infoDivElement = document.createElement(DIV_TAG);
   infoDivElement.className = INFO_CLASS;
   
-  const date = (new Date(comment.timestamp)).toString()
-      .substring(0, END_OF_TIMESTAMP);
+  const date = (new Date(comment.timestamp)).toString();
+    //   .substring(0, END_OF_TIMESTAMP);
 
   appendPTagToContainer(comment.name, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
