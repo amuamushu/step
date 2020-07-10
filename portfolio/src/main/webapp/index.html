@@ -159,6 +159,11 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
+            <select name="sort" id="sort" onchange="getMessageFromJSON(false);">
+                <option value="Newest First">Newest First</option>
+                <option value="Oldest First">Oldest First</option>
+                <option value="Longest First">Longest First</option>
+            </select>
         </div>
         <form action="/data" method="POST">
             <div id="form-elements-container">
@@ -175,7 +180,7 @@
         </form>
       </div>
     </div>
-    
+
     <div id="comment-container"></div>                                   
   </body>
 </html>
