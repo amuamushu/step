@@ -43,11 +43,13 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_AMOUNT = "amount";
   private static final String COMMENT_TEXT = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
+  private static final String COMMENT_NAME = "name";
+  
+  private static final String ANONYMOUS_AUTHOR = "anonymous";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-
     Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -61,11 +63,12 @@ public class DataServlet extends HttpServlet {
         break;
       }
       long id = comment.getKey().getId();
+
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
+      String name = (String) comment.getProperty(COMMENT_NAME);
 
-      comments.add(Comment.create(id, text, timestamp));
-      
+      comments.add(Comment.create(id, text, timestamp, name));
       commentCounter++;
     } 
     
@@ -87,11 +90,17 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
+    String name = request.getParameter(COMMENT_NAME);
+
+    if (name.isEmpty()) {
+      name = ANONYMOUS_AUTHOR;
+    }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
-
+    commentEntity.setProperty(COMMENT_NAME, name);
+    
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 

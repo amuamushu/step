@@ -25,7 +25,17 @@ const COMMENT_CONTAINER = 'comment-container';
 const SELECTED_INDEX = 'selectedIndex';
 const COMMENT_AMOUNT = 'amount';
 const DATA_SERVLET = '/data';
-
+const SORT = 'sort';
+const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
+const SORT_SELECTED_INDEX = 'sortSelectedIndex';
+const P_TAG = 'p';
+const DIV_TAG = 'div';
+// After index 21 in the timestamp string is the milliseconds and 
+// the timezone name. Including that for the comments is excessive
+// and thus, ignored.
+const END_OF_TIMESTAMP = 21;
+const COMMENT_CLASS = 'comment';
+const INFO_CLASS = 'info';
 
 /**
  * Adds a random polaroid image to the page.
@@ -43,15 +53,11 @@ function addRandomPolaroid() {
   const div = document.createElement('div');
   div.setAttribute('class', POLAROID_CLASS);
 
-  // Creates a p tag that contains the image name.
-  const imageName = image.split(SEPARATOR)[0];
-  const imageText = createPTag(imageName);
-
-  // Creates an img tag to store the image.
   const imgTag = createImgTag(image);
-
   div.appendChild(imgTag);
-  div.appendChild(imageText);
+
+  const imageName = image.split(SEPARATOR)[0];
+  appendPTagToContainer(imageName, div);
   
   // Adds the polaroid div tag to the page.
   const imagesContainer = document.getElementById(IMAGES_DIV);
@@ -72,19 +78,6 @@ function createImgTag(image) {
   const imageName = image.split(SEPARATOR)[0];
   imgTag.setAttribute('alt', imageName);
   return imgTag;
-}
-
-/**
- * Creates a p tag to store the given text.
- * @param {string} text The text to include in
- *     the p tag.
- * @return {object} Returns an p tag using
- *     the given text.
- */
-function createPTag(text) {
-  const pTag = document.createElement('p');
-  pTag.innerText = text;
-  return pTag;
 }
 
 /**
@@ -174,7 +167,7 @@ function addMultipleMessagesToDom(comments) {
   commentContainer.appendChild(ulElement);
 
   comments.forEach((comment) => {
-    appendTextToList(comment.text, ulElement);
+    appendTextToList(comment, ulElement);
   });
 }
 
@@ -212,14 +205,37 @@ function getMessageFromJSON(pageReloadBoolean) {
 }
 
 /**
- * Creates an <li> element containing {@code text} and appends it to 
- * {@code ulElement}.
+ * Creates an <li> element containing {@code comment}'s text, timestamp,
+ *  and submitter's name and appends it to {@code ulElement}.
  */
-function appendTextToList(text, ulElement) {
+function appendTextToList(comment, ulElement) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+
+  const infoDivElement = document.createElement('div');
+  infoDivElement.className = INFO_CLASS;
+  
+  const date = (new Date(comment.timestamp)).toString()
+      .substring(0, END_OF_TIMESTAMP);
+
+  appendPTagToContainer(comment.name, infoDivElement);
+  appendPTagToContainer(date, infoDivElement);
+
+  liElement.appendChild(infoDivElement);
+  const textPElement = appendPTagToContainer(comment.text, liElement);
+  textPElement.className = COMMENT_CLASS;
 
   ulElement.appendChild(liElement);
+}
+
+/**
+ * Creates a <p> tag to store the given {@code text} inside the
+ * {@code container} and returns the <p> tag using the given text.
+ */
+function appendPTagToContainer(text, container) {
+  const pTag = document.createElement(P_TAG);
+  pTag.innerText = text;
+  container.appendChild(pTag);
+  return pTag;
 }
 
 /**
