@@ -30,6 +30,9 @@ const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
 const SORT_SELECTED_INDEX = 'sortSelectedIndex';
 const P_TAG = 'p';
 const DIV_TAG = 'div';
+// After index 21 in the timestamp string is the milliseconds and 
+// the timezone name. Including that for the comments is excessive
+// and thus, ignored.
 const END_OF_TIMESTAMP = 21;
 const COMMENT_CLASS = 'comment';
 const INFO_CLASS = 'info';
@@ -184,7 +187,7 @@ function getMessageFromJSON(pageReloadBoolean) {
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
   // value of 0. 
-  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) !== null) {
+  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) != null) {
     amountSelectedIndex = localStorage.getItem(AMOUNT_SELECTED_INDEX);
     sortSelectedIndex = localStorage.getItem(SORT_SELECTED_INDEX);
   } else {
@@ -231,21 +234,17 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  
   ulElement.appendChild(liElement);
 }
 
 /**
- * Creates a p tag to store the given {@code text} inside the
- * {@code container}.
- * @return {object} Returns an p tag using
- *     the given text.
+ * Creates a <p> tag to store the given {@code text} inside the
+ * {@code container} and returns the <p> tag using the given text.
  */
 function appendPTagToContainer(text, container) {
   const pTag = document.createElement(P_TAG);
   pTag.innerText = text;
   container.appendChild(pTag);
-
   return pTag;
 }
 

@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 
 /** Servlet that writes and returns comments data. */
@@ -48,14 +50,13 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_EMAIL = "email";
   private static final String COMMENT_NICKNAME = "nickname";
   
-  private static final String ANONYMOUS = "anonymous";
+  private static final String ANONYMOUS_AUTHOR = "anonymous";
   
   // Constants for the sort order of comments.
   private static final String SORT = "sort";
   private static final String OLDEST_FIRST = "Oldest First";
   private static final String NEWEST_FIRST = "Newest First";
   private static final String LONGEST_FIRST = "Longest First";
-  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -110,14 +111,17 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    String email = userService.getCurrentUser().getEmail();
+
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
-    String name = request.getParameter(COMMENT_NAME);
+    String name = (String) request.getParameter(COMMENT_NAME);
     String email = (String) HomeServlet.userEmail;
     String nickname = (String) HomeServlet.nickname;
 
     if (name.isEmpty()) {
-      name = ANONYMOUS;
+      name = ANONYMOUS_AUTHOR;
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
