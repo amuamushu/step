@@ -221,3 +221,14 @@ function appendTextToList(text, ulElement) {
 
   ulElement.appendChild(liElement);
 }
+
+/**
+ * Deletes all of the comments from the page.
+ */
+function deleteAllComments() {
+  const params = new URLSearchParams();
+  fetch('/delete-data', {method: 'POST', body: params})
+      // Fetches from /data. That way, /data is always
+      // called whenever the page changes.
+      .then((getMessageFromJSON(false)));
+}
