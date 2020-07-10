@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   </head>
-  <body onload="getMessageFromJSON(true)">
+  <body onload="getMessageFromJSON(true); fetchLogin();">
     <div id="nav">
       <header>Amy N.</header>
       <div id="nav-items">
@@ -178,6 +178,7 @@
             </div>
             <input id="submit" type="submit">
         </form>
+        <div id="login"></div>
       </div>
     </div>
 
