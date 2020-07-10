@@ -24,14 +24,15 @@ public class HomeServlet extends HttpServlet {
 
       response.getWriter().println("<p>Hello " + userEmail + "!</p>");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-    } else {
-      String urlToRedirectToAfterUserLogsIn = HOME_PATH;
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-
-      response.getWriter().println("<style>form {display:none;}</style>");
-      response.getWriter().println("<p>Hello friend.</p>");
-      response.getWriter().println("<p>Please log in to Add a comment.</p>");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      return;
     }
+
+    String urlToRedirectToAfterUserLogsIn = HOME_PATH;
+    String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+
+    response.getWriter().println("<style>form {display:none;}</style>");
+    response.getWriter().println("<p>Hello friend.</p>");
+    response.getWriter().println("<p>Please log in to Add a comment.</p>");
+    response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
   }
 }
