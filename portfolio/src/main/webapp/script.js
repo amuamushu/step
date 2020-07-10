@@ -237,16 +237,13 @@ function appendTextToList(comment, ulElement) {
 }
 
 /**
- * Creates a p tag to store the given {@code text} inside the
- * {@code container}.
- * @return {object} Returns an p tag using
- *     the given text.
+ * Creates a <p> tag to store the given {@code text} inside the
+ * {@code container} and returns the <p> tag using the given text.
  */
 function appendPTagToContainer(text, container) {
   const pTag = document.createElement(P_TAG);
   pTag.innerText = text;
   container.appendChild(pTag);
-
   return pTag;
 }
 
