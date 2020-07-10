@@ -90,7 +90,15 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
-      String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
+      System.out.println(comment.getProperty(COMMENT_NICKNAME));
+      String nickname;
+      if (comment.getProperty(COMMENT_NICKNAME) == null) {
+        nickname = "nothing";
+        System.out.println("nothing");
+        System.out.println(HomeServlet.userEmail);
+      } else {
+        nickname = (String) comment.getProperty(COMMENT_NICKNAME);
+      }
       String email = (String) comment.getProperty(COMMENT_EMAIL);
 
       comments.add(Comment.create(id, text, timestamp, name, email, nickname));
@@ -116,11 +124,21 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     String email = userService.getCurrentUser().getEmail();
+    System.out.println(email);
+    if (email == null) {
+      console.log("null email");
+      email = HomeServlet.userEmail;
+    }
 
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
-    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    String nickname = "test";//getUserNickname(userService.getCurrentUser().getUserId());
+    System.out.println(nickname);
+    if (nickname == null) {
+      nickname = "";
+      System.out.println("in if statement.");
+    }
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
@@ -157,5 +175,4 @@ public class DataServlet extends HttpServlet {
     String nickname = (String) entity.getProperty(COMMENT_NICKNAME);
     return nickname;
   }
-
 }
