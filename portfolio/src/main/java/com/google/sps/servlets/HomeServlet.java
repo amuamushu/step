@@ -18,6 +18,8 @@ public class HomeServlet extends HttpServlet {
   private static final String HOME_PATH = "/";
   // Hard-coded email of webpage admin.
   private static final String adminEmail = "amytn@google.com";
+  public static String userEmail;
+  public static String nickname;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,13 +39,13 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    nickname = getUserNickname(userService.getCurrentUser().getUserId());
     if (nickname == null) {
       response.sendRedirect("/nickname");
       return;
     }
 
-    String userEmail = userService.getCurrentUser().getEmail();
+    userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
