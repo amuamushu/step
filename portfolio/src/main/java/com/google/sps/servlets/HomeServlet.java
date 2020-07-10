@@ -18,8 +18,8 @@ public class HomeServlet extends HttpServlet {
   private static final String HOME_PATH = "/";
   // Hard-coded email of webpage admin.
   private static final String adminEmail = "amytn@google.com";
-  public static String userEmail;
-  public static String nickname;
+  private static String userEmail;
+  private static String nickname;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -31,7 +31,7 @@ public class HomeServlet extends HttpServlet {
     if (!userService.isUserLoggedIn()) {
       String loginUrl = userService.createLoginURL(HOME_PATH);
 
-      response.getWriter().println("<style>form {display:none;}</style>");
+      response.getWriter().println("<style>#comment-form {display:none;}</style>");
       response.getWriter().println("<p>Hello friend.</p>");
       response.getWriter().println("<p>Please log in to Add a comment.</p>");
       response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
@@ -70,6 +70,11 @@ public class HomeServlet extends HttpServlet {
       return null;
     }
     String nickname = (String) entity.getProperty("nickname");
+    return nickname;
+  }
+
+  /** Returns the nickname of the current user when called in other classes. */
+  public static String getUserNickname() {
     return nickname;
   }
 }
