@@ -1,6 +1,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -10,6 +12,9 @@ import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +33,10 @@ public class DeleteData extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    Iterable<Entity> resultsIterable = results.asIterable();
 
-    for (Entity comment: results.asIterable()) {
-      Key myKey = comment.getKey();
-      datastore.delete(myKey);
-    }
+    StreamSupport.stream(resultsIterable.spliterator(), false)
+        .map(entity->entity.getKey())
+        .forEach(datastore::delete);
   }
-
 }
