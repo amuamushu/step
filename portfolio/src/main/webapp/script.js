@@ -277,7 +277,10 @@ function appendToLogin(text) {
   login.innerHTML = text;
 }
 
-//TODO: Simplify this method.
+/** 
+ * Fetches the HTML form from /nickname and appends
+ * it to the DOM.
+ */
 function changeNickname() {
   fetch('/nickname')
       .then(response => response.text())
