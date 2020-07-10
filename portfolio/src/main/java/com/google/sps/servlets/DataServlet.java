@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 
 /** Servlet that writes and returns comments data. */
@@ -45,6 +47,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String COMMENT_NAME = "name";
   private static final String COMMENT_LENGTH = "length";
+  private static final String COMMENT_EMAIL = "email";
   
   private static final String ANONYMOUS_AUTHOR = "anonymous";
   
@@ -83,8 +86,9 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
+      String email = (String) comment.getProperty(COMMENT_EMAIL);
 
-      comments.add(Comment.create(id, text, timestamp, name));
+      comments.add(Comment.create(id, text, timestamp, name, email));
       commentCounter++;
     } 
     
@@ -104,6 +108,9 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    String email = userService.getCurrentUser().getEmail();
+
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
@@ -117,6 +124,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
+    commentEntity.setProperty(COMMENT_EMAIL, email);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);

@@ -228,13 +228,13 @@ function appendTextToList(comment, ulElement) {
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
 
+  appendPTagToContainer(comment.email, infoDivElement);
   appendPTagToContainer(comment.name, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-
   ulElement.appendChild(liElement);
 }
 
@@ -277,4 +277,3 @@ function appendToLogin(text) {
   const login = document.getElementById('login');
   login.innerHTML = text;
 }
-
