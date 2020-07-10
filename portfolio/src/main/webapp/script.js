@@ -187,7 +187,7 @@ function getMessageFromJSON(pageReloadBoolean) {
   // Retrieves the selected index from local storage if there is a value for it
   // because after a page reload, the selected index is set back to its default
   // value of 0. 
-  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) !== null) {
+  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) != null) {
     amountSelectedIndex = localStorage.getItem(AMOUNT_SELECTED_INDEX);
     sortSelectedIndex = localStorage.getItem(SORT_SELECTED_INDEX);
   } else {
