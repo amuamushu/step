@@ -73,7 +73,7 @@ public class HomeServlet extends HttpServlet {
     return nickname;
   }
 
-  /** Returns the nickname of the current user when called in other classes. */
+  /** Returns the nickname of the current user when needed in other classes. */
   public static String getUserNickname() {
     return nickname;
   }
