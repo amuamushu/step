@@ -46,14 +46,13 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_NAME = "name";
   private static final String COMMENT_LENGTH = "length";
   
-  private static final String ANONYMOUS = "anonymous";
+  private static final String ANONYMOUS_AUTHOR = "anonymous";
   
   // Constants for the sort order of comments.
   private static final String SORT = "sort";
   private static final String OLDEST_FIRST = "Oldest First";
   private static final String NEWEST_FIRST = "Newest First";
   private static final String LONGEST_FIRST = "Longest First";
-  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -111,7 +110,7 @@ public class DataServlet extends HttpServlet {
     String name = request.getParameter(COMMENT_NAME);
 
     if (name.isEmpty()) {
-      name = ANONYMOUS;
+      name = ANONYMOUS_AUTHOR;
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
