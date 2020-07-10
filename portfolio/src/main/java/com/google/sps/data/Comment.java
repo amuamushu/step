@@ -10,8 +10,8 @@ public abstract class Comment {
    * Creates a commment instance containing its {@code id},
    * {@code text}, and {@code timestamp}. 
    */
-   //TODO: FIx column length of method signature.
-  public static Comment create(long id, String text, long timestamp, String name, String email, String nickname) {
+  public static Comment create(long id, String text, long timestamp, 
+      String name, String email, String nickname) {
     return new AutoValue_Comment(id, text, timestamp, name, email, nickname);
   }
 
