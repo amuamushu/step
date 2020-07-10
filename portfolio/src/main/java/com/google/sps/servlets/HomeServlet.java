@@ -18,11 +18,11 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
+      String currentUserEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = HOME_PATH;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("<p>Hello " + userEmail + "!</p>");
+      response.getWriter().println("<p>Hello " + currentUserEmail + "!</p>");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
       return;
     }
