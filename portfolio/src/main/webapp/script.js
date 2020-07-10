@@ -273,7 +273,6 @@ function fetchLogin() {
  * Appends {@code text} to login div container.
  */
 function appendToLogin(text) {
-  console.log("appendtologin");
   const login = document.getElementById('login');
   login.innerHTML = text;
 }

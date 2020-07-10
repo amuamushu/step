@@ -58,6 +58,9 @@ public class DataServlet extends HttpServlet {
   private static final String NEWEST_FIRST = "Newest First";
   private static final String LONGEST_FIRST = "Longest First";
 
+  private static final String ID = "ID";
+  private static final String USER_INFO = "userInfo";
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
@@ -117,8 +120,7 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
-    String email = (String) HomeServlet.userEmail;
-    String nickname = (String) HomeServlet.nickname;
+    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
@@ -137,6 +139,23 @@ public class DataServlet extends HttpServlet {
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
+  }
+
+  /**
+   * Returns the nickname of the user with id, or empty String if the user has not set a nickname.
+   */
+  private String getUserNickname(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query =
+        new Query(USER_INFO)
+            .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return "";
+    }
+    String nickname = (String) entity.getProperty(COMMENT_NICKNAME);
+    return nickname;
   }
 
 }
