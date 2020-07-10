@@ -20,7 +20,9 @@ public class HomeServlet extends HttpServlet {
   private static final String ID = "id";
   private static final String COMMENT_NICKNAME = "nickname";
   // Hard-coded email of webpage admin.
-  private static final String adminEmail = "amytn@google.com";
+  private static final String ADMIN_EMAIL = "amytn@google.com";
+  private static final String NICKNAME_SERVLET = "/nickname";
+
   private static String userEmail;
   private static String nickname;
 
@@ -44,7 +46,7 @@ public class HomeServlet extends HttpServlet {
     // If user has not set a nickname, redirect to nickname page
     nickname = getUserNickname(userService.getCurrentUser().getUserId());
     if (nickname == null) {
-      response.sendRedirect("/nickname");
+      response.sendRedirect(NICKNAME_SERVLET);
       return;
     }
 
@@ -55,7 +57,7 @@ public class HomeServlet extends HttpServlet {
     response.getWriter().println("<button onclick=\"changeNickname();\">Change nickname</button>");
     
     // Allows the user to delete all of the comments only if the email is the same as the admin email.
-    if (userEmail.equals(adminEmail)) {
+    if (userEmail.equals(ADMIN_EMAIL)) {
       response.getWriter().println("<button onclick=\"deleteAllComments();\">Delete all Comments</button>");
     }
 
