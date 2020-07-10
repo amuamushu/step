@@ -181,23 +181,34 @@ function addMultipleMessagesToDom(comments) {
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
   let amountSelector = document.getElementById(COMMENT_AMOUNT);
+
+  let sortSelector = document.getElementById(SORT);
+  let sortSelectedIndex;
   
   // Retrieves the selected index from local storage if there is a value for 
   // it. This is necessary because after a page reload, the selected index 
   // is set to its default value of 0. 
-  if (pageReloadBoolean && localStorage.getItem(SELECTED_INDEX) !== null) {
-    selectedIndex = localStorage.getItem(SELECTED_INDEX);
+  if (pageReloadBoolean && localStorage.getItem(AMOUNT_SELECTED_INDEX) != null) {
+    amountSelectedIndex = localStorage.getItem(AMOUNT_SELECTED_INDEX);
+    sortSelectedIndex = localStorage.getItem(SORT_SELECTED_INDEX);
   } else {
-    selectedIndex = amountSelector.selectedIndex;
+    amountSelectedIndex = amountSelector.selectedIndex;
+    sortSelectedIndex = sortSelector.selectedIndex;
   } 
 
-  amountSelector.options[selectedIndex].selected = true;
-  let selectedAmount = amountSelector.options[selectedIndex].value;
+  amountSelector.options[amountSelectedIndex].selected = true;
+  let selectedAmount = amountSelector.options[amountSelectedIndex].value;
+
+  sortSelector.options[sortSelectedIndex].selected = true;
+  let selectedSort = sortSelector.options[sortSelectedIndex].value;
   
   // Saves the current selected index to the local storage to use in case
   // the page reloads.
-  localStorage.setItem(SELECTED_INDEX, selectedIndex);
-  fetch(DATA_SERVLET + '?' + COMMENT_AMOUNT + '=' + selectedAmount)
+  localStorage.setItem(AMOUNT_SELECTED_INDEX, amountSelectedIndex);
+  localStorage.setItem(SORT_SELECTED_INDEX, sortSelectedIndex);
+
+  fetch(DATA_SERVLET + '?' + COMMENT_AMOUNT + '=' 
+        + selectedAmount + '&' + SORT + '=' + selectedSort)
       .then(response => response.json())
       .then((comments) => {
         addMultipleMessagesToDom(comments);

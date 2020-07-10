@@ -44,13 +44,29 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_TEXT = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String COMMENT_NAME = "name";
+  private static final String COMMENT_LENGTH = "length";
   
   private static final String ANONYMOUS_AUTHOR = "anonymous";
+  
+  // Constants for the sort order of comments.
+  private static final String SORT = "sort";
+  private static final String OLDEST_FIRST = "Oldest First";
+  private static final String NEWEST_FIRST = "Newest First";
+  private static final String LONGEST_FIRST = "Longest First";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-    Query query = new Query(COMMENT_ENTITY).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
+    String sort = request.getParameter(SORT);
+
+    Query query = new Query(COMMENT_ENTITY);
+    if (sort.equals(OLDEST_FIRST)) {
+      query.addSort(COMMENT_TIMESTAMP, SortDirection.ASCENDING);
+    } else if (sort.equals(NEWEST_FIRST)) {
+      query.addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
+    } else if (sort.equals(LONGEST_FIRST)) {
+      query.addSort(COMMENT_LENGTH, SortDirection.DESCENDING);
+    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -62,8 +78,8 @@ public class DataServlet extends HttpServlet {
       if (commentCounter == maxComments) {
         break;
       }
-      long id = comment.getKey().getId();
 
+      long id = comment.getKey().getId();
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
@@ -90,7 +106,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
-    String name = request.getParameter(COMMENT_NAME);
+    String name = (String) request.getParameter(COMMENT_NAME);
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
@@ -100,6 +116,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
+    commentEntity.setProperty(COMMENT_LENGTH, text.length());
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
