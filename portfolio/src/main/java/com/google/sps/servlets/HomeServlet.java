@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
   private static final String HOME_PATH = "/";
+  // Hard-coded email of webpage admin.
+  private static final String adminEmail = "amytn@google.com";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,6 +48,11 @@ public class HomeServlet extends HttpServlet {
 
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
     response.getWriter().println("<button onclick=\"changeNickname();\">Change nickname</button>");
+    
+    if (userEmail.equals(adminEmail)) {
+      response.getWriter().println("<button onclick=\"deleteAllComments();\">Delete all Comments</button>");
+    }
+
     response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
   }
 
