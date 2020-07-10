@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
-  public static String userEmail;
-  public static String nickname;
-  private static final String HOME = "/";
+  private static final String HOME_PATH = "/";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -25,8 +23,9 @@ public class HomeServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
 
+
     if (!userService.isUserLoggedIn()) {
-      String loginUrl = userService.createLoginURL(HOME);
+      String loginUrl = userService.createLoginURL(HOME_PATH);
 
       response.getWriter().println("<style>form {display:none;}</style>");
       response.getWriter().println("<p>Hello friend.</p>");
@@ -42,8 +41,8 @@ public class HomeServlet extends HttpServlet {
       return;
     }
 
-    userEmail = userService.getCurrentUser().getEmail();
-    String logoutUrl = userService.createLogoutURL(HOME);
+    String userEmail = userService.getCurrentUser().getEmail();
+    String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
     response.getWriter().println("<p>Hello " + nickname + "!</p>");
     response.getWriter().println("<button onclick=\"changeNickname()\">Change nickname</button>");
