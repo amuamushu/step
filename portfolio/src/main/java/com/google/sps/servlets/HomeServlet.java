@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
   private static final String HOME_PATH = "/";
+  private static final String USER_INFO = "userInfo";
+  private static final String ID = "id";
+  private static final String COMMENT_NICKNAME = "nickname";
   // Hard-coded email of webpage admin.
   private static final String adminEmail = "amytn@google.com";
   private static String userEmail;
@@ -63,14 +66,14 @@ public class HomeServlet extends HttpServlet {
   private String getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
-        new Query("userInfo")
-            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+        new Query(USER_INFO)
+            .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     if (entity == null) {
       return null;
     }
-    String nickname = (String) entity.getProperty("nickname");
+    String nickname = (String) entity.getProperty(COMMENT_NICKNAME);
     return nickname;
   }
 
