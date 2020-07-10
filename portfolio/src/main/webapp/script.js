@@ -149,7 +149,7 @@ function addSingleCommentToDom(comment) {
 function addMultipleMessagesToDom(comments) {
   const commentContainer = document.getElementById(COMMENT_CONTAINER);
 
-  // Removes the ul tag in the container if there is one to prevent having
+  // Removes the ul tag in the container if there is one. This prevents having
   // multiple sets of ul tags every time the number of comments is changed.
   if (commentContainer.firstChild) {
     commentContainer.removeChild(commentContainer.firstChild);
@@ -164,18 +164,18 @@ function addMultipleMessagesToDom(comments) {
 
 /**
  * Fetches the comment from the JSON server /data and adds it to the DOM.
- * 
- * <p>{@code pageReloadBoolean} indicates whether the method is called
- * when the page refreshes or when a new comment amount is inputted.
+ *
+ * <p>If {@code pageReloadBoolean} is true, then retrieves the previous
+ * selected index from the localStorage. Otherwise, retrieves the 
+ * current selected index.
  */
 function getMessageFromJSON(pageReloadBoolean) {
   let selectedIndex;
   let amountSelector = document.getElementById(COMMENT_AMOUNT);
-
   
-  // Retrieves the selected index from local storage if there is a value for it
-  // because after a page reload, the selected index is set back to its default
-  // value of 0. 
+  // Retrieves the selected index from local storage if there is a value for 
+  // it. This is necessary because after a page reload, the selected index 
+  // is set to its default value of 0. 
   if (pageReloadBoolean && localStorage.getItem(SELECTED_INDEX) !== null) {
     selectedIndex = localStorage.getItem(SELECTED_INDEX);
   } else {
@@ -235,7 +235,7 @@ function appendPTagToContainer(text, container) {
 function deleteAllComments() {
   const params = new URLSearchParams();
   fetch('/delete-data', {method: 'POST', body: params})
-      // Calls the method that makes a GET request to /data 
-      // in order to let the server be a single source of truth.
+      // Fetches from /data. That way, /data is always
+      // called whenever the page changes.
       .then((getMessageFromJSON(false)));
 }
