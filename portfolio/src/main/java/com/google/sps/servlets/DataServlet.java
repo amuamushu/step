@@ -95,7 +95,6 @@ public class DataServlet extends HttpServlet {
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
-      System.out.println(name);
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
