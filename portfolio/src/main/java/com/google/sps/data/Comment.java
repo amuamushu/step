@@ -2,7 +2,7 @@ package com.google.sps.data;
 
 import com.google.auto.value.AutoValue;
 
-//** Class for storing commment properties. */
+/** Stores data related to a comment. */
 @AutoValue
 public abstract class Comment {
 
@@ -19,6 +19,6 @@ public abstract class Comment {
   abstract String text();
 
   abstract long timestamp();
-  
+
   abstract String name();
 }
