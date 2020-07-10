@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String COMMENT_NAME = "name";
   
-  private static final String ANONYMOUS = "anonymous";
+  private static final String ANONYMOUS_AUTHOR = "anonymous";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -94,7 +94,7 @@ public class DataServlet extends HttpServlet {
     String name = request.getParameter(COMMENT_NAME);
 
     if (name.isEmpty()) {
-      name = ANONYMOUS;
+      name = ANONYMOUS_AUTHOR;
       System.out.println(name);
     }
 
