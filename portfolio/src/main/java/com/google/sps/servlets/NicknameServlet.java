@@ -32,6 +32,7 @@ public class NicknameServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+      response.getWriter().println("<style>#comment-form {display:none;}</style>");
       out.println("<p>Set your nickname here:</p>");
       out.println("<form method=\"POST\" action=\"/nickname\">");
       out.println("<input name=\"nickname\" value=\"" + nickname + "\" />");
@@ -59,6 +60,7 @@ public class NicknameServlet extends HttpServlet {
     Entity entity = new Entity(USER_INFO, id);
     entity.setProperty(ID, id);
     entity.setProperty(NICKNAME, nickname);
+    System.out.println("nickname putt");
     // The put() function automatically inserts new data or updates existing data based on ID.
     datastore.put(entity);
 

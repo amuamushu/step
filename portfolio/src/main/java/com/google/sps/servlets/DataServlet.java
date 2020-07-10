@@ -90,15 +90,7 @@ public class DataServlet extends HttpServlet {
       String text = (String) comment.getProperty(COMMENT_TEXT);
       long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
       String name = (String) comment.getProperty(COMMENT_NAME);
-      System.out.println(comment.getProperty(COMMENT_NICKNAME));
-      String nickname;
-      if (comment.getProperty(COMMENT_NICKNAME) == null) {
-        nickname = "nothing";
-        System.out.println("nothing");
-        System.out.println(HomeServlet.userEmail);
-      } else {
-        nickname = (String) comment.getProperty(COMMENT_NICKNAME);
-      }
+      String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
       String email = (String) comment.getProperty(COMMENT_EMAIL);
 
       comments.add(Comment.create(id, text, timestamp, name, email, nickname));
@@ -125,20 +117,11 @@ public class DataServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     String email = userService.getCurrentUser().getEmail();
     System.out.println(email);
-    if (email == null) {
-      console.log("null email");
-      email = HomeServlet.userEmail;
-    }
 
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
-    String nickname = "test";//getUserNickname(userService.getCurrentUser().getUserId());
-    System.out.println(nickname);
-    if (nickname == null) {
-      nickname = "";
-      System.out.println("in if statement.");
-    }
+    String nickname = HomeServlet.getUserNickname();
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
@@ -157,22 +140,5 @@ public class DataServlet extends HttpServlet {
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
-  }
-
-  /**
-   * Returns the nickname of the user with id, or empty String if the user has not set a nickname.
-   */
-  private String getUserNickname(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query =
-        new Query(USER_INFO)
-            .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    if (entity == null) {
-      return "";
-    }
-    String nickname = (String) entity.getProperty(COMMENT_NICKNAME);
-    return nickname;
   }
 }
