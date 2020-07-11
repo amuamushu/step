@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @WebServlet("/nickname")
 public class NicknameServlet extends HttpServlet {
@@ -35,7 +36,8 @@ public class NicknameServlet extends HttpServlet {
       out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
       return;
     }
-    String nickname = getUserNickname(userService.getCurrentUser().getUserId());
+
+    String nickname = getUserNickname(userService.getCurrentUser().getUserId()).orElse("");
     response.getWriter().println("<style>#comment-form {display:none;}</style>");
     out.println("<p>Set your nickname here:</p>");
     out.println("<form method=\"POST\" action=\"/nickname\">");
@@ -66,20 +68,15 @@ public class NicknameServlet extends HttpServlet {
     response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
-  /**
-   * Returns the nickname of the user with id, or empty String if the user has not set a nickname.
-   */
-  private String getUserNickname(String id) {
+  /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
+  private Optional<String> getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
         new Query(USER_INFO)
             .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    if (entity == null) {
-      return "";
-    }
-    String nickname = (String) entity.getProperty(NICKNAME);
-    return nickname;
+    Optional<Entity> optionalEntity = Optional.ofNullable(results.asSingleEntity());
+    
+    return optionalEntity.map(entity->(String)entity.getProperty(NICKNAME));
   }
 }
