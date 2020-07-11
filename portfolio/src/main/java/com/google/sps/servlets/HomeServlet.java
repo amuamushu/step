@@ -76,7 +76,6 @@ public class HomeServlet extends HttpServlet {
     Optional<Entity> optionalEntity = Optional.ofNullable(results.asSingleEntity());
     
     return optionalEntity.map(entity->(String)entity.getProperty(COMMENT_NICKNAME));
-
   }
 
   /** Returns the nickname of the current user when needed in other classes. */
