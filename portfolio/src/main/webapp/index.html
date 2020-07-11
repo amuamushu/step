@@ -29,7 +29,7 @@
     <div id="content">
       <div id="background-anchor"></div>
       <div id="background-container">
-        <h2>Background</h2>
+        <!-- <h2>Background</h2>
         <p>I am an instructional assistant for the data structures 
             and algorithms course at my university. I absolutely love it 
             because I get to help people learn about my favorite subject 
@@ -50,14 +50,14 @@
             Growing up here, I was surrounded by Vietnamese culture and am very 
             fortunate to experience its traditions in a community that is very 
             accepting of it.
-        </p>
+        </p> -->
       </div>
 
       <div id="proj-anchor"></div>
       <div id="proj-container">
         <h2>Projects:</h2>
         <div id="projects">
-          <a href="https://drive.google.com/file/d/1Jb52Jk0HLoNbdVDg3z5VrQMrCsxFrkv-/view?usp=sharing" target="_blank" onmouseover="revealOnMouseover(this);" onmouseout="hideOnMouseout(this);">
+          <!-- <a href="https://drive.google.com/file/d/1Jb52Jk0HLoNbdVDg3z5VrQMrCsxFrkv-/view?usp=sharing" target="_blank" onmouseover="revealOnMouseover(this);" onmouseout="hideOnMouseout(this);">
             <div class="proj-container">
               <img class="proj-img background" src="images/snapchat.jpg">
               <p class="overlay visible">Snapchat Political Ads Spending vs Number of Views - Data Science Project</p>
@@ -90,12 +90,12 @@
                   UCSD and the school's US World News ranking.
               </p>
             </div>
-          </a>
+          </a> -->
         </div>
       
       <div id="travel-anchor"></div>
       <div id="travel-container">
-        <h2>My Favorite Travel Places</h2>
+        <!-- <h2>My Favorite Travel Places</h2>
         <p> I enjoy traveling and love taking pictures of the places I visited. Here are some of my favorite pictures!</p>
                                 
         <div id="images">
@@ -135,7 +135,7 @@
             <img src="images/dalat.jpg" alt="View of Dalat, Vietnam from the mountains">
             <p>Dalat, Vietnam</p>
           </div>
-        </div>
+        </div> -->
         <div id="random-polaroid">
           <p>Click Here to Add a Random Polaroid:</p>
           <button onclick="addRandomPolaroid()">Add Polaroid</button>
@@ -164,16 +164,20 @@
                 <option value="Longest First">Longest First</option>
             </select>
         </div>
-        <form action="/data" method="POST" id="comment-form">
+        <form action="/data" method="POST" id="comment-form" enctype="multipart/form-data">
             <div id="form-elements-container">
-            <div>
-                <label for="comment-input"> Enter a comment here:</label><br>
-                <textarea name="comment-input"></textarea>
-            </div>
-            <div>
-                <label for="name">Name (Optional):</label><br>
-                <input type="text" name="name">
-            </div>
+                <div>
+                    <label for="comment-input"> Enter a comment here:</label><br>
+                    <textarea name="comment-input"></textarea>
+                </div>
+                <div>
+                    <label for="name">Name (Optional):</label><br>
+                    <input type="text" name="name">
+                </div>
+                <div>
+                    <label for="image"> Upload an Image:</label><br>
+                    <input type="file" name="image">
+                </div>
             </div>
             <input id="submit" type="submit">
         </form>
