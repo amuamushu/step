@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @WebServlet("/login")
 public class HomeServlet extends HttpServlet {
@@ -44,12 +45,13 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    nickname = getUserNickname(userService.getCurrentUser().getUserId());
-    if (nickname == null) {
+    Optional<String> optionalNickname = getUserNickname(userService.getCurrentUser().getUserId());
+    if (!optionalNickname.isPresent()) {
       response.sendRedirect(NICKNAME_SERVLET);
-      return;
+      return;    
     }
-
+    
+    nickname = optionalNickname.get();
     userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
@@ -65,18 +67,16 @@ public class HomeServlet extends HttpServlet {
   }
 
   /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
-  private String getUserNickname(String id) {
+  private Optional<String> getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
         new Query(USER_INFO)
             .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    if (entity == null) {
-      return null;
-    }
-    String nickname = (String) entity.getProperty(COMMENT_NICKNAME);
-    return nickname;
+    Optional<Entity> optionalEntity = Optional.ofNullable(results.asSingleEntity());
+    
+    return optionalEntity.map(entity->(String)entity.getProperty(COMMENT_NICKNAME));
+
   }
 
   /** Returns the nickname of the current user when needed in other classes. */
