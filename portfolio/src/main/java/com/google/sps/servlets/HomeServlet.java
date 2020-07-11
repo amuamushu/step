@@ -66,7 +66,8 @@ public class HomeServlet extends HttpServlet {
     response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
   }
 
-  /** Returns the nickname of the user with id, or null if the user has not set a nickname. */
+  /** Returns an Optional object containing the nickname of the user with {@code id},
+   * or an empty Optional if the user has not set a nickname. */
   private Optional<String> getUserNickname(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
