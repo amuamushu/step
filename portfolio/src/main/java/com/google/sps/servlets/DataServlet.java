@@ -74,7 +74,7 @@ public class DataServlet extends HttpServlet {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
     String sort = request.getParameter(SORT);
 
-    // Move addSort() code to its own method.
+    // TODO: Move addSort() code to its own method.
     Query query = new Query(COMMENT_ENTITY);
     if (sort.equals(OLDEST_FIRST)) {
       query.addSort(COMMENT_TIMESTAMP, SortDirection.ASCENDING);
