@@ -134,7 +134,6 @@ public class DataServlet extends HttpServlet {
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
     }
-    
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
