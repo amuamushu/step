@@ -24,6 +24,9 @@ public class HomeServlet extends HttpServlet {
   private static final String ADMIN_EMAIL = "amytn@google.com";
   private static final String NICKNAME_SERVLET = "/nickname";
 
+  // Email and nickname of the current user. Since there is only one 
+  // current User at a time, there should only be one email and nickname
+  // at a time.
   private static String userEmail;
   private static String nickname;
 
