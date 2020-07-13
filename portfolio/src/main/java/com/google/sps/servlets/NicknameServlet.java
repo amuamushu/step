@@ -39,13 +39,13 @@ public class NicknameServlet extends HttpServlet {
     out.println("<h1>Set Nickname</h1>");
 
     this.userService = UserServiceFactory.getUserService();
-    if (!userService.isUserLoggedIn()) {
+    if (!this.userService.isUserLoggedIn()) {
       String loginUrl = userService.createLoginURL("/nickname");
       out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
       return;
     }
 
-    String nickname = getUserNickname(userService.getCurrentUser().getUserId()).orElse("");
+    String nickname = getUserNickname(this.userService.getCurrentUser().getUserId()).orElse("");
     response.getWriter().println("<style>#comment-form {display:none;}</style>");
     out.println("<p>Set your nickname here:</p>");
     out.println("<form method=\"POST\" action=\"/nickname\">");
