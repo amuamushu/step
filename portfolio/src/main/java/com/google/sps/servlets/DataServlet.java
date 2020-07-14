@@ -109,7 +109,8 @@ public class DataServlet extends HttpServlet {
       String email = (String) comment.getProperty(COMMENT_EMAIL);
       String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
 
-      comments.add(Comment.create(id, text, timestamp, name, email, nickname, imageUrl));
+      comments.add(Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
+          .setName(name).setNickname(nickname).setImage(imageUrl).build());
       commentCounter++;
     } 
     
