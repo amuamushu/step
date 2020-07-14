@@ -82,8 +82,13 @@ public class HomeServlet extends HttpServlet {
     return optionalEntity.map(entity->(String)entity.getProperty(COMMENT_NICKNAME));
   }
 
-  /** Returns the nickname of the current user when needed in other classes. */
-  public static String getUserNickname() {
+  /** 
+   * Returns the nickname of the current user when needed in other classes.
+   * 
+   * <p>This method is only called after a user sets a nickname so it should
+   * never return null.
+   */
+  public static String userNickname() {
     return nickname;
   }
 }
