@@ -241,7 +241,7 @@ function appendTextToList(comment, ulElement) {
 
 function createCommentImage(imageUrl) {
   const imgTag = document.createElement('img');
-  imgTag.setAttribute('src', '\\' + imageUrl + '\\');
+  imgTag.setAttribute('src', imageUrl);
   imgTag.setAttribute('alt', "Comment Image");
   return imgTag;
 }
