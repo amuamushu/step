@@ -170,7 +170,7 @@ public class DataServlet extends HttpServlet {
 
   /** 
    * Returns a URL that points to the uploaded file based on user input in 
-   * {@code formInputElementName}. If the user didn't upload a file, return an empty Optional.
+   * {@code formInputElementName}. If the user didn't upload a file, returns an empty Optional.
    */
   private Optional<String> getUploadedFileUrl(HttpServletRequest request,
       String formInputElementName) {
