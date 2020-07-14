@@ -79,28 +79,16 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
-    String sort = request.getParameter(SORT);
-
-    Query query = new Query(COMMENT_ENTITY);
-    if (sort.equals(OLDEST_FIRST)) {
-      query.addSort(COMMENT_TIMESTAMP, SortDirection.ASCENDING);
-    } else if (sort.equals(NEWEST_FIRST)) {
-      query.addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
-    } else if (sort.equals(LONGEST_FIRST)) {
-      query.addSort(COMMENT_LENGTH, SortDirection.DESCENDING);
-    }
-
+    Query query = sortedQuery(request);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
+    
     ArrayList<Comment> comments = new ArrayList<>();
-
     int commentCounter = 0;
     for (Entity comment : results.asIterable()) {
       if (commentCounter == maxComments) {
         break;
       }
-
       comments.add(createComment(comment));
       commentCounter++;
     } 
@@ -124,6 +112,23 @@ public class DataServlet extends HttpServlet {
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
               .setName(name).setNickname(nickname).setImage(imageUrl).build();
+  }
+
+  /**
+  * Returns a query sorted based on input from {@code request}.
+  */
+  private Query sortedQuery(HttpServletRequest request) {
+    String sort = request.getParameter(SORT);
+    Query query = new Query(COMMENT_ENTITY);
+
+    if (sort.equals(OLDEST_FIRST)) {
+      query.addSort(COMMENT_TIMESTAMP, SortDirection.ASCENDING);
+    } else if (sort.equals(NEWEST_FIRST)) {
+      query.addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
+    } else if (sort.equals(LONGEST_FIRST)) {
+      query.addSort(COMMENT_LENGTH, SortDirection.DESCENDING);
+    }
+    return query;
   }
 
   /**
