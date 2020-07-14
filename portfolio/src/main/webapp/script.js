@@ -234,8 +234,16 @@ function appendTextToList(comment, ulElement) {
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
+  liElement.appendChild(createCommentImage(comment.imageUrl));
   textPElement.className = COMMENT_CLASS;
   ulElement.appendChild(liElement);
+}
+
+function createCommentImage(imageUrl) {
+  const imgTag = document.createElement('img');
+  imgTag.setAttribute('src', '\\' + imageUrl + '\\');
+  imgTag.setAttribute('alt', "Comment Image");
+  return imgTag;
 }
 
 /**
