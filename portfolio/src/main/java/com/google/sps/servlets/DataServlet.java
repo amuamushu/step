@@ -111,7 +111,7 @@ public class DataServlet extends HttpServlet {
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
-              .setName(name).setNickname(nickname).setImage(imageUrl).build();
+              .setName(name).setNickname(nickname).setImageUrl(imageUrl).build();
   }
 
   /**
