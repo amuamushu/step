@@ -60,7 +60,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_AMOUNT = "amount";
   private static final String COMMENT_TEXT = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
-  private static final String COMMENT_NAME = "name";
+  private static final String COMMENT_MOOD = "mood";
   private static final String COMMENT_LENGTH = "length";
   private static final String COMMENT_EMAIL = "email";
   private static final String COMMENT_NICKNAME = "nickname";
@@ -107,12 +107,12 @@ public class DataServlet extends HttpServlet {
     long id = comment.getKey().getId();
     String text = (String) comment.getProperty(COMMENT_TEXT);
     long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
-    String name = (String) comment.getProperty(COMMENT_NAME);
+    String mood = (String) comment.getProperty(COMMENT_MOOD);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE_URL);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
-              .setName(name).setNickname(nickname).setImageUrl(imageUrl).build();
+              .setMood(mood).setNickname(nickname).setImageUrl(imageUrl).build();
   }
 
   /**
@@ -146,17 +146,17 @@ public class DataServlet extends HttpServlet {
     String imageUrl = getUploadedFileUrl(request, "image").orElse("");
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
-    String name = (String) request.getParameter(COMMENT_NAME);
+    String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.getUserNickname();
 
-    if (name.isEmpty()) {
-      name = ANONYMOUS_AUTHOR;
+    if (mood.isEmpty()) {
+      mood = ANONYMOUS_AUTHOR;
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
-    commentEntity.setProperty(COMMENT_NAME, name);
+    commentEntity.setProperty(COMMENT_MOOD, mood);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
