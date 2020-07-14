@@ -239,6 +239,9 @@ function appendTextToList(comment, ulElement) {
   ulElement.appendChild(liElement);
 }
 
+/**
+ * Creates an <img> tag using {@code imageUrl} and returns it.
+ */
 function createCommentImage(imageUrl) {
   const imgTag = document.createElement('img');
   imgTag.setAttribute('src', imageUrl);
