@@ -45,6 +45,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 
 
 /** Servlet that writes and returns comments data. */
@@ -142,7 +143,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    String imageUrl = getUploadedFileUrl(request, "image");
+    String imageUrl = getUploadedFileUrl(request, "image").get();
     System.out.println(imageUrl);
 
     String text = request.getParameter(COMMENT_INPUT);
@@ -172,26 +173,25 @@ public class DataServlet extends HttpServlet {
   /** 
    * Returns a URL that points to the uploaded file, or null if the user didn't upload a file.
    */
-  private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private Optional<String> getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-    List<BlobKey> blobKeys = blobs.get("image");
-
-    // TODO: Update code to use Optional.
+    Optional<List<BlobKey>> blobKeys = Optional.ofNullable(blobs.get("image"));
+    
+    // TODO: Fix comment.
     // User submitted form without selecting a file, so we can't get a URL. (dev server)
-    if (blobKeys == null || blobKeys.isEmpty()) {
-      return null;
+    if (!blobKeys.isPresent() || blobKeys.get().isEmpty()) {
+      return Optional.empty();
     }
 
-    // Our form only contains a single file input, so get the first index.
-    BlobKey blobKey = blobKeys.get(0);
+    // Gets the first index because the comment form only takes in one file input.
+    BlobKey blobKey = blobKeys.get().get(0);
 
-    // TODO: Update code to use Optional.
     // User submitted form without selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
-      return null;
+      return Optional.empty();
     }
 
     // TODO: Check that the file uploaded has an image extension.
@@ -204,9 +204,9 @@ public class DataServlet extends HttpServlet {
     // path to the image, rather than the path returned by imagesService.
     try {
       URL url = new URL(imagesService.getServingUrl(options));
-      return url.getPath();
+      return Optional.of(url.getPath());
     } catch (MalformedURLException e) {
-      return imagesService.getServingUrl(options);
+      return Optional.of(imagesService.getServingUrl(options));
     }
   }
 }

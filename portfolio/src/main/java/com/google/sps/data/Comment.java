@@ -14,15 +14,12 @@ public abstract class Comment {
 
   abstract String name();
 
-//   abstract String email();
-
   abstract String nickname();
 
   abstract String image();
 
   /** 
-   * Creates a commment instance containing its {@code id},
-   * {@code text}, and {@code timestamp}. 
+   * Returns a builder instance that can be used to create Comments.
    */
   public static Builder builder() {
     return new AutoValue_Comment.Builder();
