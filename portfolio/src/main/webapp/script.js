@@ -231,8 +231,7 @@ function appendTextToList(comment, ulElement) {
       .substring(0, END_OF_TIMESTAMP);
 
   appendPTagToContainer(comment.nickname, infoDivElement);
-  console.log(comment.mood);
-  appendPTagToContainer(comment.mood, infoDivElement);
+  appendPTagToContainer("feeling " + comment.mood, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
   liElement.appendChild(infoDivElement);
