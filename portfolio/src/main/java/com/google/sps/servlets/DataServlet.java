@@ -83,7 +83,8 @@ public class DataServlet extends HttpServlet {
     Query query = sortedQuery(request);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    
+
+    // TODO: Create helper method for creating all comments.
     ArrayList<Comment> comments = new ArrayList<>();
     int commentCounter = 0;
     for (Entity comment : results.asIterable()) {
