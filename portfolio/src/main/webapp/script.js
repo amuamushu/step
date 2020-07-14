@@ -287,3 +287,18 @@ function changeNickname() {
       .then(response => response.text())
       .then(appendToLogin);
 }
+
+/** 
+ * Updates the form action to be the blobstore Url and reveals the form.
+ */
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('comment-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
+      });
+}

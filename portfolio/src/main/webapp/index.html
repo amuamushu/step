@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   </head>
-  <body onload="getMessageFromJSON(true); fetchLogin();">
+  <body onload="getMessageFromJSON(true); fetchLogin(); fetchBlobstoreUrlAndShowForm();">
     <div id="nav">
       <header>Amy N.</header>
       <div id="nav-items">
@@ -164,16 +164,20 @@
                 <option value="Longest First">Longest First</option>
             </select>
         </div>
-        <form action="/data" method="POST" id="comment-form">
+        <form action="/data" class="hidden" method="POST" id="comment-form" enctype="multipart/form-data">
             <div id="form-elements-container">
-            <div>
-                <label for="comment-input"> Enter a comment here:</label><br>
-                <textarea name="comment-input"></textarea>
-            </div>
-            <div>
-                <label for="name">Name (Optional):</label><br>
-                <input type="text" name="name">
-            </div>
+                <div>
+                    <label for="comment-input"> Enter a comment here:</label><br>
+                    <textarea name="comment-input"></textarea>
+                </div>
+                <div>
+                    <label for="name">Name (Optional):</label><br>
+                    <input type="text" name="name">
+                </div>
+                <div>
+                    <label for="image"> Upload an Image:</label><br>
+                    <input type="file" name="image">
+                </div>
             </div>
             <input id="submit" type="submit">
         </form>
