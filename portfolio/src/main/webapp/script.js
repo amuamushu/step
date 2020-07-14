@@ -228,7 +228,7 @@ function appendTextToList(comment, ulElement) {
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
 
-  appendPTagToContainer(comment.email, infoDivElement);
+  appendPTagToContainer(comment.nickname, infoDivElement);
   appendPTagToContainer(comment.name, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
@@ -276,4 +276,14 @@ function fetchLogin() {
 function appendToLogin(text) {
   const login = document.getElementById('login');
   login.innerHTML = text;
+}
+
+/** 
+ * Fetches the HTML form from /nickname and appends
+ * it to the DOM.
+ */
+function changeNickname() {
+  fetch('/nickname')
+      .then(response => response.text())
+      .then(appendToLogin);
 }

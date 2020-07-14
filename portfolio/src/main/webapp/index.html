@@ -152,7 +152,6 @@
 
       <div class="flex-container">
         <div>
-            <button onclick="deleteAllComments();">Delete all Comments</button>
             <select name="amount" id="amount" onchange="getMessageFromJSON(false);">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -165,7 +164,7 @@
                 <option value="Longest First">Longest First</option>
             </select>
         </div>
-        <form action="/data" method="POST">
+        <form action="/data" method="POST" id="comment-form">
             <div id="form-elements-container">
             <div>
                 <label for="comment-input"> Enter a comment here:</label><br>
