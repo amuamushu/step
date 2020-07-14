@@ -10,9 +10,10 @@ public abstract class Comment {
    * Creates a commment instance containing its {@code id},
    * {@code text}, and {@code timestamp}. 
    */
+   //TODO: Use AutoBUilder because Image is optional.
   public static Comment create(long id, String text, long timestamp, 
-      String name, String email, String nickname) {
-    return new AutoValue_Comment(id, text, timestamp, name, email, nickname);
+      String name, String email, String nickname, String image) {
+    return new AutoValue_Comment(id, text, timestamp, name, email, nickname, image);
   }
 
   abstract long id();
@@ -26,5 +27,7 @@ public abstract class Comment {
   abstract String email();
 
   abstract String nickname();
+
+  abstract String image();
 }
 
