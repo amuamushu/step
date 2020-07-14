@@ -30,6 +30,7 @@ const AMOUNT_SELECTED_INDEX = 'amountSelectedIndex';
 const SORT_SELECTED_INDEX = 'sortSelectedIndex';
 const P_TAG = 'p';
 const DIV_TAG = 'div';
+const COMMENT_IMAGE_DESCRIPTION = "Comment Image";
 // After index 21 in the timestamp string is the milliseconds and 
 // the timezone name. Including that for the comments is excessive
 // and thus, ignored.
@@ -245,7 +246,7 @@ function appendTextToList(comment, ulElement) {
 function createCommentImage(imageUrl) {
   const imgTag = document.createElement('img');
   imgTag.setAttribute('src', imageUrl);
-  imgTag.setAttribute('alt', "Comment Image");
+  imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
   return imgTag;
 }
 
