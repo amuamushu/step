@@ -100,8 +100,8 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Creates a Comment instance using properties from {@code comment}.
-  */
+   * Creates a Comment instance using properties from {@code comment}.
+   */
   private Comment createComment(Entity comment) {
     long id = comment.getKey().getId();
     String text = (String) comment.getProperty(COMMENT_TEXT);
@@ -115,8 +115,8 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Returns a query sorted based on input from {@code request}.
-  */
+   * Returns a query sorted based on input from {@code request}.
+   */
   private Query sortedQuery(HttpServletRequest request) {
     String sort = request.getParameter(SORT);
     Query query = new Query(COMMENT_ENTITY);
@@ -132,8 +132,8 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Converts {@code toConvert} into a JSON string using GSON.
-  */
+   * Converts {@code toConvert} into a JSON string using GSON.
+   */
   private String convertToJsonUsingGson(List toConvert) {
     Gson gson = new Gson();
     String json = gson.toJson(toConvert);
