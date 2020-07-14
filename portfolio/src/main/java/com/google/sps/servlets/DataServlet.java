@@ -177,8 +177,7 @@ public class DataServlet extends HttpServlet {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     Optional<List<BlobKey>> blobKeys = Optional.ofNullable(blobs.get("image"));
     
-    // Can not get a URL because the user submitted the form without selecting a file, 
-    // so we can't get a URL.
+    // Cannot get a URL because the user submitted the form without selecting a file.
     if (!blobKeys.isPresent() || blobKeys.get().isEmpty()) {
       return Optional.empty();
     }
