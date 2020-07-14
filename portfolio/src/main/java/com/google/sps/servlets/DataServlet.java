@@ -31,7 +31,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-//TODO: Clean up imports.
+// Imports for uploading images.
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -107,7 +107,6 @@ public class DataServlet extends HttpServlet {
     long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
     String name = (String) comment.getProperty(COMMENT_NAME);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
-    String email = (String) comment.getProperty(COMMENT_EMAIL);
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
@@ -142,8 +141,6 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
-    String email = userService.getCurrentUser().getEmail();
     
     String imageUrl = getUploadedFileUrl(request, "image");
     System.out.println(imageUrl);
@@ -162,7 +159,6 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
-    commentEntity.setProperty(COMMENT_EMAIL, email);
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     commentEntity.setProperty(COMMENT_IMAGE, imageUrl);
     
@@ -173,13 +169,15 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
-  /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
+  /** 
+   * Returns a URL that points to the uploaded file, or null if the user didn't upload a file.
+   */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
 
-    // TODO: Fix this to be optional
+    // TODO: Update code to use Optional.
     // User submitted form without selecting a file, so we can't get a URL. (dev server)
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
@@ -188,7 +186,7 @@ public class DataServlet extends HttpServlet {
     // Our form only contains a single file input, so get the first index.
     BlobKey blobKey = blobKeys.get(0);
 
-    // TODO: Update to be optional.
+    // TODO: Update code to use Optional.
     // User submitted form without selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
