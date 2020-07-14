@@ -101,22 +101,29 @@ public class DataServlet extends HttpServlet {
         break;
       }
 
-      long id = comment.getKey().getId();
-      String text = (String) comment.getProperty(COMMENT_TEXT);
-      long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
-      String name = (String) comment.getProperty(COMMENT_NAME);
-      String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
-      String email = (String) comment.getProperty(COMMENT_EMAIL);
-      String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
-
-      comments.add(Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
-          .setName(name).setNickname(nickname).setImage(imageUrl).build());
+      comments.add(createComment(comment));
       commentCounter++;
     } 
     
     String json = convertToJsonUsingGson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
+  }
+
+  /**
+  * Create a Comment instance using properties from {@code comment}.
+  */
+  private Comment createComment(Entity comment) {
+    long id = comment.getKey().getId();
+    String text = (String) comment.getProperty(COMMENT_TEXT);
+    long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
+    String name = (String) comment.getProperty(COMMENT_NAME);
+    String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
+    String email = (String) comment.getProperty(COMMENT_EMAIL);
+    String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
+
+    return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
+              .setName(name).setNickname(nickname).setImage(imageUrl).build();
   }
 
   /**
