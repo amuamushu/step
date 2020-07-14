@@ -84,7 +84,6 @@ public class DataServlet extends HttpServlet {
       query.addSort(COMMENT_LENGTH, SortDirection.DESCENDING);
     }
 
-    this.datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = this.datastore.prepare(query);
 
     ArrayList<Comment> comments = new ArrayList<>();
@@ -142,7 +141,6 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_EMAIL, email);
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     
-    this.datastore = DatastoreServiceFactory.getDatastoreService();
     this.datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.

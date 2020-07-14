@@ -38,7 +38,6 @@ public class NicknameServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     out.println("<h1>Set Nickname</h1>");
 
-    this.userService = UserServiceFactory.getUserService();
     if (!this.userService.isUserLoggedIn()) {
       String loginUrl = userService.createLoginURL("/nickname");
       out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
@@ -57,7 +56,6 @@ public class NicknameServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    this.userService = UserServiceFactory.getUserService();
     if (!this.userService.isUserLoggedIn()) {
       response.sendRedirect("/nickname");
       return;
@@ -65,8 +63,6 @@ public class NicknameServlet extends HttpServlet {
 
     String nickname = request.getParameter(NICKNAME);
     String id = this.userService.getCurrentUser().getUserId();
-
-    this.datastore = DatastoreServiceFactory.getDatastoreService();
     Entity entity = new Entity(USER_INFO, id);
     entity.setProperty(ID, id);
     entity.setProperty(NICKNAME, nickname);
@@ -81,7 +77,6 @@ public class NicknameServlet extends HttpServlet {
    * nickname then returns {@code Optiona.empty()}. 
    */
   private Optional<String> userNickname(String id) {
-    this.datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
         new Query(USER_INFO)
             .setFilter(new Query.FilterPredicate(ID, Query.FilterOperator.EQUAL, id));
