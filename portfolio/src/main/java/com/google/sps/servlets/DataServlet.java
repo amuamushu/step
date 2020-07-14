@@ -100,7 +100,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-  * Create a Comment instance using properties from {@code comment}.
+  * Creates a Comment instance using properties from {@code comment}.
   */
   private Comment createComment(Entity comment) {
     long id = comment.getKey().getId();
@@ -143,7 +143,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    String imageUrl = getUploadedFileUrl(request, "image").get();
+    String imageUrl = getUploadedFileUrl(request, "image").orElse("");
     System.out.println(imageUrl);
 
     String text = request.getParameter(COMMENT_INPUT);
@@ -171,15 +171,17 @@ public class DataServlet extends HttpServlet {
   }
 
   /** 
-   * Returns a URL that points to the uploaded file, or null if the user didn't upload a file.
+   * Returns a URL that points to the uploaded file based on user input in 
+   * {@code formInputElementName}. If the user didn't upload a file, return an empty Optional.
    */
-  private Optional<String> getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private Optional<String> getUploadedFileUrl(HttpServletRequest request,
+      String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     Optional<List<BlobKey>> blobKeys = Optional.ofNullable(blobs.get("image"));
     
-    // TODO: Fix comment.
-    // User submitted form without selecting a file, so we can't get a URL. (dev server)
+    // Can not get a URL because the user submitted the form without selecting a file, 
+    // so we can't get a URL.
     if (!blobKeys.isPresent() || blobKeys.get().isEmpty()) {
       return Optional.empty();
     }
@@ -187,7 +189,8 @@ public class DataServlet extends HttpServlet {
     // Gets the first index because the comment form only takes in one file input.
     BlobKey blobKey = blobKeys.get().get(0);
 
-    // User submitted form without selecting a file, so we can't get a URL. (live server)
+    // Can not get a URL because the user submitted the form on the live server without 
+    // selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
