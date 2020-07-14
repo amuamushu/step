@@ -195,7 +195,6 @@ public class DataServlet extends HttpServlet {
     }
 
     // TODO: Check that the file uploaded has an image extension.
-
     // Use ImagesService to get a URL that points to the uploaded file.
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
     ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
