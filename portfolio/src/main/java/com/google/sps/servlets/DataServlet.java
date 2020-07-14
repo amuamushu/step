@@ -142,11 +142,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String imageUrl = getUploadedFileUrl(request, "image").orElse("");
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
     String nickname = HomeServlet.getUserNickname();
+    String imageUrl = getUploadedFileUrl(request, "image").orElse("");
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
