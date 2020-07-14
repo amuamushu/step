@@ -147,13 +147,7 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String mood = (String) request.getParameter(COMMENT_MOOD);
-    System.out.println("doPost()");
-    System.out.println(mood);
     String nickname = HomeServlet.getUserNickname();
-
-    // if (mood.isEmpty()) {
-    //   mood = ANONYMOUS_AUTHOR;
-    // }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
