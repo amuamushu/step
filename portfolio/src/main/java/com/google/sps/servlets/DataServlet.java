@@ -145,7 +145,6 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     String imageUrl = getUploadedFileUrl(request, "image").orElse("");
-    System.out.println(imageUrl);
 
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
