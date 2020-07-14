@@ -16,7 +16,7 @@ public abstract class Comment {
 
   abstract String nickname();
 
-  abstract String image();
+  abstract String imageUrl();
 
   /** 
    * Returns a builder instance that can be used to create Comments.
@@ -32,7 +32,7 @@ public abstract class Comment {
     public abstract Builder setTimestamp(long timestamp);
     public abstract Builder setName(String name);
     public abstract Builder setNickname(String nickname);
-    public abstract Builder setImage(String image);
+    public abstract Builder setImageUrl(String imageUrl);
     public abstract Comment build();
   }
 }
