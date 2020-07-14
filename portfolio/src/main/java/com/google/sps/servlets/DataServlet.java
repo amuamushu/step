@@ -186,7 +186,7 @@ public class DataServlet extends HttpServlet {
     // Gets the first index because the comment form only takes in one file input.
     BlobKey blobKey = blobKeys.get().get(0);
 
-    // Can not get a URL because the user submitted the form on the live server without 
+    // Cannot get a URL because the user submitted the form on the live server without 
     // selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
