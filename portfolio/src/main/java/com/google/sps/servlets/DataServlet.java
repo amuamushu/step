@@ -146,7 +146,7 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     String name = (String) request.getParameter(COMMENT_NAME);
     String nickname = HomeServlet.getUserNickname();
-    String imageUrl = getUploadedFileUrl(request, "image").orElse("");
+    String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
 
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
