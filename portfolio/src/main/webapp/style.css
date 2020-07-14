@@ -237,6 +237,10 @@ form {
   justify-content: space-around;
 }
 
+li {
+  margin-top: 20px;
+}
+
 #message-button,
 #message-container {
   margin-left: 45%;
