@@ -237,6 +237,8 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   liElement.appendChild(createCommentImage(comment.imageUrl));
+  // Separates each comment with a horizontal bar.
+  liElement.appendChild(document.createElement('hr'));
   textPElement.className = COMMENT_CLASS;
   ulElement.appendChild(liElement);
 }
