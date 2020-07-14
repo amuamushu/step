@@ -25,7 +25,7 @@ public class HomeServlet extends HttpServlet {
   private static final String NICKNAME_SERVLET = "/nickname";
 
   private static String userEmail;
-  private static String nickname;
+  private static Optional<String> nickname;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,17 +45,17 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    Optional<String> optionalNickname = getUserNickname(userService.getCurrentUser().getUserId());
-    if (!optionalNickname.isPresent()) {
+    Optional<String> nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    if (!nickname.isPresent()) {
       response.sendRedirect(NICKNAME_SERVLET);
       return;    
     }
     
-    nickname = optionalNickname.get();
+    // nickname = optionalNickname.get();
     userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
-    response.getWriter().println("<p>Hello " + nickname + "!</p>");
+    response.getWriter().println("<p>Hello " + nickname.get(); + "!</p>");
     response.getWriter().println("<button onclick=\"changeNickname();\">Change nickname</button>");
     
     // Allows the user to delete all of the comments only if the email is the same as the admin email.
@@ -81,6 +81,6 @@ public class HomeServlet extends HttpServlet {
 
   /** Returns the nickname of the current user when needed in other classes. */
   public static String getUserNickname() {
-    return nickname;
+    return this.nickname.get();
   }
 }
