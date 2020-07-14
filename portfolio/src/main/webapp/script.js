@@ -32,6 +32,7 @@ const P_TAG = 'p';
 const DIV_TAG = 'div';
 const IMG_TAG = 'img';
 const COMMENT_IMAGE_DESCRIPTION = "Comment Image";
+const COMMENT_IMAGE_CLASS = "comment-image";
 // After index 21 in the timestamp string is the milliseconds and 
 // the timezone name. Including that for the comments is excessive
 // and thus, ignored.
@@ -250,6 +251,7 @@ function createCommentImage(imageUrl) {
   const imgTag = document.createElement(IMG_TAG);
   imgTag.setAttribute('src', imageUrl);
   imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
+  imgTag.className = COMMENT_IMAGE_CLASS;
   return imgTag;
 }
 
