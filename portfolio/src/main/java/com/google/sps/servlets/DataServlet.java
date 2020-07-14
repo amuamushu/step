@@ -64,7 +64,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_LENGTH = "length";
   private static final String COMMENT_EMAIL = "email";
   private static final String COMMENT_NICKNAME = "nickname";
-  private static final String COMMENT_IMAGE = "image";
+  private static final String COMMENT_IMAGE_URL = "image";
   
   private static final String ANONYMOUS_AUTHOR = "anonymous";
   
@@ -108,7 +108,7 @@ public class DataServlet extends HttpServlet {
     long timestamp = (long) comment.getProperty(COMMENT_TIMESTAMP);
     String name = (String) comment.getProperty(COMMENT_NAME);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
-    String imageUrl = (String) comment.getProperty(COMMENT_IMAGE);
+    String imageUrl = (String) comment.getProperty(COMMENT_IMAGE_URL);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
               .setName(name).setNickname(nickname).setImageUrl(imageUrl).build();
@@ -161,7 +161,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_NAME, name);
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
-    commentEntity.setProperty(COMMENT_IMAGE, imageUrl);
+    commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
