@@ -45,7 +45,7 @@ public class NicknameServlet extends HttpServlet {
       return;
     }
 
-    String nickname = getUserNickname(this.userService.getCurrentUser().getUserId()).orElse("");
+    String nickname = userNickname(this.userService.getCurrentUser().getUserId()).orElse("");
     response.getWriter().println("<style>#comment-form {display:none;}</style>");
     out.println("<p>Set your nickname here:</p>");
     out.println("<form method=\"POST\" action=\"/nickname\">");
@@ -76,9 +76,11 @@ public class NicknameServlet extends HttpServlet {
     response.sendRedirect(BOTTOM_OF_PAGE);
   }
 
-  /** Returns an Optional object containing the nickname of the user with {@code id},
-   * or an empty Optional if the user has not set a nickname. */
-  private Optional<String> getUserNickname(String id) {
+  /** 
+   * Returns the nickname of the user with {@code id}. If the user has not set a 
+   * nickname then returns {@code Optiona.empty()}. 
+   */
+  private Optional<String> userNickname(String id) {
     this.datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
         new Query(USER_INFO)
