@@ -227,10 +227,6 @@ button {
   width: 50%;
 }
 
-form {
-  margin-left: 25%;
-}
-
 #form-elements-container {
   display: flex;
   flex-wrap: wrap;
