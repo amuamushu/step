@@ -68,8 +68,10 @@ body {
 }
 
 .flex-container {
-  align-items: flex-start;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   margin-top: 50px;
 }
 
@@ -230,8 +232,8 @@ form {
 }
 
 #form-elements-container {
-  align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   width: 500px;
 }
