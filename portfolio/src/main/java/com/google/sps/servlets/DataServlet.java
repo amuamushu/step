@@ -76,6 +76,14 @@ public class DataServlet extends HttpServlet {
   private static final String ID = "ID";
   private static final String USER_INFO = "userInfo";
 
+  private static DatastoreService datastore;
+  
+  @Override
+  public void init() {
+    this.datastore = DatastoreServiceFactory.getDatastoreService();
+  }
+
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int maxComments = Integer.parseInt(request.getParameter(COMMENT_AMOUNT));
@@ -90,6 +98,7 @@ public class DataServlet extends HttpServlet {
       if (commentCounter == maxComments) {
         break;
       }
+
       comments.add(createComment(comment));
       commentCounter++;
     } 
@@ -151,7 +160,6 @@ public class DataServlet extends HttpServlet {
     if (name.isEmpty()) {
       name = ANONYMOUS_AUTHOR;
     }
-
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
     commentEntity.setProperty(COMMENT_TIMESTAMP, timestamp);
@@ -160,8 +168,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
     
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    this.datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);

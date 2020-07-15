@@ -24,6 +24,9 @@ public class HomeServlet extends HttpServlet {
   private static final String ADMIN_EMAIL = "amytn@google.com";
   private static final String NICKNAME_SERVLET = "/nickname";
 
+  // Email and nickname of the current user. Since there is only one 
+  // current User at a time, there should only be one email and nickname
+  // at a time.
   private static String userEmail;
   private static String nickname;
 
@@ -45,13 +48,13 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    Optional<String> optionalNickname = getUserNickname(userService.getCurrentUser().getUserId());
-    if (!optionalNickname.isPresent()) {
+    Optional<String> nickname = getUserNickname(userService.getCurrentUser().getUserId());
+    if (!nickname.isPresent()) {
       response.sendRedirect(NICKNAME_SERVLET);
       return;    
     }
     
-    nickname = optionalNickname.get();
+    nickname = nickname.get();
     userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
@@ -81,8 +84,13 @@ public class HomeServlet extends HttpServlet {
     return optionalEntity.map(entity->(String)entity.getProperty(COMMENT_NICKNAME));
   }
 
-  /** Returns the nickname of the current user when needed in other classes. */
-  public static String getUserNickname() {
+  /** 
+   * Returns the nickname of the current user when needed in other classes.
+   * 
+   * <p>This method is only called after a user sets a nickname so it should
+   * never return null.
+   */
+  public static String userNickname() {
     return nickname;
   }
 }
