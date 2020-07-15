@@ -241,6 +241,10 @@ form {
   justify-content: space-around;
 }
 
+label {
+  font-size: small;
+}
+
 li {
   margin-top: 20px;
 }
