@@ -15,9 +15,35 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<TimeRange> times = new ArrayList<>();
+
+    Collection<String> attendees = request.getAttendees();
+    
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      // If the event is longer than a day, no time slots are available to book a meeting.
+      return times; 
+    } else if (attendees.size() == 0) {
+      // If there are no attendees, the entire day is available to book a meeting.
+      times.add(TimeRange.WHOLE_DAY);
+      return times;
+    }
+
+    // check if person has another meeting, if they do, have to worry about 
+    // overlap; if they don't, anytime = good --> Hashset?
+
+    // what if there is an event that goes to the next day
+    int currentEndTime = TimeRange.START_OF_DAY; // time will be calculated in minutes
+    System.out.println(endTime);
+    for (Event event : events) {
+      TimeRange time = event.getWhen();
+      if (time.start() < endTime
+      System.out.println(event.getWhen());
+    }
+    return times;
+    // output timerange based on duration and attendees
   }
 }
