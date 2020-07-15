@@ -154,7 +154,7 @@ public class DataServlet extends HttpServlet {
     String text = request.getParameter(COMMENT_INPUT);
     long timestamp = System.currentTimeMillis();
     String mood = (String) request.getParameter(COMMENT_MOOD);
-    String nickname = HomeServlet.getUserNickname();
+    String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);

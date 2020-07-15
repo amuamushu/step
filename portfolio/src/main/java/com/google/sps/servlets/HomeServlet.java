@@ -48,13 +48,13 @@ public class HomeServlet extends HttpServlet {
     }
 
     // If user has not set a nickname, redirect to nickname page
-    Optional<String> nickname = getUserNickname(userService.getCurrentUser().getUserId());
-    if (!nickname.isPresent()) {
+    Optional<String> optionalNickname = getUserNickname(userService.getCurrentUser().getUserId());
+    if (!optionalNickname.isPresent()) {
       response.sendRedirect(NICKNAME_SERVLET);
       return;    
     }
     
-    nickname = nickname.get();
+    nickname = optionalNickname.get();
     userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(HOME_PATH);
 
