@@ -32,6 +32,7 @@ const P_TAG = 'p';
 const DIV_TAG = 'div';
 const IMG_TAG = 'img';
 const COMMENT_IMAGE_DESCRIPTION = "Comment Image";
+const COMMENT_IMAGE_CLASS = "comment-image";
 // After index 21 in the timestamp string is the milliseconds and 
 // the timezone name. Including that for the comments is excessive
 // and thus, ignored.
@@ -231,12 +232,14 @@ function appendTextToList(comment, ulElement) {
       .substring(0, END_OF_TIMESTAMP);
 
   appendPTagToContainer(comment.nickname, infoDivElement);
-  appendPTagToContainer(comment.name, infoDivElement);
+  appendPTagToContainer("Feeling " + comment.mood, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   liElement.appendChild(createCommentImage(comment.imageUrl));
+  // Separates each comment with a horizontal bar.
+  liElement.appendChild(document.createElement('hr'));
   textPElement.className = COMMENT_CLASS;
   ulElement.appendChild(liElement);
 }
@@ -248,6 +251,7 @@ function createCommentImage(imageUrl) {
   const imgTag = document.createElement(IMG_TAG);
   imgTag.setAttribute('src', imageUrl);
   imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
+  imgTag.className = COMMENT_IMAGE_CLASS;
   return imgTag;
 }
 

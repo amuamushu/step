@@ -68,8 +68,10 @@ body {
 }
 
 .flex-container {
-  align-items: flex-start;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   margin-top: 50px;
 }
 
@@ -221,13 +223,13 @@ button {
   font-weight: bold;
 }
 
-form {
-  margin-left: 25%;
+.comment-image {
+  width: 50%;
 }
 
 #form-elements-container {
-  align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   width: 500px;
 }
@@ -235,6 +237,14 @@ form {
 .info {
   display: flex;
   justify-content: space-around;
+}
+
+label {
+  font-size: small;
+}
+
+li {
+  margin-top: 20px;
 }
 
 #message-button,
@@ -252,7 +262,8 @@ form {
 
 ul {
   list-style: none;
-  margin-left: 30%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   width: 500px;
 }
@@ -263,6 +274,8 @@ ul p {
 
 .comment {
   font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 2px;
 }
 
 .info {

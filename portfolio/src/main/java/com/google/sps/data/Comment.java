@@ -12,7 +12,7 @@ public abstract class Comment {
 
   abstract long timestamp();
 
-  abstract String name();
+  abstract String mood();
 
   abstract String nickname();
 
@@ -30,7 +30,7 @@ public abstract class Comment {
     public abstract Builder setId(long id);
     public abstract Builder setText(String text);
     public abstract Builder setTimestamp(long timestamp);
-    public abstract Builder setName(String name);
+    public abstract Builder setMood(String mood);
     public abstract Builder setNickname(String nickname);
     public abstract Builder setImageUrl(String imageUrl);
     public abstract Comment build();
