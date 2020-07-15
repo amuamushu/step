@@ -232,7 +232,7 @@ function appendTextToList(comment, ulElement) {
       .substring(0, END_OF_TIMESTAMP);
 
   appendPTagToContainer(comment.nickname, infoDivElement);
-  appendPTagToContainer("feeling " + comment.mood, infoDivElement);
+  appendPTagToContainer("Feeling " + comment.mood, infoDivElement);
   appendPTagToContainer(date, infoDivElement);
 
   liElement.appendChild(infoDivElement);
