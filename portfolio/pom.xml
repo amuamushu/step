@@ -48,6 +48,12 @@
       <version>1.6.2</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-language</artifactId>
+      <version>1.55.0</version>
+    </dependency>
   </dependencies>
 
   <build>
