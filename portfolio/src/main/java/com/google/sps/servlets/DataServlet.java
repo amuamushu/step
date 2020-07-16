@@ -172,6 +172,20 @@ public class DataServlet extends HttpServlet {
   }
 
   /** 
+   * Returns a sentiment score based on {@code text}.
+   */
+  public float calculateSentiment(String text) {
+    Document document =
+        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(document).getDocumentSentiment();
+    float score = sentiment.getScore();
+    languageService.close();
+
+    return score;
+  }
+  
+  /** 
    * Returns a URL that points to the uploaded file based on user input in 
    * {@code formInputElementName}. If the user didn't upload a file, returns an empty Optional.
    */
