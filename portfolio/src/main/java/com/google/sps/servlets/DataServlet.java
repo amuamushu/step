@@ -182,10 +182,10 @@ public class DataServlet extends HttpServlet {
    * Returns a sentiment score based on {@code text}.
    */
   public float calculateSentiment(String text) throws IOException {
-    Document doc =
+    Document document =
         Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    Sentiment sentiment = languageService.analyzeSentiment(document).getDocumentSentiment();
     float score = sentiment.getScore();
     languageService.close();
 
