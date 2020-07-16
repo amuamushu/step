@@ -34,11 +34,13 @@ public final class FindMeetingQuery {
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       // If the event is longer than a day, no time slots are available to book a meeting.
       return times; 
-    } else if (attendees.size() == 0) {
+    }
+    if (attendees.size() == 0) {
       // If there are no attendees, the entire day is available to book a meeting.
       times.add(TimeRange.WHOLE_DAY);
       return times;
     }
+
     int currentEndTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
       // Ignores this event's time range if the people attending this event are 
@@ -54,13 +56,10 @@ public final class FindMeetingQuery {
       // the latest event.
       if (time.end() <= currentEndTime) {
         continue;
-      } else if (time.start() <= currentEndTime) {
-        // Handles events starting before but ending after the currentEndTime.
-        currentEndTime = time.end();
-        continue;
-      }else if (request.getDuration() > (time.start() - currentEndTime)) {
-        // Does not add the time range if the time gap is smaller than the duration of
-        // the requested meeting.
+      }
+      if ((time.start() <= currentEndTime) || (request.getDuration() > (time.start() - currentEndTime)) {
+        // Handles events starting before but ending after the currentEndTime and the case where the request
+        // meeeting duration is longer than the time gap.
         currentEndTime = time.end();
         continue;
       }
