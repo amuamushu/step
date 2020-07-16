@@ -36,8 +36,8 @@ public final class FindMeetingQuery {
 
     int currentEndTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
-      // If the people attending this event are not attending the event we are planning,
-      // ignore this event's time range. 
+      // Ignores this event's time range if the people attending this event are 
+      // not attending the event being planned. 
       Set<String> eventAttendees = new HashSet<String>(event.getAttendees());
       eventAttendees.retainAll(attendees);
       if (eventAttendees.isEmpty()) {
@@ -45,17 +45,17 @@ public final class FindMeetingQuery {
       }
 
       TimeRange time = event.getWhen();
-      // This event is skipped because it ended before or at the same time as
+      // Skips this event because it ended before or at the same time as
       // the latest event.
       if (time.end() <= currentEndTime) {
         continue;
       } else if (time.start() <= currentEndTime) {
-        // Handles overlap events that end after the current latest time.
+        // Handles overlapping events that end after the current latest time.
         currentEndTime = time.end();
         continue;
       }else if (request.getDuration() > (time.start() - currentEndTime)) {
         // Does not add the time range if the time gap is smaller than the duration of
-        // the meeting being planned.
+        // the event being planned.
         currentEndTime = time.end();
         continue;
       }
@@ -66,7 +66,8 @@ public final class FindMeetingQuery {
 
     // Adds a timerange for after the latest event ends.
     if (currentEndTime < TimeRange.END_OF_DAY) {
-      TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, TimeRange.END_OF_DAY, true);
+      TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, 
+          TimeRange.END_OF_DAY, true);
       times.add(latestTimeRange);
     }
     return times;
