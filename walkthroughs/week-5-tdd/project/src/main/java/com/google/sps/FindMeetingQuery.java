@@ -75,7 +75,6 @@ public final class FindMeetingQuery {
           TimeRange.END_OF_DAY, true);
       times.add(latestTimeRange);
     }
-
     return times;
   }
 }
