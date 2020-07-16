@@ -129,13 +129,6 @@ h2 {
   width: 100%;
 }
 
-.hidden {
-  background-color: gainsboro; 
-  bottom: 30%;
-  font-size: 1vw;
-  visibility: hidden;
-}
-
 .overlay {
   background-color: white;
   bottom: 15%;
@@ -147,6 +140,13 @@ h2 {
   position: absolute;
   text-align: center;
   z-index: 2;
+}
+
+.hidden {
+  background-color: gainsboro; 
+  bottom: 30%;
+  font-size: 1vw;
+  visibility: hidden;
 }
 
 #overlay-uni {
