@@ -66,6 +66,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_EMAIL = "email";
   private static final String COMMENT_NICKNAME = "nickname";
   private static final String COMMENT_IMAGE_URL = "image";
+  private static final String COMMENT_SENTIMENT = "sentiment";
   
   private static final String ANONYMOUS_AUTHOR = "anonymous";
   
@@ -158,6 +159,7 @@ public class DataServlet extends HttpServlet {
     String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
+    String sentiment = calculateSentiment(text));
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
@@ -166,6 +168,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
+    commentEntity.setProperty(COMMENT_SENTIMENT, sentiment);
     
     this.datastore.put(commentEntity);
 
@@ -176,11 +179,11 @@ public class DataServlet extends HttpServlet {
   /** 
    * Returns a sentiment score based on {@code text}.
    */
-  public float calculateSentiment(String text) {
-    Document document =
+  public float calculateSentiment(String text) throws IOException {
+    Document doc =
         Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(document).getDocumentSentiment();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
     float score = sentiment.getScore();
     languageService.close();
 
