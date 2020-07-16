@@ -121,6 +121,7 @@ public class DataServlet extends HttpServlet {
     String mood = (String) comment.getProperty(COMMENT_MOOD);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE_URL);
+    float sentiment = comment.getProperty(COMMENT_SENTIMENT);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
               .setMood(mood).setNickname(nickname).setImageUrl(imageUrl).build();
@@ -159,7 +160,7 @@ public class DataServlet extends HttpServlet {
     String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
-    String sentiment = calculateSentiment(text));
+    float sentiment = calculateSentiment(text);
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
