@@ -37,7 +37,7 @@ public final class FindMeetingQuery {
     int currentEndTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
       // Ignores this event's time range if the people attending this event are 
-      // not attending the event being planned. 
+      // not attending the requested meeting. 
       Set<String> eventAttendees = new HashSet<String>(event.getAttendees());
       eventAttendees.retainAll(attendees);
       if (eventAttendees.isEmpty()) {
@@ -55,7 +55,7 @@ public final class FindMeetingQuery {
         continue;
       }else if (request.getDuration() > (time.start() - currentEndTime)) {
         // Does not add the time range if the time gap is smaller than the duration of
-        // the event being planned.
+        // the requested meeting.
         currentEndTime = time.end();
         continue;
       }
