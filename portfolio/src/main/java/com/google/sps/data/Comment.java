@@ -37,7 +37,6 @@ public abstract class Comment {
     public abstract Builder setImageUrl(String imageUrl);
     public abstract Builder setSentiment(float sentiment);
     public abstract Comment build();
-    
   }
 }
 
