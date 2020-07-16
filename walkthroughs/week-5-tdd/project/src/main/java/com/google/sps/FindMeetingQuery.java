@@ -43,6 +43,11 @@ public final class FindMeetingQuery {
     for (Event event : events) {
       // Ignores this event's time range if the people attending this event are 
       // not attending the requested meeting. 
+      Set<String> eventAttendees = new HashSet<String>(event.getAttendees());
+      eventAttendees.retainAll(attendees);
+      if (eventAttendees.isEmpty()) {
+        continue;
+      }
 
       TimeRange time = event.getWhen();
       // Skips this event because it ended before or at the same time as
