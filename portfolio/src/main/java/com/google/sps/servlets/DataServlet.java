@@ -121,10 +121,11 @@ public class DataServlet extends HttpServlet {
     String mood = (String) comment.getProperty(COMMENT_MOOD);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE_URL);
-    float sentiment = comment.getProperty(COMMENT_SENTIMENT);
+    float sentiment = (float) comment.getProperty(COMMENT_SENTIMENT);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
-              .setMood(mood).setNickname(nickname).setImageUrl(imageUrl).build();
+              .setMood(mood).setNickname(nickname).setImageUrl(imageUrl)
+              .setSentiment(sentiment).build();
   }
 
   /**
