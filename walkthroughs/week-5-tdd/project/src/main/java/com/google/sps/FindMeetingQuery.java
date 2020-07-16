@@ -17,6 +17,7 @@ package com.google.sps;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
@@ -41,8 +42,19 @@ public final class FindMeetingQuery {
     // what if there is an event that goes to the next day
     int currentEndTime = TimeRange.START_OF_DAY; // time will be calculated in minutes
     int difference;
-    // TODO: Update code to use TimeRange instead of this
+
     for (Event event : events) {
+      // If the people attending this event are not attending the event we are planning,
+      // ignore this event's time range. 
+      Set<String> eventAttendees = new HashSet<String>(event.getAttendees());
+      eventAttendees.retainAll(attendees);
+      if (eventAttendees.isEmpty()) {
+        continue;
+      }
+
+      System.out.println(event.getAttendees());
+      System.out.println("LOL HELP ME");
+      //
       TimeRange time = event.getWhen();
       // This event is skipped because it ended before or at the same time as
       // the latest event.
