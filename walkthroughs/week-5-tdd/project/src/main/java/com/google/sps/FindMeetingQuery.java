@@ -37,13 +37,25 @@ public final class FindMeetingQuery {
 
     // what if there is an event that goes to the next day
     int currentEndTime = TimeRange.START_OF_DAY; // time will be calculated in minutes
-    System.out.println(endTime);
+    int difference;
     for (Event event : events) {
       TimeRange time = event.getWhen();
-      if (time.start() < endTime
-      System.out.println(event.getWhen());
+      // This event is skipped because it ended before or at the same time as
+      // the latest event.
+      if (time.end() <= currentEndTime) {
+        continue;
+      } 
+      TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
+      // Updates the end time to be the latest end time so far.
+      currentEndTime = time.end();
+      times.add(gapTimeRange);
+    }
+
+    // Adds a timerange for after the latest event ends.
+    if (currentEndTime < TimeRange.END_OF_DAY) {
+      TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, TimeRange.END_OF_DAY, true);
+      times.add(latestTimeRange);
     }
     return times;
-    // output timerange based on duration and attendees
   }
 }
