@@ -31,7 +31,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-// Imports for uploading images.
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -162,6 +161,20 @@ public class DataServlet extends HttpServlet {
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
+  }
+
+  /** 
+   * Returns a sentiment score based on {@code text}.
+   */
+  public float calculateSentiment(String text) {
+    Document document =
+        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(document).getDocumentSentiment();
+    float score = sentiment.getScore();
+    languageService.close();
+
+    return score;
   }
 
   /** 
