@@ -35,8 +35,6 @@ public final class FindMeetingQuery {
     }
 
     int currentEndTime = TimeRange.START_OF_DAY;
-    int difference;
-
     for (Event event : events) {
       // If the people attending this event are not attending the event we are planning,
       // ignore this event's time range. 
