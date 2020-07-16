@@ -39,12 +39,14 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Optional;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 
 
 /** Servlet that writes and returns comments data. */
@@ -184,7 +186,7 @@ public class DataServlet extends HttpServlet {
 
     return score;
   }
-  
+
   /** 
    * Returns a URL that points to the uploaded file based on user input in 
    * {@code formInputElementName}. If the user didn't upload a file, returns an empty Optional.
