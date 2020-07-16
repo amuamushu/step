@@ -52,9 +52,6 @@ public final class FindMeetingQuery {
         continue;
       }
 
-      System.out.println(event.getAttendees());
-      System.out.println("LOL HELP ME");
-      //
       TimeRange time = event.getWhen();
       // This event is skipped because it ended before or at the same time as
       // the latest event.
@@ -64,9 +61,13 @@ public final class FindMeetingQuery {
         // Handles overlap events that end after the current latest time.
         currentEndTime = time.end();
         continue;
+      }else if (request.getDuration() > (time.start() - currentEndTime)) {
+        // Does not add the time range if the time gap is smaller than the duration of
+        // the meeting being planned.
+        currentEndTime = time.end();
+        continue;
       }
       TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
-      // Updates the end time to be the latest end time so far.
       currentEndTime = time.end();
       times.add(gapTimeRange);
     }
