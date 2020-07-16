@@ -57,9 +57,10 @@ public final class FindMeetingQuery {
       if (time.end() <= currentEndTime) {
         continue;
       }
-      if ((time.start() <= currentEndTime) || (request.getDuration() > (time.start() - currentEndTime)) {
-        // Handles events starting before but ending after the currentEndTime and the case where the request
-        // meeeting duration is longer than the time gap.
+      if ((time.start() <= currentEndTime) || 
+          (request.getDuration() > (time.start() - currentEndTime)) {
+        // Handles events starting before but ending after the currentEndTime and the case 
+        // where the request meeeting duration is longer than the time gap.
         currentEndTime = time.end();
         continue;
       }
