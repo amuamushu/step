@@ -17,12 +17,12 @@ package com.google.sps;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<TimeRange> times = new ArrayList<>();
-
     Collection<String> attendees = request.getAttendees();
     
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
@@ -34,13 +34,7 @@ public final class FindMeetingQuery {
       return times;
     }
 
-    // check if person has another meeting, if they do, have to worry about 
-    // overlap; if they don't, anytime = good --> Hashset?
-    //TODO: sort beforehand
-    // System.out.println(events);
-    // Collections.sort(new ArrayList(events), TimeRange.ORDER_BY_START);
-    // what if there is an event that goes to the next day
-    int currentEndTime = TimeRange.START_OF_DAY; // time will be calculated in minutes
+    int currentEndTime = TimeRange.START_OF_DAY;
     int difference;
 
     for (Event event : events) {
