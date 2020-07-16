@@ -39,7 +39,37 @@ public final class FindMeetingQuery {
       times.add(TimeRange.WHOLE_DAY);
       return times;
     }
+    int currentEndTime = TimeRange.START_OF_DAY;
+    for (Event event : events) {
+      // Ignores this event's time range if the people attending this event are 
+      // not attending the requested meeting. 
 
+      TimeRange time = event.getWhen();
+      // Skips this event because it ended before or at the same time as
+      // the latest event.
+      if (time.end() <= currentEndTime) {
+        continue;
+      } else if (time.start() <= currentEndTime) {
+        // Handles events starting before but ending after the currentEndTime.
+        currentEndTime = time.end();
+        continue;
+      }else if (request.getDuration() > (time.start() - currentEndTime)) {
+        // Does not add the time range if the time gap is smaller than the duration of
+        // the requested meeting.
+        currentEndTime = time.end();
+        continue;
+      }
+      TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
+      currentEndTime = time.end();
+      times.add(gapTimeRange);
+    }
+
+    // Adds a timerange for after the latest event ends.
+    if (currentEndTime < TimeRange.END_OF_DAY) {
+      TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, 
+          TimeRange.END_OF_DAY, true);
+      times.add(latestTimeRange);
+    }
 
     return times;
   }
