@@ -15,6 +15,7 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.ArrayList;
 
 public final class FindMeetingQuery {
@@ -34,17 +35,24 @@ public final class FindMeetingQuery {
 
     // check if person has another meeting, if they do, have to worry about 
     // overlap; if they don't, anytime = good --> Hashset?
-
+    //TODO: sort beforehand
+    // System.out.println(events);
+    // Collections.sort(new ArrayList(events), TimeRange.ORDER_BY_START);
     // what if there is an event that goes to the next day
     int currentEndTime = TimeRange.START_OF_DAY; // time will be calculated in minutes
     int difference;
+    // TODO: Update code to use TimeRange instead of this
     for (Event event : events) {
       TimeRange time = event.getWhen();
       // This event is skipped because it ended before or at the same time as
       // the latest event.
       if (time.end() <= currentEndTime) {
         continue;
-      } 
+      } else if (time.start() <= currentEndTime) {
+        // Handles overlap events that end after the current latest time.
+        currentEndTime = time.end();
+        continue;
+      }
       TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
       // Updates the end time to be the latest end time so far.
       currentEndTime = time.end();
