@@ -241,7 +241,6 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(createCommentImage(comment.imageUrl));
 
   updateBackgroundColorBasedOnSentiment(comment.sentiment, liElement);
-  
   // Separates each comment with a horizontal bar.
   liElement.appendChild(document.createElement('hr'));
   ulElement.appendChild(liElement);
