@@ -257,7 +257,7 @@ function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
   // is negative.
   const scoreAsRatio = (score + 1) / 2 
   // In HSL, 120 is green and 0 is red so a positive score will be green.
-  let HSLColor = scoreAsRatio * 120
+  const HSLColor = scoreAsRatio * 120
   // The second parameter in HSL indicates the saturation and the third
   // parameter indicates the lightness.
   elementToColor.style.backgroundColor = "hsl(" + HSLColor + ", 80%, 80%)"
