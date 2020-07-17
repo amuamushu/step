@@ -253,7 +253,8 @@ function appendTextToList(comment, ulElement) {
  */
 function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
   // The original sentiment score is from -1 to 1 so shifting the score
-  // by 1 and dividing by 2 will yield the ratio.
+  // by 1 and dividing by 2 will yield a ratio where 1 is positive and 0
+  // is negative.
   const scoreAsRatio = (score + 1) / 2 
   // In HSL, 120 is green and 0 is red so a positive score will be green.
   let HSLColor = scoreAsRatio * 120
