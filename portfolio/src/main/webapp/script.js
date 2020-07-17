@@ -251,7 +251,7 @@ function appendTextToList(comment, ulElement) {
  * green or red based on {@code score}.
  */
 function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
-  // The original sentiment score is from -1 to 1 so shifting the score
+  // The original sentiment score is from -1 to 1, so shifting the score
   // by 1 and dividing by 2 will yield a ratio where 1 is positive and 0
   // is negative.
   const scoreAsRatio = (score + 1) / 2 
