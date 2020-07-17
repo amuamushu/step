@@ -179,7 +179,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /** 
-   * Returns a sentiment score ranging from -1 to 1 based on {@code text}, where -1 if
+   * Returns a sentiment score ranging from -1 to 1 based on {@code text}, where -1 is
    * very negative and 1 is very positive.
    */
   public float calculateSentiment(String text) throws IOException {
