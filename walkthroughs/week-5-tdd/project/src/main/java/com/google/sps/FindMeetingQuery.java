@@ -70,9 +70,11 @@ public final class FindMeetingQuery {
         System.out.println("if statement");
         // this time slot works for non optional (only optional people here at this event, no confirmed attendes)
         if (eventAttendees.isEmpty()) {
-          TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
+          // duration handles when optional event ends before meeting duration.
+          int duration = (int) Math.max(time.start(), currentEndTime + request.getDuration());
+          TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, duration, false); //before end was time.start()
           timesForNonOptional.add(gapTimeRange);
-          System.out.println("eventAttendee is empty");
+          System.out.println("eventAttendee is empty" + time.end());
         }
         currentEndTime = Math.max(time.end(), currentEndTime);
         // Time doesn't work for either
