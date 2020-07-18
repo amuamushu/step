@@ -358,7 +358,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_onlyOptionalAttendeesWithTimeGaps() {
+  public void query_onlyOptionalAttendeesWithGaps() {
     // Have only optional attendees with several time gaps in their schedule.
     //
     // Events  :    |-A-|   |-A-|
@@ -374,8 +374,7 @@ public final class FindMeetingQueryTest {
         new Event("Event 3", TimeRange.fromStartEnd(TIME_0930AM, TIME_1000AM, false),
             Arrays.asList(PERSON_A)),
         new Event("Event 4", TimeRange.fromStartEnd(TIME_1100AM, TIME_1130AM, false),
-            Arrays.asList(PERSON_B)),
-            );
+            Arrays.asList(PERSON_B)));
     MeetingRequest request = new MeetingRequest(Arrays.asList(), DURATION_30_MINUTES);
     request.addOptionalAttendee(PERSON_A, PERSON_B);
 
@@ -384,6 +383,31 @@ public final class FindMeetingQueryTest {
         Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
             TimeRange.fromStartEnd(TIME_1000AM, TIME_1100AM, false),
             TimeRange.fromStartEnd(TIME_1130AM, TimeRange.END_OF_DAY, false));
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void query_onlyOptionalAttendeesWithNoGaps() {
+    // Have only optional attendees with several time gaps in their schedule.
+    //
+    // Events  : |--A--|     |----A----|
+    //                 |--B--|
+    // Day     : |---------------------|
+    // Options :       
+
+    Collection<Event> events = Arrays.asList(
+        new Event("Event 1", TimeRange.fromStartEnd(TIME_0830AM, TIME_0900AM, false),
+            Arrays.asList(PERSON_A)),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_0900AM, TIME_0930AM, false),
+            Arrays.asList(PERSON_B)),
+        new Event("Event 3", TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_A)));
+    MeetingRequest request = new MeetingRequest(Arrays.asList(), DURATION_30_MINUTES);
+    request.addOptionalAttendee(PERSON_A, PERSON_B);
+
+    Collection<TimeRange> actual = query.query(events, request);
+    Collection<TimeRange> expected = Arrays.asList();
 
     Assert.assertEquals(expected, actual);
   }
