@@ -31,6 +31,7 @@ public final class FindMeetingQuery {
     Collection<TimeRange> timesForEveryone = new ArrayList<>();
     Collection<TimeRange> timesForNonOptional = new ArrayList<>();
     Collection<String> attendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
     
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       // If the event is longer than a day, no time slots are available to book a meeting.
@@ -48,9 +49,18 @@ public final class FindMeetingQuery {
       // not attending the requested meeting. 
       Set<String> eventAttendees = new HashSet<String>(event.getAttendees());
       eventAttendees.retainAll(attendees);
-      if (eventAttendees.isEmpty()) {
+// List of optional attendees that are at this event. If there is one, make the time range from this event, usner
+      // waAATI antendees doesn't include optional
+      Set<String> optionalEventAttendeesForRequestedMeeting = new HashSet<String>(event.getAttendees());
+      optionalEventAttendeesForRequestedMeeting.retainAll(optionalAttendees);
+      System.out.println(optionalEventAttendeesForRequestedMeeting);
+      if (eventAttendees.isEmpty() && optionalEventAttendeesForRequestedMeeting.isEmpty()) {
         continue;
       }
+
+      // have intersection of attendees
+      // intersect again to find optional vs event attendees --> optional attendees who are going to this
+      // event, if there is at least 1 optional (add that time range to the timesForNonOptional)
 
       TimeRange time = event.getWhen();
       // Handles overlapping events and the case where the requested meeting duration is longer 
@@ -58,8 +68,14 @@ public final class FindMeetingQuery {
       if ((time.start() <= currentEndTime) || (time.end() <= currentEndTime) ||
           (request.getDuration() > (time.start() - currentEndTime))) {
         currentEndTime = Math.max(time.end(), currentEndTime);
+
+      }
+      // this time slot works for non optional (only optional people here at this event, no confirmed attendes)
+      if (!eventAttendees.isEmpty()) {
         continue;
       }
+      // for loop through optional attendees???? have to check which events the attendees are in....
+      // each event has a list of attendees (no optional)
       TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
       currentEndTime = time.end();
       timesForEveryone.add(gapTimeRange);
