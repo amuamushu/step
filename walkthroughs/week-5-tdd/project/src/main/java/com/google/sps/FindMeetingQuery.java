@@ -28,17 +28,18 @@ public final class FindMeetingQuery {
    * all events so far. 
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    Collection<TimeRange> times = new ArrayList<>();
+    Collection<TimeRange> timesForEveryone = new ArrayList<>();
+    Collection<TimeRange> timesForNonOptional = new ArrayList<>();
     Collection<String> attendees = request.getAttendees();
     
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       // If the event is longer than a day, no time slots are available to book a meeting.
-      return times; 
+      return timesForEveryone; 
     }
     if (attendees.size() == 0) {
       // If there are no attendees, the entire day is available to book a meeting.
-      times.add(TimeRange.WHOLE_DAY);
-      return times;
+      timesForEveryone.add(TimeRange.WHOLE_DAY);
+      return timesForEveryone;
     }
 
     int currentEndTime = TimeRange.START_OF_DAY;
@@ -52,29 +53,32 @@ public final class FindMeetingQuery {
       }
 
       TimeRange time = event.getWhen();
-      // Skips this event because it ended before or at the same time as
-      // the latest event.
-      if (time.end() <= currentEndTime) {
-        continue;
-      }
-      if ((time.start() <= currentEndTime) || 
-          (request.getDuration() > (time.start() - currentEndTime)) {
-        // Handles events starting before but ending after the currentEndTime and the case 
-        // where the request meeeting duration is longer than the time gap.
-        currentEndTime = time.end();
+      // Handles overlapping events and the case where the requested meeting duration is longer 
+      // than the time gap.
+      if ((time.start() <= currentEndTime) || (time.end() <= currentEndTime) ||
+          (request.getDuration() > (time.start() - currentEndTime))) {
+        currentEndTime = Math.max(time.end(), currentEndTime);
         continue;
       }
       TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
       currentEndTime = time.end();
-      times.add(gapTimeRange);
+      timesForEveryone.add(gapTimeRange);
     }
 
     // Adds a timerange for after the latest event ends.
     if (currentEndTime < TimeRange.END_OF_DAY) {
       TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, 
           TimeRange.END_OF_DAY, true);
-      times.add(latestTimeRange);
+      timesForEveryone.add(latestTimeRange);
     }
-    return times;
+    return timesForEveryone;
   }
 }
+
+
+// get optional attendees 
+// if attendee can be accomodated, include just their event,
+// if not, don't include any optionals
+// have a second arraylist for events where optionals can attend (og arraylist for 
+// everyone) 
+// if the og al is empty, then return the optionals can't attend list (2nd one)
