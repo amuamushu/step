@@ -32,17 +32,17 @@ public final class FindMeetingQuery {
     Collection<TimeRange> timesForNonOptional = new ArrayList<>();
     Collection<String> attendees = request.getAttendees();
     Collection<String> optionalAttendees = request.getOptionalAttendees();
-    
+    System.out.println("HERE");
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       // If the event is longer than a day, no time slots are available to book a meeting.
       return timesForEveryone; 
     }
-    if (attendees.size() == 0) {
+    if (attendees.size() == 0 && optionalAttendees.size() == 0) {
       // If there are no attendees, the entire day is available to book a meeting.
       timesForEveryone.add(TimeRange.WHOLE_DAY);
       return timesForEveryone;
     }
-
+    System.out.println("HERE");
     int currentEndTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
       // Ignores this event's time range if the people attending this event are 
@@ -53,8 +53,8 @@ public final class FindMeetingQuery {
       // waAATI antendees doesn't include optional
       Set<String> optionalEventAttendeesForRequestedMeeting = new HashSet<String>(event.getAttendees());
       optionalEventAttendeesForRequestedMeeting.retainAll(optionalAttendees);
-      System.out.println(optionalEventAttendeesForRequestedMeeting);
       if (eventAttendees.isEmpty() && optionalEventAttendeesForRequestedMeeting.isEmpty()) {
+        System.out.println("both emtpy");
         continue;
       }
 
@@ -67,13 +67,18 @@ public final class FindMeetingQuery {
       // than the time gap.
       if ((time.start() <= currentEndTime) || (time.end() <= currentEndTime) ||
           (request.getDuration() > (time.start() - currentEndTime))) {
+        System.out.println("if statement");
+        // this time slot works for non optional (only optional people here at this event, no confirmed attendes)
+        if (eventAttendees.isEmpty()) {
+          TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
+          timesForNonOptional.add(gapTimeRange);
+          System.out.println("eventAttendee is empty");
+        }
         currentEndTime = Math.max(time.end(), currentEndTime);
-
-      }
-      // this time slot works for non optional (only optional people here at this event, no confirmed attendes)
-      if (!eventAttendees.isEmpty()) {
+        // Time doesn't work for either
         continue;
       }
+      System.out.println("everyone attends");
       // for loop through optional attendees???? have to check which events the attendees are in....
       // each event has a list of attendees (no optional)
       TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
@@ -85,7 +90,13 @@ public final class FindMeetingQuery {
     if (currentEndTime < TimeRange.END_OF_DAY) {
       TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, 
           TimeRange.END_OF_DAY, true);
+      System.out.println("End of day");
       timesForEveryone.add(latestTimeRange);
+    }
+
+    if (timesForEveryone.size() == 0 && attendees.size() != 0) {
+      System.out.println("non optional");
+      return timesForNonOptional;
     }
     return timesForEveryone;
   }
