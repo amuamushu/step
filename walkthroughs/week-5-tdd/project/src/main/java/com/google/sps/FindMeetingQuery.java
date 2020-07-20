@@ -22,8 +22,8 @@ import java.util.Set;
 
 /** Finds potential meeting times. */
 public final class FindMeetingQuery {
-  public Collection<TimeRange> timesForEveryone; //= new ArrayList<>();
-  public Collection<TimeRange> timesForConfirmed; //= new ArrayList<>();
+  public Collection<TimeRange> timesForEveryone;
+  public Collection<TimeRange> timesForConfirmed;
   public int currentEndTime;
 
   /**
