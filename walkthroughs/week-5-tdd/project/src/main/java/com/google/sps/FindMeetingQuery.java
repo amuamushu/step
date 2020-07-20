@@ -22,16 +22,15 @@ import java.util.Set;
 
 /** Finds potential meeting times. */
 public final class FindMeetingQuery {
-  Collection<TimeRange> timesForEveryone; //= new ArrayList<>();
-  Collection<TimeRange> timesForConfirmed; //= new ArrayList<>();
+  public Collection<TimeRange> timesForEveryone; //= new ArrayList<>();
+  public Collection<TimeRange> timesForConfirmed; //= new ArrayList<>();
+  public int currentEndTime;
 
   /**
    * Returns available TimeRanges for the {@code request} given {@code events}, a Collection of
    * all events so far. 
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    //Collection<TimeRange> timesForEveryone = new ArrayList<>();
-    //Collection<TimeRange> timesForConfirmed = new ArrayList<>();
     timesForEveryone = new ArrayList<>();
     timesForConfirmed = new ArrayList<>();
 
@@ -45,7 +44,7 @@ public final class FindMeetingQuery {
       return timesForEveryone;
     }
 
-    int currentEndTime = TimeRange.START_OF_DAY;
+    currentEndTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
       // Ignores this event's time range if the people attending this event are 
       // not attending the requested meeting. 
@@ -57,33 +56,7 @@ public final class FindMeetingQuery {
       if (eventAttendees.isEmpty() && optionalEventAttendeesForRequestedMeeting.isEmpty()) {
         continue;
       }
-
-      TimeRange time = event.getWhen();
-      // // Ignores this all-day event if only optional attendees are present.
-      // if (time.equals(TimeRange.WHOLE_DAY) && eventAttendees.isEmpty()) {
-      //   continue;
-      // }
-
-      // // Handles overlapping events and the case where the requested meeting duration is longer
-      // // than the time gap.
-      // if ((time.start() <= currentEndTime) || (time.end() <= currentEndTime) ||
-      //     (request.getDuration() > (time.start() - currentEndTime))) {
-      //   // If only optional attendees are attending this event, then this time slot would work for 
-      //   // confirmed attendees.
-      //   if (eventAttendees.isEmpty()) {
-      //     int latestEndTime = (int) Math.max(time.start(), currentEndTime + request.getDuration());
-      //     TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, latestEndTime, false);
-      //     timesForConfirmed.add(gapTimeRange);
-      //     currentEndTime = latestEndTime;
-      //   }
-      //   currentEndTime = Math.max(time.end(), currentEndTime);
-      //   continue;
-      // }
-
-      // TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
-      // currentEndTime = time.end();
-      // timesForEveryone.add(gapTimeRange);
-      currentEndTime = addTimeGapIfPossibleAndReturnLatestEndTime(request, eventAttendees, time, currentEndTime);
+      addTimeGapIfPossible(request, eventAttendees, event);
     }
     
     // Adds a timerange for after the latest event ends.
@@ -99,10 +72,17 @@ public final class FindMeetingQuery {
     return timesForEveryone;
   }
 
-  public int addTimeGapIfPossibleAndReturnLatestEndTime(MeetingRequest request, Set<String> eventAttendees, TimeRange time, int currentEndTime) {
+  /**
+   * Adds a TimeRange to indicate a time gap for either {@code timesForEveryone} or {@code timesForConfirmed} depending
+   * on whether optional or confirmed attendees are attending the current {@code event}.
+   * 
+   * <p> Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for which people.
+   */
+  public void addTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
+    TimeRange time = event.getWhen();
     // Ignores this all-day event if only optional attendees are present.
     if (time.equals(TimeRange.WHOLE_DAY) && eventAttendees.isEmpty()) {
-      return currentEndTime;
+      return;
     }
 
     // Handles overlapping events and the case where the requested meeting duration is longer
@@ -115,15 +95,14 @@ public final class FindMeetingQuery {
         int latestEndTime = (int) Math.max(time.start(), currentEndTime + request.getDuration());
         TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, latestEndTime, false);
         timesForConfirmed.add(gapTimeRange);
-        currentEndTime = latestEndTime;
+        this.currentEndTime = latestEndTime;
       }
-      currentEndTime = Math.max(time.end(), currentEndTime);
-      return currentEndTime;
+      this.currentEndTime = Math.max(time.end(), currentEndTime);
+      return;
     }
-
     TimeRange gapTimeRange = TimeRange.fromStartEnd(currentEndTime, time.start(), false);
-    currentEndTime = time.end();
+    this.currentEndTime = time.end();
     timesForEveryone.add(gapTimeRange);
-    return currentEndTime;
+    return;
     }
 }
