@@ -76,7 +76,7 @@ public final class FindMeetingQuery {
    * Adds a TimeRange to indicate a time gap for either {@code timesForEveryone} or {@code timesForConfirmed} depending
    * on whether optional or confirmed attendees are attending the current {@code event}.
    * 
-   * <p> Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for which people.
+   * <p>Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for which people.
    */
   public void addTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
     TimeRange time = event.getWhen();
