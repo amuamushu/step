@@ -302,8 +302,9 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void query_optionalAttendeeWithEventBetweenTimeGap() {
-    // Have an optional person with an event between the confirmed people's time gap. We should see two options
-    // because the optional person is only ignored if they can not be accomodated.
+    // Have an optional person with an event between the confirmed people's time gap. 
+    // We should see two options because the optional person is only ignored if they
+    // can not be accomodated.
     //
     // Events  :       |--A--|     |--B--|
     //                       |--C--|
@@ -390,7 +391,7 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void query_onlyOptionalAttendeesWithNoGaps() {
-    // Have only optional attendees with several time gaps in their schedule.
+    // Have only optional attendees with no time gaps in their schedule.
     //
     // Events  : |--A--|     |----A----|
     //                 |--B--|
