@@ -104,5 +104,5 @@ public final class FindMeetingQuery {
     this.currentEndTime = time.end();
     timesForEveryone.add(gapTimeRange);
     return;
-    }
+  }
 }
