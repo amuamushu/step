@@ -58,7 +58,6 @@ public final class FindMeetingQuery {
       }
       addTimeGapIfPossible(request, eventAttendees, event);
     }
-    
     // Adds a timerange for after the latest event ends.
     if (currentEndTime < TimeRange.END_OF_DAY) {
       TimeRange latestTimeRange = TimeRange.fromStartEnd(currentEndTime, 
