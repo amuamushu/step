@@ -56,7 +56,7 @@ public final class FindMeetingQuery {
       if (eventAttendees.isEmpty() && optionalEventAttendeesForRequestedMeeting.isEmpty()) {
         continue;
       }
-      addTimeGapIfPossible(request, eventAttendees, event);
+      setTimeGapIfPossible(request, eventAttendees, event);
     }
     // Adds a timerange for after the latest event ends.
     if (currentEndTime < TimeRange.END_OF_DAY) {
@@ -75,9 +75,10 @@ public final class FindMeetingQuery {
    * Adds a TimeRange to indicate a time gap for either {@code timesForEveryone} or {@code timesForConfirmed} depending
    * on whether optional or confirmed attendees are attending the current {@code event}.
    * 
-   * <p>Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for which people.
+   * <p>Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for
+   * everybody, only confirmed attendees, only optional attendees, or no one at all.
    */
-  public void addTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
+  public void setTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
     TimeRange time = event.getWhen();
     // Ignores this all-day event if only optional attendees are present.
     if (time.equals(TimeRange.WHOLE_DAY) && eventAttendees.isEmpty()) {
