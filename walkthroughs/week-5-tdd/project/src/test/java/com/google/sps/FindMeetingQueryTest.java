@@ -25,10 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/** 
- * Tests that query() returns the right timeranges for a 
- * meeting request given the existing events.
- */
+/** */
 @RunWith(JUnit4.class)
 public final class FindMeetingQueryTest {
   private static final Collection<Event> NO_EVENTS = Collections.emptySet();
@@ -40,14 +37,14 @@ public final class FindMeetingQueryTest {
   private static final String PERSON_C = "Person C";
 
   // All dates are the first day of the year 2020.
-  private static final int TIME_0800AM = TimeRange.getTimeInMinutes(8, 0);
-  private static final int TIME_0830AM = TimeRange.getTimeInMinutes(8, 30);
-  private static final int TIME_0845AM = TimeRange.getTimeInMinutes(8, 45);
-  private static final int TIME_0900AM = TimeRange.getTimeInMinutes(9, 0);
-  private static final int TIME_0930AM = TimeRange.getTimeInMinutes(9, 30);
-  private static final int TIME_1000AM = TimeRange.getTimeInMinutes(10, 0);
-  private static final int TIME_1100AM = TimeRange.getTimeInMinutes(11, 00);
-  private static final int TIME_1130AM = TimeRange.getTimeInMinutes(11, 30);
+  private static final int TIME_0800AM = TimeRange.getTimeInMinutes(/*hours=*/ 8, /*minutes*/ 0);
+  private static final int TIME_0830AM = TimeRange.getTimeInMinutes(/*hours=*/ 8, /*minutes*/ 30);
+  private static final int TIME_0845AM = TimeRange.getTimeInMinutes(/*hours=*/ 8, /*minutes*/ 45);
+  private static final int TIME_0900AM = TimeRange.getTimeInMinutes(/*hours=*/ 9, /*minutes*/ 0);
+  private static final int TIME_0930AM = TimeRange.getTimeInMinutes(/*hours=*/ 9, /*minutes*/ 30);
+  private static final int TIME_1000AM = TimeRange.getTimeInMinutes(/*hours=*/ 10, /*minutes*/ 0);
+  private static final int TIME_1100AM = TimeRange.getTimeInMinutes(/*hours=*/ 11, /*minutes*/ 00);
+  private static final int TIME_1130AM = TimeRange.getTimeInMinutes(/*hours=*/ 11, /*minutes*/ 30);
 
   private static final int DURATION_30_MINUTES = 30;
   private static final int DURATION_60_MINUTES = 60;
@@ -63,7 +60,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_optionsForNoAttendees() {
+  public void query_allDayAvailable_optionsForNoAttendees() {
     MeetingRequest request = new MeetingRequest(NO_ATTENDEES, DURATION_1_HOUR);
 
     Collection<TimeRange> actual = query.query(NO_EVENTS, request);
@@ -85,7 +82,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_eventSplitsRestriction() {
+  public void query_twoAvailableSlots_eventSplitsRestriction() {
     // The event should split the day into two options (before and after the event).
     Collection<Event> events = Arrays.asList(new Event("Event 1",
         TimeRange.fromStartDuration(TIME_0830AM, DURATION_30_MINUTES), Arrays.asList(PERSON_A)));
@@ -100,7 +97,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_everyAttendeeIsConsidered() {
+  public void query_threeAvailableSlots_everyAttendeeIsConsidered() {
     // Have each person have different events. We should see two options because each person has
     // split the restricted times.
     //
@@ -126,7 +123,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_overlappingEvents() {
+  public void query_twoAvailableSlots_overlappingEvents() {
     // Have an event for each person, but have their events overlap. We should only see two options.
     //
     // Events  :       |--A--|
@@ -151,7 +148,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_nestedEvents() {
+  public void query_twoAvailableSlots_nestedEvents() {
     // Have an event for each person, but have one person's event fully contain another's event. We
     // should see two options.
     //
@@ -177,7 +174,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_doubleBookedPeople() {
+  public void query_twoAvailableSlots_doubleBookedAttendees() {
     // Have one person, but have them registered to attend two events at the same time.
     //
     // Events  :       |----A----|
@@ -201,7 +198,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_justEnoughRoom() {
+  public void query_oneTimeSlotAvailable_justEnoughRoomForOne() {
     // Have one person, but make it so that there is just enough room at one point in the day to
     // have the meeting.
     //
@@ -224,7 +221,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_ignoresPeopleNotAttending() {
+  public void query_allDayAvailable_ignoresPeopleNotAttending() {
     // Add an event, but make the only attendee someone different from the person looking to book
     // a meeting. This event should not affect the booking.
     Collection<Event> events = Arrays.asList(new Event("Event 1",
@@ -238,7 +235,8 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_noConflicts() {
+  public void query_allDayAvailable_noConflicts() {
+    // Request an event for two people who do not have any events on calendar yet.
     MeetingRequest request =
         new MeetingRequest(Arrays.asList(PERSON_A, PERSON_B), DURATION_30_MINUTES);
 
@@ -249,7 +247,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_notEnoughRoom() {
+  public void query_noAvailableSlots_notEnoughRoom() {
     // Have one person, but make it so that there is not enough room at any point in the day to
     // have the meeting.
     //
@@ -271,7 +269,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_optionalAttendeeWithAllDayEvent() {
+  public void query_ThreeAvailableSlots_optionalAttendeeWithAllDayEvent() {
     // Have an optional person with an all day event. We should see three options because 
     // the optional person is ignored.
     //
@@ -301,7 +299,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_optionalAttendeeWithEventBetweenTimeGap() {
+  public void query_TwoAvailableSlots_optionalAttendeeWithEventBetweenTimeGap() {
     // Have an optional person with an event between the confirmed people's time gap. 
     // We should see two options because the optional person is only ignored if they
     // can not be accomodated.
@@ -331,7 +329,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_notEnoughRoomForOptionalAttendee() {
+  public void query_oneAvailableSlot_notEnoughRoomForOptionalAttendee() {
     // Have an optional person with an event during the attending person's timegap. The
     // optional person should be ignored because considering their schedule would result
     // in a time slot smaller than the requested time.
