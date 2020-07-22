@@ -227,7 +227,7 @@ function appendTextToList(comment, ulElement) {
 
   const infoDivElement = document.createElement('div');
   infoDivElement.className = INFO_CLASS;
-  
+
   const date = (new Date(comment.timestamp)).toString()
       .substring(0, END_OF_TIMESTAMP);
 
@@ -237,10 +237,13 @@ function appendTextToList(comment, ulElement) {
 
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
+  textPElement.className = COMMENT_CLASS;
   liElement.appendChild(createCommentImage(comment.imageUrl));
+
+  const sentimentPElement = appendPTagToContainer(comment.sentiment, liElement);
+  
   // Separates each comment with a horizontal bar.
   liElement.appendChild(document.createElement('hr'));
-  textPElement.className = COMMENT_CLASS;
   ulElement.appendChild(liElement);
 }
 

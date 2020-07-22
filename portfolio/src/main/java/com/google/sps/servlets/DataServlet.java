@@ -14,37 +14,39 @@
 
 package com.google.sps.servlets;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.gson.Gson;
-import com.google.sps.data.Comment;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /** Servlet that writes and returns comments data. */
@@ -64,6 +66,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_EMAIL = "email";
   private static final String COMMENT_NICKNAME = "nickname";
   private static final String COMMENT_IMAGE_URL = "image";
+  private static final String COMMENT_SENTIMENT = "sentiment";
   
   private static final String ANONYMOUS_AUTHOR = "anonymous";
   
@@ -118,9 +121,11 @@ public class DataServlet extends HttpServlet {
     String mood = (String) comment.getProperty(COMMENT_MOOD);
     String nickname = (String) comment.getProperty(COMMENT_NICKNAME);
     String imageUrl = (String) comment.getProperty(COMMENT_IMAGE_URL);
+    double sentiment = (double) comment.getProperty(COMMENT_SENTIMENT);
 
     return Comment.builder().setId(id).setText(text).setTimestamp(timestamp)
-              .setMood(mood).setNickname(nickname).setImageUrl(imageUrl).build();
+              .setMood(mood).setNickname(nickname).setImageUrl(imageUrl)
+              .setSentiment(sentiment).build();
   }
 
   /**
@@ -156,6 +161,7 @@ public class DataServlet extends HttpServlet {
     String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
+    double sentiment = calculateSentiment(text);
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
     commentEntity.setProperty(COMMENT_TEXT, text);
@@ -164,11 +170,27 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_LENGTH, text.length());
     commentEntity.setProperty(COMMENT_NICKNAME, nickname);
     commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
+    commentEntity.setProperty(COMMENT_SENTIMENT, sentiment);
     
     this.datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
+  }
+
+  /** 
+   * Returns a sentiment score ranging from -1 to 1 based on {@code text}, where -1 is
+   * very negative and 1 is very positive.
+   */
+  public float calculateSentiment(String text) throws IOException {
+    Document document =
+        Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(document).getDocumentSentiment();
+    float score = sentiment.getScore();
+    languageService.close();
+
+    return score;
   }
 
   /** 

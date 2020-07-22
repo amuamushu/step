@@ -18,6 +18,8 @@ public abstract class Comment {
 
   abstract String imageUrl();
 
+  abstract double sentiment();
+
   /** 
    * Returns a builder instance that can be used to create Comments.
    */
@@ -33,6 +35,7 @@ public abstract class Comment {
     public abstract Builder setMood(String mood);
     public abstract Builder setNickname(String nickname);
     public abstract Builder setImageUrl(String imageUrl);
+    public abstract Builder setSentiment(double sentiment);
     public abstract Comment build();
   }
 }
