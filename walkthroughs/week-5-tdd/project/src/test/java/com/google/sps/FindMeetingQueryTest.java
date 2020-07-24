@@ -269,7 +269,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_ThreeAvailableSlots_optionalAttendeeWithAllDayEvent() {
+  public void query_threeAvailableSlots_optionalAttendeeWithAllDayEvent() {
     // Have an optional person with an all day event. We should see three options because 
     // the optional person is ignored.
     //
