@@ -299,7 +299,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void query_TwoAvailableSlots_optionalAttendeeWithEventBetweenTimeGap() {
+  public void query_twoAvailableSlots_optionalAttendeeWithEventBetweenTimeGap() {
     // Have an optional person with an event between the confirmed people's time gap. 
     // We should see two options because the optional person is only ignored if they
     // can not be accomodated.
