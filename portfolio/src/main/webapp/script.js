@@ -265,12 +265,32 @@ function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
 /**
  * Creates an <img> tag using {@code imageUrl} and returns it.
  */
-function createCommentImage(imageUrl) {
+async function createCommentImage(imageUrl) {
+  if (!imageUrl.hasOwnProperty('value') || imageUrl.value == '') {
+    return;
+  }
+  const image = await getBlob(imageUrl.value);
   const imgTag = document.createElement(IMG_TAG);
-  imgTag.setAttribute('src', imageUrl);
+  imgTag.setAttribute('src', image);
   imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
   imgTag.className = COMMENT_IMAGE_CLASS;
   return imgTag;
+}
+
+/**
+ * Creates an <img> tag using {@code imageUrl} and returns it.
+ */
+async function getBlob(imageUrl) {
+  const myHeaders = new Headers();
+  myHeaders.append('blob-key', imageUrl);
+
+  const request = new Request('/blob', {method: 'GET', headers: myHeaders});
+
+  const response = await fetch(request);
+  const responseBlob = await response.blob();
+  const url = await URL.createObjectURL(responseBlob).toString();
+
+  return url;
 }
 
 /**

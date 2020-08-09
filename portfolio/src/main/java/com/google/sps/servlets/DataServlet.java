@@ -79,7 +79,7 @@ public class DataServlet extends HttpServlet {
   private static final String ID = "ID";
   private static final String USER_INFO = "userInfo";
 
-  private static DatastoreService datastore;
+  private DatastoreService datastore;
   
   @Override
   public void init() {
@@ -229,7 +229,7 @@ public class DataServlet extends HttpServlet {
     try {
       URL url = new URL(imagesService.getServingUrl(options));
       return Optional.of(url.getPath());
-    } catch (MalformedURLException e) {
+    } catch (Exception e) {
       return Optional.of(imagesService.getServingUrl(options));
     }
   }
