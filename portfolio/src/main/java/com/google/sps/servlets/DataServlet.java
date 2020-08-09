@@ -79,6 +79,10 @@ public class DataServlet extends HttpServlet {
   private static final String ID = "ID";
   private static final String USER_INFO = "userInfo";
 
+  private static final String JPEG = "image/jpeg";
+  private static final String PNG = "image/png";
+  private static final String TIFF = "image/tiff";
+
   private DatastoreService datastore;
   
   @Override
@@ -219,18 +223,13 @@ public class DataServlet extends HttpServlet {
       return Optional.empty();
     }
 
-    // TODO: Check that the file uploaded has an image extension.
-    // Use ImagesService to get a URL that points to the uploaded file.
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+    String fileInfo = blobInfo.getContentType();
 
-    // To support running in Google Cloud Shell with AppEngine's devserver, uses the relative
-    // path to the image, rather than the path returned by imagesService.
-    try {
-      URL url = new URL(imagesService.getServingUrl(options));
-      return Optional.of(url.getPath());
-    } catch (Exception e) {
-      return Optional.of(imagesService.getServingUrl(options));
+    // Return empty optional if file is not a jpg, png or tiff image.
+    if (!fileInfo.equals(JPEG) && !fileInfo.equals(PNG) && !fileInfo.equals(TIFF)) {
+      return Optional.empty();
     }
+
+    return Optional.of(blobKey.getKeyString());
   }
 }
