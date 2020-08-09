@@ -239,7 +239,7 @@ function appendTextToList(comment, ulElement) {
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
   
-  if (comment.imageUrl.hasOwnProperty('value') && comment.imageUrl.value != '') {
+  if (comment.imageUrl.hasOwnProperty('value')) {
     liElement.appendChild(createCommentImage(comment.imageUrl));
   }
   
@@ -283,6 +283,7 @@ async function createCommentImage(imageUrl) {
  * Creates an <img> tag using {@code imageUrl} and returns it.
  */
 async function getBlob(imageUrl) {
+  console.log(imageUrl);
   const myHeaders = new Headers();
   myHeaders.append('blob-key', imageUrl);
 

@@ -165,6 +165,7 @@ public class DataServlet extends HttpServlet {
     String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
+    System.out.println(imageUrl);
     double sentiment = calculateSentiment(text);
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
@@ -229,7 +230,8 @@ public class DataServlet extends HttpServlet {
     if (!fileInfo.equals(JPEG) && !fileInfo.equals(PNG) && !fileInfo.equals(TIFF)) {
       return Optional.empty();
     }
-
+    System.out.println("getUploadFile");
+    System.out.println(blobKey.getKeyString());
     return Optional.of(blobKey.getKeyString());
   }
 }
