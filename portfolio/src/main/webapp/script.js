@@ -238,9 +238,8 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  
-  if (comment.imageUrl.hasOwnProperty('value')) {
-    liElement.appendChild(createCommentImage(comment.imageUrl));
+  if (comment.imageUrl != "") {
+    appendCommentImageToContainer(comment.imageUrl, liElement);
   }
   
 
@@ -265,35 +264,41 @@ function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
   // parameter indicates the lightness.
   elementToColor.style.backgroundColor = "hsl(" + HSLColor + ", 80%, 80%)"
 }
-var test;
-/**
- * Creates an <img> tag using {@code imageUrl} and returns it.
- */
-async function createCommentImage(imageUrl) {
-  const image = await getBlob(imageUrl.value);
-  test = image;
-  const imgTag = document.createElement(IMG_TAG);
-  imgTag.setAttribute('src', image);
-  imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
-  imgTag.className = COMMENT_IMAGE_CLASS;
-  return imgTag;
-}
+
+// /**
+//  * Creates an <img> tag using {@code imageUrl} and returns it.
+//  */
+// async function createCommentImage(imageUrl) {
+  
+//   const imgTag = document.createElement(IMG_TAG);
+//   const image = await getBlob(imgTag, imageUrl);
+//   imgTag.setAttribute('src', image);
+//   imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
+//   imgTag.className = COMMENT_IMAGE_CLASS;
+//   return imgTag;
+// }
 
 /**
- * Creates an <img> tag using {@code imageUrl} and returns it.
+ * Appends an image to the container
  */
-async function getBlob(imageUrl) {
+async function appendCommentImageToContainer(imageUrl, liElement) {
   console.log(imageUrl);
+  const imgTag = document.createElement(IMG_TAG);
+  imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
+  imgTag.className = COMMENT_IMAGE_CLASS;
   const myHeaders = new Headers();
   myHeaders.append('blob-key', imageUrl);
 
   const request = new Request('/blob', {method: 'GET', headers: myHeaders});
 
-  const response = await fetch(request);
-  const responseBlob = await response.blob();
-  const url = await URL.createObjectURL(responseBlob).toString();
+  fetch(request).then((response) => response.blob()).then((blob) => {
+    const url = URL.createObjectURL(blob);
+    console.log(url);
+    console.log(url.toString());
+    imgTag.setAttribute('src', url);
 
-  return url;
+  });
+  liElement.appendChild(imageUrl);
 }
 
 /**

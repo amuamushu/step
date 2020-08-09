@@ -82,6 +82,7 @@ public class DataServlet extends HttpServlet {
   private static final String JPEG = "image/jpeg";
   private static final String PNG = "image/png";
   private static final String TIFF = "image/tiff";
+  private static final String GIF = "image/gif";
 
   private DatastoreService datastore;
   
@@ -165,7 +166,6 @@ public class DataServlet extends HttpServlet {
     String mood = (String) request.getParameter(COMMENT_MOOD);
     String nickname = HomeServlet.userNickname();
     String imageUrl = getUploadedFileUrl(request, COMMENT_IMAGE_URL).orElse("");
-    System.out.println(imageUrl);
     double sentiment = calculateSentiment(text);
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
@@ -212,7 +212,6 @@ public class DataServlet extends HttpServlet {
     if (!blobKeys.isPresent() || blobKeys.get().isEmpty()) {
       return Optional.empty();
     }
-
     // Gets the first index because the comment form only takes in one file input.
     BlobKey blobKey = blobKeys.get().get(0);
 
@@ -227,11 +226,10 @@ public class DataServlet extends HttpServlet {
     String fileInfo = blobInfo.getContentType();
 
     // Return empty optional if file is not a jpg, png or tiff image.
-    if (!fileInfo.equals(JPEG) && !fileInfo.equals(PNG) && !fileInfo.equals(TIFF)) {
+    if (!fileInfo.equals(JPEG) && !fileInfo.equals(PNG) && !fileInfo.equals(TIFF) && !fileInfo.equals(GIF)) {
       return Optional.empty();
     }
-    System.out.println("getUploadFile");
-    System.out.println(blobKey.getKeyString());
+
     return Optional.of(blobKey.getKeyString());
   }
 }
