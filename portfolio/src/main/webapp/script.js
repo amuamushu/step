@@ -238,7 +238,11 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  liElement.appendChild(createCommentImage(comment.imageUrl));
+  
+  if (comment.imageUrl.hasOwnProperty('value') && comment.imageUrl.value != '') {
+    liElement.appendChild(createCommentImage(comment.imageUrl));
+  }
+  
 
   updateBackgroundColorBasedOnSentiment(comment.sentiment, liElement);
   // Separates each comment with a horizontal bar.
@@ -261,15 +265,13 @@ function updateBackgroundColorBasedOnSentiment(score, elementToColor) {
   // parameter indicates the lightness.
   elementToColor.style.backgroundColor = "hsl(" + HSLColor + ", 80%, 80%)"
 }
-
+var test;
 /**
  * Creates an <img> tag using {@code imageUrl} and returns it.
  */
 async function createCommentImage(imageUrl) {
-  if (!imageUrl.hasOwnProperty('value') || imageUrl.value == '') {
-    return;
-  }
   const image = await getBlob(imageUrl.value);
+  test = image;
   const imgTag = document.createElement(IMG_TAG);
   imgTag.setAttribute('src', image);
   imgTag.setAttribute('alt', COMMENT_IMAGE_DESCRIPTION);
