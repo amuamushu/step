@@ -27,8 +27,7 @@ public final class FindMeetingQuery {
   public int currentEndTime;
 
   /**
-   * Returns available TimeRanges for the {@code request} given {@code events}, a Collection of
-   * all events so far. 
+   * Returns available TimeRanges for the {@code request} given {@code events}. 
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     timesForEveryone = new ArrayList<>();
@@ -36,7 +35,7 @@ public final class FindMeetingQuery {
 
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       // If the event is longer than a day, no time slots are available to book a meeting.
-      return new ArrayList<>();
+      return timesForEveryone;
     }
     if (request.getAttendees().size() == 0 && request.getOptionalAttendees().size() == 0) {
       // If there are no attendees, the entire day is available to book a meeting.
@@ -78,7 +77,7 @@ public final class FindMeetingQuery {
    * <p>Checks {@code request.duration} and {@code eventAttendees} to see if a time gap is possible for
    * everybody, only confirmed attendees, only optional attendees, or no one at all.
    */
-  public void setTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
+  private void setTimeGapIfPossible(MeetingRequest request, Set<String> eventAttendees, Event event) {
     TimeRange time = event.getWhen();
     // Ignores this all-day event if only optional attendees are present.
     if (time.equals(TimeRange.WHOLE_DAY) && eventAttendees.isEmpty()) {
