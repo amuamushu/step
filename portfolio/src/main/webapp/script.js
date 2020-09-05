@@ -238,8 +238,11 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  liElement.appendChild(createCommentImage(comment.imageUrl));
-
+  
+  if (imageUrl.hasOwnProperty('value') && imageUrl.value != '') {
+    blobResult = await getBlob(imageUrl.value);
+    liElement.appendChild(createCommentImage(blobResult));
+  }
   updateBackgroundColorBasedOnSentiment(comment.sentiment, liElement);
   // Separates each comment with a horizontal bar.
   liElement.appendChild(document.createElement('hr'));
@@ -336,4 +339,14 @@ function fetchBlobstoreUrlAndShowForm() {
         messageForm.action = imageUploadUrl;
         messageForm.classList.remove('hidden');
       });
+}
+
+async function getBlob(imageUrl) {
+  const requestUrl = new URL('/blob', window.location.origin);
+  requestUrl.searchParams.append('blob-key', imageUrl);
+  const response = await fetch(requestUrl);
+  
+  const responseBlob = await response.blob();
+  const url = await URL.createObjectURL(responseBlob).toString();
+  return url;
 }
