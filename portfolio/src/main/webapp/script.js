@@ -238,14 +238,11 @@ function appendTextToList(comment, ulElement) {
   liElement.appendChild(infoDivElement);
   const textPElement = appendPTagToContainer(comment.text, liElement);
   textPElement.className = COMMENT_CLASS;
-  
-  if (imageUrl.hasOwnProperty('value') && imageUrl.value != '') {
-    blobResult = await getBlob(imageUrl.value);
-    liElement.appendChild(createCommentImage(blobResult));
+
+  if (comment.imageUrl != '') {
+    getBlob(comment.imageUrl).then(result => liElement.append(createCommentImage(result)));
   }
   updateBackgroundColorBasedOnSentiment(comment.sentiment, liElement);
-  // Separates each comment with a horizontal bar.
-  liElement.appendChild(document.createElement('hr'));
   ulElement.appendChild(liElement);
 }
 
