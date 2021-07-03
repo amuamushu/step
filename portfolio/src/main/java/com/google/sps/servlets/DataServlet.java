@@ -79,13 +79,12 @@ public class DataServlet extends HttpServlet {
   private static final String ID = "ID";
   private static final String USER_INFO = "userInfo";
 
-  private static DatastoreService datastore;
+  private DatastoreService datastore;
   
   @Override
   public void init() {
-    this.datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore = DatastoreServiceFactory.getDatastoreService();
   }
-
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -172,7 +171,7 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(COMMENT_IMAGE_URL, imageUrl);
     commentEntity.setProperty(COMMENT_SENTIMENT, sentiment);
     
-    this.datastore.put(commentEntity);
+    datastore.put(commentEntity);
 
     // Redirects to the bottom of the current page to see new comment added.
     response.sendRedirect(BOTTOM_OF_PAGE);
@@ -211,26 +210,6 @@ public class DataServlet extends HttpServlet {
     // Gets the first index because the comment form only takes in one file input.
     BlobKey blobKey = blobKeys.get().get(0);
 
-    // Cannot get a URL because the user submitted the form on the live server without 
-    // selecting a file, so we can't get a URL. (live server)
-    BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-    if (blobInfo.getSize() == 0) {
-      blobstoreService.delete(blobKey);
-      return Optional.empty();
-    }
-
-    // TODO: Check that the file uploaded has an image extension.
-    // Use ImagesService to get a URL that points to the uploaded file.
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-
-    // To support running in Google Cloud Shell with AppEngine's devserver, uses the relative
-    // path to the image, rather than the path returned by imagesService.
-    try {
-      URL url = new URL(imagesService.getServingUrl(options));
-      return Optional.of(url.getPath());
-    } catch (MalformedURLException e) {
-      return Optional.of(imagesService.getServingUrl(options));
-    }
+    return Optional.of(blobKey.getKeyString());
   }
 }
